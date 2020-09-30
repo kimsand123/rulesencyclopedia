@@ -8,38 +8,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.UI.WebControls.WebParts;
-using System.Runtime.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class UserController : ApiController
     {
-        List<UserDTO> userList = new List<UserDTO>();
-        
-        UserController()
-        {
-            UserDTO user = new UserDTO();
-            user.ID = 1;
-            user.FirstName = "Kim";
-            user.MiddleName = "Sandberg";
-            user.LastName = "Bossen";
-            user.UserName = "kimsand";
-            user.Password = "1234";
-            user.Date = DateTime.Today;
-
-            userList.Add(user);
-
-            user.ID = 2;
-            user.FirstName = "Mete";
-            user.MiddleName = "";
-            user.LastName = "Nielsen";
-            user.UserName = "Aurafalaura";
-            user.Password = "2222";
-            user.Date = DateTime.Today;
-
-            userList.Add(user);
-        }
-        
+        UserDAO userDao = new UserDAO();
+        List<UserDTO> userList = new List<UserDTO>();      
 
         // GET api/users
         public IEnumerable<string> Get()
@@ -48,15 +25,16 @@ namespace rulesencyclopediabackend.Controllers
         }
 
         // GET api/users/5
-        public UserDTO Get(int id)
+        public String Get(int id)
         {
             UserDTO tmpUser = new UserDTO();
-            if (id < userList.Count)
+            if (id <= userDao.getNumberOfUsers())
             {
-                tmpUser = userList.ElementAt(id);
-                return tmpUser;
+                tmpUser = userDao.getUser(id);
+                string responseJson = JsonSerializer.Serialize(tmpUser);
+                return responseJson;
             }
-            return tmpUser;
+            return "nothing";
             
         }
 
