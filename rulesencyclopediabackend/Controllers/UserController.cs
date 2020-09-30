@@ -7,13 +7,40 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls.WebParts;
+using System.Runtime.Serialization;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class UserController : ApiController
     {
-        UserDTO[] user = new UserDTO[10];
-        UserDTO[0] = new UserDTO{1,"Kim","Sandberg","Bossen","Kimsand",02121970};
+        List<UserDTO> userList = new List<UserDTO>();
+        
+        UserController()
+        {
+            UserDTO user = new UserDTO();
+            user.ID = 1;
+            user.FirstName = "Kim";
+            user.MiddleName = "Sandberg";
+            user.LastName = "Bossen";
+            user.UserName = "kimsand";
+            user.Password = "1234";
+            user.Date = DateTime.Today;
+
+            userList.Add(user);
+
+            user.ID = 2;
+            user.FirstName = "Mete";
+            user.MiddleName = "";
+            user.LastName = "Nielsen";
+            user.UserName = "Aurafalaura";
+            user.Password = "2222";
+            user.Date = DateTime.Today;
+
+            userList.Add(user);
+        }
+        
+
         // GET api/users
         public IEnumerable<string> Get()
         {
@@ -23,39 +50,20 @@ namespace rulesencyclopediabackend.Controllers
         // GET api/users/5
         public UserDTO Get(int id)
         {
-            if (id < 10)
+            UserDTO tmpUser = new UserDTO();
+            if (id < userList.Count)
             {
-                if(user[id]!=null)
-                {
-                    return user[id];
-                }
+                tmpUser = userList.ElementAt(id);
+                return tmpUser;
             }
-            return null;
+            return tmpUser;
             
         }
 
         // POST api/users
         public void Post([FromBody] UserDTO user)
         {
-            if (this.user.Length < 11)
-            {
-                int numberOfUsers = this.user.Length;
-
-                UserDTO newUser = new UserDTO();
-                newUser.ID = this.user.Length;
-                newUser.FirstName = user.FirstName;
-                newUser.MiddleName = user.MiddleName;
-                newUser.LastName = user.LastName;
-                newUser.UserName = user.UserName;
-                newUser.Password = user.Password;
-                newUser.Date = user.Date;
-                this.user[newUser.ID] = newUser;
-            }
-            else
-            {
-             
-            }
-
+            userList.Add(user);
         }
 
         // PUT api/users/5
