@@ -5,9 +5,9 @@ using System.Text;
 
 namespace rulesencyclopedia
 {
-    class RevisionDTO
+    public class RevisionDTO
     {
-        public bigint ID
+        public int ID
         {
             get => default;
             set
@@ -23,7 +23,7 @@ namespace rulesencyclopedia
             }
         }
 
-        public date Date
+        public DateTime Date
         {
             get => default;
             set

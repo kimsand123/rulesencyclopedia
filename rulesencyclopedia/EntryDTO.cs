@@ -17,7 +17,7 @@ namespace rulesencyclopedia
             }
         }
 
-        public string ParagraphNumber
+        public string Headline
         {
             get => default;
             set
@@ -42,6 +42,14 @@ namespace rulesencyclopedia
         }
 
         public RevisionDTO Revision
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public int ChildOf
         {
             get => default;
             set
