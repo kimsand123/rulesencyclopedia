@@ -13,6 +13,7 @@ namespace rulesencyclopediabackend.Controllers
     public class UserController : ApiController
     {
         UserDTO[] user = new UserDTO[10];
+        UserDTO[0] = new UserDTO{1,"Kim","Sandberg","Bossen","Kimsand",02121970};
         // GET api/users
         public IEnumerable<string> Get()
         {
