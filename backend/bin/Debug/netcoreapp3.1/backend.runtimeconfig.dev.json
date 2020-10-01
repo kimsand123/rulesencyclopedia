@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\kimsa\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\kimsa\\.nuget\\packages"
-    ]
-  }
-}
