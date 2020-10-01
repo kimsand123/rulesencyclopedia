@@ -16,26 +16,23 @@ namespace rulesencyclopediabackend.Controllers
     public class UserController : ApiController
     {
         UserDAO userDao = new UserDAO();
-        List<UserDTO> userList = new List<UserDTO>();      
+        List<UserDTO> userList = new List<UserDTO>();
 
         // GET api/users
-        public IEnumerable<string> Get()
+        public String Get()
         {
-            return new string[] { "value1", "value2" };
+            userList = userDao.getUserList();
+            string responseJson = JsonSerializer.Serialize(userList);
+            return responseJson;
         }
 
-        // GET api/users/5
+         // GET api/users/5
         public String Get(int id)
         {
             UserDTO tmpUser = new UserDTO();
-            if (id <= userDao.getNumberOfUsers())
-            {
-                tmpUser = userDao.getUser(id);
-                string responseJson = JsonSerializer.Serialize(tmpUser);
-                return responseJson;
-            }
-            return "nothing";
-            
+            tmpUser = userDao.getUser(id);
+            string responseJson = JsonSerializer.Serialize(tmpUser);
+            return responseJson;
         }
 
         // POST api/users

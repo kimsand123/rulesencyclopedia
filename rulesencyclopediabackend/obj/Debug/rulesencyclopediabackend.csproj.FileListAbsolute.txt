@@ -84,3 +84,17 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\System.Text.Json.xml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\System.ValueTuple.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\EntityFramework.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\EntityFramework.SqlServer.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\EntityFramework.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\EntityFramework.SqlServer.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\MySql.Data.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Google.Protobuf.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Zstandard.Net.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\BouncyCastle.Crypto.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Ubiety.Dns.Core.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Renci.SshNet.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\K4os.Compression.LZ4.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\K4os.Hash.xxHash.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\MySql.Data.xml

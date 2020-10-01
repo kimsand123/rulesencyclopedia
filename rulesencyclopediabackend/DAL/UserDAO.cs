@@ -1,6 +1,9 @@
-﻿using rulesencyclopedia;
+﻿using MySql.Data.MySqlClient;
+using rulesencyclopedia;
+using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -9,29 +12,9 @@ namespace rulesencyclopediabackend
     public class UserDAO
     {
         List<UserDTO> userList = new List<UserDTO>();
+        Connection conn = new Connection();
         public UserDAO()
         {
-
-            UserDTO user = new UserDTO();
-            user.ID = 1;
-            user.FirstName = "Kim";
-            user.MiddleName = "Sandberg";
-            user.LastName = "Bossen";
-            user.UserName = "kimsand";
-            user.Password = "1234";
-            user.Date = DateTime.Today;
-
-            userList.Add(user);
-            UserDTO user2 = new UserDTO();
-            user2.ID = 2;
-            user2.FirstName = "Mette";
-            user2.MiddleName = "";
-            user2.LastName = "Nielsen";
-            user2.UserName = "Aurafalaura";
-            user2.Password = "2222";
-            user2.Date = DateTime.Today;
-
-            userList.Add(user2);
         }
 
         public List<rulesencyclopedia.UserDTO> getUserList()
@@ -41,16 +24,9 @@ namespace rulesencyclopediabackend
 
         public UserDTO getUser(int id)
         {
-            UserDTO user;
-            int index = id - 1;
-            user = userList.ElementAt(index);
+            String sqlStatement = "Select JSON_OBJECT * FROM user WHERE ID="+id;
+            UserDTO user = conn.executeSqlStatement(sqlStatement);
             return user;
         }
-
-        public int getNumberOfUsers()
-        {
-            return userList.Count;
-        }
-
     }
 }
