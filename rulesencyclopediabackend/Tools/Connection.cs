@@ -18,21 +18,18 @@ namespace rulesencyclopediabackend.Tools
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sqlStatement;
             MySqlDataReader reader = null;
-
             List<String> result = new List<String>();
             try
             {
                 conn.Open();
                 reader = command.ExecuteReader();
-
                 while (reader.Read())
-                { 
+                {
                     for (int element = 0; element < reader.FieldCount; element++)
                     {
                         result.Add(reader.GetValue(element).ToString());
                     }
                 }
-
             }
             catch (MySqlException ex)
             {
@@ -42,34 +39,34 @@ namespace rulesencyclopediabackend.Tools
             {
                 conn.Close();
             }
-
             return result;
         }
 
-        public int executeSqlPost(MySqlCommand command)
+        public int executeSqlPost(MySqlCommand cmd)
         {
             MySqlConnection conn = databaseConnection();
-            command.Connection = conn;
+            cmd.Connection = conn;
             try
             {
                 conn.Open();
-                command.ExecuteNonQuery();
-            } catch (MySqlException ex)
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, command.CommandText);
+                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
             }
             finally
             {
                 conn.Close();
             }
-
+            //TODO not implemented return value for post perhaps it is the error.
             return 1;
         }
 
         private MySqlConnection databaseConnection()
         {
             string connectionString = "server=localhost;database=rulesencyclopedia;uid=root;pwd=dtupassword";
-            MySqlConnection connection=null;
+            MySqlConnection connection = null;
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -81,9 +78,25 @@ namespace rulesencyclopediabackend.Tools
             return connection;
         }
 
-        internal void executeSqlInsert(MySqlCommand cmd)
+        public int executeSqlInsert(MySqlCommand cmd)
         {
-            throw new NotImplementedException();
+            MySqlConnection conn = databaseConnection();
+            cmd.Connection = conn;
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            //TODO not implemented return value for post perhaps it is the error.
+            return 1;
         }
     }
 }
