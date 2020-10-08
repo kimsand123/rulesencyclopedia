@@ -16,11 +16,11 @@ namespace rulesencyclopediabackend.Controllers
     public class UserController : ApiController
     {
         UserDAO userDao = new UserDAO();
-        List<UserDTO> userList = new List<UserDTO>();
 
         // GET api/users
         public String Get()
         {
+            List<UserDTO> userList = new List<UserDTO>();
             userList = userDao.getUserList();
             string responseJson = JsonSerializer.Serialize(userList);
             return responseJson;
@@ -38,7 +38,7 @@ namespace rulesencyclopediabackend.Controllers
         // POST api/users
         public void Post([FromBody] UserDTO user)
         {
-            userList.Add(user);
+            userDao.postUser(user);
         }
 
         // PUT api/users/5

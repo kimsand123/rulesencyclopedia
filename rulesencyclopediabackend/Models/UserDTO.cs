@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace rulesencyclopedia
@@ -12,15 +13,15 @@ namespace rulesencyclopedia
 
         }
 
-        public UserDTO(MySqlDataReader reader)
+        public UserDTO(List<String> result)
         {
-            this.ID = int.Parse(reader[0].ToString());
-            this.FirstName = reader[1].ToString();
-            this.MiddleName = reader[2].ToString();
-            this.LastName = reader[3].ToString();
-            this.UserName = reader[4].ToString();
-            this.Password = reader[5].ToString();
-            this.Date = Convert.ToDateTime(reader[6].ToString());
+            this.ID = int.Parse(result[0].ToString());
+            this.FirstName = result[1].ToString();
+            this.MiddleName = result[2].ToString();
+            this.LastName = result[3].ToString();
+            this.UserName = result[4].ToString();
+            this.Password = result[5].ToString();
+            this.Date = Convert.ToDateTime(result[6].ToString());
         }
         public int ID
         {

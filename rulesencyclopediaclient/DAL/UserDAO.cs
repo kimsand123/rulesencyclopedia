@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,9 @@ namespace rulesencyclopediaclient.DAL
 
         }
 
-        public HttpWebResponse loginUser(String userName, String Password)
+        public async Task loginUser(String userName, String Password)
         {
-
+            string url = "/api/User/{userName}{Password}";
         }
 
         public HttpWebResponse getUser(String token)

@@ -12,27 +12,27 @@ namespace rulesencyclopediabackend.Tools
     public class Connection
     {
         ExceptionHandling exHandler = new ExceptionHandling();
-        public List<String> executeSqlStatement(string sqlStatement)
+        public List<String> executeSqlQuery(string sqlStatement)
         {
             MySqlConnection conn = databaseConnection();
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sqlStatement;
             MySqlDataReader reader = null;
+
             List<String> result = new List<String>();
-            DataTable table = null;
             try
             {
                 conn.Open();
                 reader = command.ExecuteReader();
-                //Wait for the data to download.
-                while (reader.Read()){}
 
-
-                for (int element = 0; element < reader.FieldCount; element++)
-                {
-
-                    //result.Add("{"+reader.GetName(element)+":"+reader.GetValue(element)+"}");
+                while (reader.Read())
+                { 
+                    for (int element = 0; element < reader.FieldCount; element++)
+                    {
+                        result.Add(reader.GetValue(element).ToString());
+                    }
                 }
+
             }
             catch (MySqlException ex)
             {
@@ -44,6 +44,26 @@ namespace rulesencyclopediabackend.Tools
             }
 
             return result;
+        }
+
+        public int executeSqlPost(MySqlCommand command)
+        {
+            MySqlConnection conn = databaseConnection();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            } catch (MySqlException ex)
+            {
+                exHandler.exceptionHandlerMySql(ex, command.CommandText);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return 1;
         }
 
         private MySqlConnection databaseConnection()
@@ -61,8 +81,9 @@ namespace rulesencyclopediabackend.Tools
             return connection;
         }
 
-
-
-        
+        internal void executeSqlInsert(MySqlCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
