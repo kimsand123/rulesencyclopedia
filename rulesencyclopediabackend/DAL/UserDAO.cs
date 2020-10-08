@@ -62,10 +62,10 @@ namespace rulesencyclopediabackend
             cmd.Parameters.Add("?UserName", MySqlDbType.VarChar).Value = user.UserName;
             cmd.Parameters.Add("?Password", MySqlDbType.VarChar).Value = user.Password;
             cmd.Parameters.Add("?Date", MySqlDbType.DateTime).Value = user.Date;
-            conn.executeSqlPost(cmd);
+            conn.executeSqlWrite(cmd);
         }
 
-        public void editUser(UserDTO user)
+        public void editUser(int ID, UserDTO user)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Update user Set " +
@@ -74,13 +74,17 @@ namespace rulesencyclopediabackend
                 "LastName=?LastName, " +
                 "UserName=?UserName, " +
                 "Password=?Password, " +
+                "Date=?Date, " +
                 "Where ID=?ID";
+            cmd.Parameters.Add("?ID", MySqlDbType.Int16).Value = Convert.ToInt16(ID);
             cmd.Parameters.Add("?FirstName", MySqlDbType.VarChar).Value = user.FirstName;
             cmd.Parameters.Add("?MiddleName", MySqlDbType.VarChar).Value = user.MiddleName;
             cmd.Parameters.Add("?LastName", MySqlDbType.VarChar).Value = user.LastName;
             cmd.Parameters.Add("?UserName", MySqlDbType.VarChar).Value = user.UserName;
             cmd.Parameters.Add("?Password", MySqlDbType.VarChar).Value = user.Password;
-            conn.executeSqlInsert(cmd)
+            cmd.Parameters.Add("?Date", MySqlDbType.DateTime).Value = user.Date;
+
+            conn.executeSqlWrite(cmd);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace rulesencyclopediabackend.Tools
             return result;
         }
 
-        public int executeSqlPost(MySqlCommand cmd)
+        public int executeSqlWrite(MySqlCommand cmd)
         {
             MySqlConnection conn = databaseConnection();
             cmd.Connection = conn;
@@ -78,7 +78,7 @@ namespace rulesencyclopediabackend.Tools
             return connection;
         }
 
-        public int executeSqlInsert(MySqlCommand cmd)
+        public int executeSqlUpdate(MySqlCommand cmd)
         {
             MySqlConnection conn = databaseConnection();
             cmd.Connection = conn;
@@ -95,7 +95,7 @@ namespace rulesencyclopediabackend.Tools
             {
                 conn.Close();
             }
-            //TODO not implemented return value for post perhaps it is the error.
+            //TODO not implemented return value for Update perhaps it is the error.
             return 1;
         }
     }

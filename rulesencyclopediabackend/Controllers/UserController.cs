@@ -42,8 +42,9 @@ namespace rulesencyclopediabackend.Controllers
         }
 
         // PUT api/users/5
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] UserDTO user)
         {
+            userDao.editUser(id, user);
         }
 
         // DELETE api/users/5
