@@ -5,6 +5,44 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="rulesencyclopediaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'rulesencyclopediaDB.dbo.Entry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ParagraphNumber" />
+            <PropertyRef Name="Revisions" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Editor" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Entry_ID" />
+            <PropertyRef Name="TOC_ID" />
+          </Key>
+          <Property Name="Entry_ID" Type="int" Nullable="false" />
+          <Property Name="TOC_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TOC">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="Revisions" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar(max)" Nullable="false" />
+          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Editor" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -18,7 +56,26 @@
           <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
+          <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entry" EntityType="Self.Entry" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Entry].[Id] AS [Id], 
+    [Entry].[ParagraphNumber] AS [ParagraphNumber], 
+    [Entry].[Revisions] AS [Revisions], 
+    [Entry].[Text] AS [Text], 
+    [Entry].[Type] AS [Type], 
+    [Entry].[Editor] AS [Editor]
+    FROM [dbo].[Entry] AS [Entry]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TOC" EntityType="Self.TOC" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TOC].[Id] AS [Id], 
+    [TOC].[Text] AS [Text], 
+    [TOC].[Revisions] AS [Revisions], 
+    [TOC].[Editor] AS [Editor]
+    FROM [dbo].[TOC] AS [TOC]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -26,6 +83,17 @@
       <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
+          <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
+          <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
+          <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
+          <AssociationSet Name="TOCRules" Association="rulesencyclopediaDBModel.TOCRules">
+            <End Role="TOC" EntitySet="TOC" />
+            <End Role="Rules" EntitySet="Rules" />
+          </AssociationSet>
+          <AssociationSet Name="EntryRules" Association="rulesencyclopediaDBModel.EntryRules">
+            <End Role="Entry" EntitySet="Entry" />
+            <End Role="Rules" EntitySet="Rules" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -39,6 +107,52 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Entry_ID" />
+            <PropertyRef Name="TOC_ID" />
+          </Key>
+          <Property Name="Entry_ID" Type="Int32" Nullable="false" />
+          <Property Name="TOC_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.TOCRules" FromRole="Rules" ToRole="TOC" />
+          <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.EntryRules" FromRole="Rules" ToRole="Entry" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ParagraphNumber" />
+            <PropertyRef Name="Revisions" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Revisions" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rules" Relationship="rulesencyclopediaDBModel.EntryRules" FromRole="Entry" ToRole="Rules" />
+        </EntityType>
+        <EntityType Name="TOC">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="Revisions" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Revisions" Type="Int32" Nullable="false" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rules" Relationship="rulesencyclopediaDBModel.TOCRules" FromRole="TOC" ToRole="Rules" />
+        </EntityType>
+        <Association Name="TOCRules">
+          <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
+          <End Type="rulesencyclopediaDBModel.Rules" Role="Rules" Multiplicity="*" />
+        </Association>
+        <Association Name="EntryRules">
+          <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="1" />
+          <End Type="rulesencyclopediaDBModel.Rules" Role="Rules" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -54,6 +168,36 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rules">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
+              <MappingFragment StoreEntitySet="Rules">
+                <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
+                <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entry">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
+              <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+                <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOC">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
+              <MappingFragment StoreEntitySet="TOC">
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
