@@ -72,7 +72,7 @@ namespace rulesencyclopediabackend.Tools
             }
             catch (MySqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, connectionString);
+                exHandler.exceptionHandlerMySql(ex, "Could not connect to " +connectionString);
             }
             return connection;
         }
@@ -81,6 +81,7 @@ namespace rulesencyclopediabackend.Tools
         {
             MySqlConnection conn = databaseConnection();
             cmd.Connection = conn;
+            
             try
             {
                 conn.Open();
@@ -88,7 +89,7 @@ namespace rulesencyclopediabackend.Tools
             }
             catch (MySqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
+                exHandler.exceptionHandlerMySql(ex, "Problem with the sqlStatement: " + cmd.CommandText);
             }
             finally
             {

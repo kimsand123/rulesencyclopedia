@@ -55,7 +55,17 @@ namespace rulesencyclopediabackend
 
         public void postUser(UserDTO user)
         {
-            MySqlCommand cmd = new MySqlCommand();
+            var context = new rulesencyclopediaDBEntities();
+            var tmpUser = new user();
+            tmpUser.FirstName = user.FirstName;
+            tmpUser.MiddleName = user.MiddleName;
+            tmpUser.LastName = user.LastName;
+            tmpUser.UserName = user.UserName;
+            tmpUser.Password = user.Password;
+            context.user.Add(tmpUser);
+            context.SaveChanges();
+
+           /* MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Insert into user (FirstName, MiddleName, LastName, UserName, Password, Date) " +
                 "Values (?FirstName , ?MiddleName, ?LastName, ?UserName, ?Password, ?Date)";
             cmd.Parameters.AddWithValue("?FirstName", user.FirstName);
@@ -64,7 +74,7 @@ namespace rulesencyclopediabackend
             cmd.Parameters.AddWithValue("?UserName", user.UserName);
             cmd.Parameters.AddWithValue("?Password", user.Password);
             cmd.Parameters.AddWithValue("?Date", user.Date);
-            conn.executeSqlWrite(cmd);
+            conn.executeSqlWrite(cmd);*/
         }
 
         public void editUser(int ID, UserDTO user)
