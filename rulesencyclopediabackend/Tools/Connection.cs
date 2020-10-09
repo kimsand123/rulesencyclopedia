@@ -12,17 +12,16 @@ namespace rulesencyclopediabackend.Tools
     public class Connection
     {
         ExceptionHandling exHandler = new ExceptionHandling();
-        public List<String> executeSqlQuery(string sqlStatement)
+        public List<String> executeSqlQuery(MySqlCommand cmd)
         {
             MySqlConnection conn = databaseConnection();
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = sqlStatement;
+            cmd.Connection = conn;
             MySqlDataReader reader = null;
             List<String> result = new List<String>();
             try
             {
                 conn.Open();
-                reader = command.ExecuteReader();
+                reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     for (int element = 0; element < reader.FieldCount; element++)
@@ -33,7 +32,7 @@ namespace rulesencyclopediabackend.Tools
             }
             catch (MySqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, sqlStatement);
+                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
             }
             finally
             {
