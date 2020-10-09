@@ -23,7 +23,6 @@ namespace rulesencyclopediabackend
         public UserDAO()
         {
         }
-
         public List<User> getUserList()
         {
             List<User> userList=null;
