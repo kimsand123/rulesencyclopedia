@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using rulesencyclopediabackend;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,15 +14,15 @@ namespace rulesencyclopedia
 
         }
 
-        public UserDTO(List<String> result)
+        public UserDTO(User user)
         {
-            this.ID = int.Parse(result[0].ToString());
-            this.FirstName = result[1].ToString();
-            this.MiddleName = result[2].ToString();
-            this.LastName = result[3].ToString();
-            this.UserName = result[4].ToString();
-            this.Password = result[5].ToString();
-            this.Date = Convert.ToDateTime(result[6].ToString());
+            this.ID = user.Id;
+            this.FirstName = user.FirstName;
+            this.MiddleName = user.MiddleName;
+            this.LastName = user.LastName;
+            this.UserName = user.UserName;
+            this.Password = user.Password;
+            this.Date = (DateTime)user.Date;
         }
         public int ID
         {

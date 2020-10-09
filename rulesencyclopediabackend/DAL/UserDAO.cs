@@ -1,12 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
 using rulesencyclopedia;
+using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Web;
 using System.Web.Razor.Text;
 
@@ -14,15 +17,28 @@ namespace rulesencyclopediabackend
 {
     public class UserDAO
     {
+        ExceptionHandling exHandler = new ExceptionHandling();
         List<UserDTO> userList = new List<UserDTO>();
         Connection conn = new Connection();
         public UserDAO()
         {
         }
 
-        public List<UserDTO> getUserList()
+        public List<User> getUserList()
         {
-            MySqlCommand cmd = new MySqlCommand();
+            List<User> userList=null;
+            try
+            {
+                using(var context = new rulesencyclopediaDBEntities1())
+                {
+                    userList = context.User.ToList();
+                }
+            }catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when getting all the users");
+            }
+
+          /*  MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * From user";
             List<string> result = conn.executeSqlQuery(cmd);
             int numberOfData = result.Count();
@@ -39,31 +55,46 @@ namespace rulesencyclopediabackend
                     valueList.Clear();
                     userList.Add(user);
                 }
-            }
+            }*/
             return userList;
         }
 
-        public UserDTO getUser(int ID)
+        public User getUser(int ID)
         {
-            MySqlCommand cmd = new MySqlCommand();
+            User user=null;
+            try
+            {
+                using(var context = new rulesencyclopediaDBEntities1())
+                {
+                    user = context.User.Single(element => element.Id == ID);    
+                }
+            } catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "something went wrong when getting user");
+            }
+
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select  * FROM user WHERE ID=?ID";
             cmd.Parameters.AddWithValue("?ID", ID);
             List<String> result = conn.executeSqlQuery(cmd);
-            UserDTO user = new UserDTO(result);
+            UserDTO user = new UserDTO(result);*/
             return user;
         }
 
-        public void postUser(UserDTO user)
+        public void postUser(User user)
         {
-            var context = new rulesencyclopediaDBEntities1();
-            var tmpUser = new User();
-            tmpUser.FirstName = user.FirstName;
-            tmpUser.MiddleName = user.MiddleName;
-            tmpUser.LastName = user.LastName;
-            tmpUser.UserName = user.UserName;
-            tmpUser.Password = user.Password;
-            context.User.Add(tmpUser);
-            context.SaveChanges();
+            try
+            {
+                using (var context = new rulesencyclopediaDBEntities1())
+                {
+                    //getting back the key for the created user.
+                    User result = context.User.Add(user);
+                    context.SaveChanges();
+                }
+            } catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new user");
+            }
 
            /* MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Insert into user (FirstName, MiddleName, LastName, UserName, Password, Date) " +
@@ -77,17 +108,17 @@ namespace rulesencyclopediabackend
             conn.executeSqlWrite(cmd);*/
         }
 
-        public void editUser(int ID, UserDTO DTO)
+        public void editUser(int ID, User alteredUser)
         {
             using (var context = new rulesencyclopediaDBEntities1())
             {
                 var user = context.User.First(a => a.Id == ID);
-                user.FirstName = DTO.FirstName;
-                user.MiddleName = DTO.MiddleName;
-                user.LastName = DTO.LastName;
-                user.UserName = DTO.UserName;
-                user.Password = DTO.Password;
-                user.Date = DateTime.Now;
+                user.FirstName = alteredUser.FirstName;
+                user.MiddleName = alteredUser.MiddleName;
+                user.LastName = alteredUser.LastName;
+                user.UserName = alteredUser.UserName;
+                user.Password = alteredUser.Password;
+                user.Date = alteredUser.Date;
                 context.SaveChanges();
             }
             
@@ -127,6 +158,23 @@ namespace rulesencyclopediabackend
                    //Console.WriteLine("sql command string: " + cmd.CommandText);
                conn.executeSqlWrite(cmd);
                }*/
+        }
+
+        public void deleteUser(int ID)
+        {
+            try
+            {
+                using(var context = new rulesencyclopediaDBEntities1())
+                {
+                    var user = new User { Id = ID };
+                    context.User.Attach(user);
+                    context.User.Remove(user);
+                    context.SaveChanges();
+                }
+            }catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong while deleting the user");
+            }
         }
     }
 }
