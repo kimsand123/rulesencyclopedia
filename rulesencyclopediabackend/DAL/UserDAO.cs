@@ -55,14 +55,14 @@ namespace rulesencyclopediabackend
 
         public void postUser(UserDTO user)
         {
-            var context = new rulesencyclopediaDBEntities();
-            var tmpUser = new user();
+            var context = new rulesencyclopediaDBEntities1();
+            var tmpUser = new User();
             tmpUser.FirstName = user.FirstName;
             tmpUser.MiddleName = user.MiddleName;
             tmpUser.LastName = user.LastName;
             tmpUser.UserName = user.UserName;
             tmpUser.Password = user.Password;
-            context.user.Add(tmpUser);
+            context.User.Add(tmpUser);
             context.SaveChanges();
 
            /* MySqlCommand cmd = new MySqlCommand();
@@ -77,43 +77,56 @@ namespace rulesencyclopediabackend
             conn.executeSqlWrite(cmd);*/
         }
 
-        public void editUser(int ID, UserDTO user)
+        public void editUser(int ID, UserDTO DTO)
         {
-            MySqlCommand cmd = new MySqlCommand();
-
-            /*cmd.CommandText = "UPDATE user SET " +
-                "FirstName=Helge, " +
-                "MiddleName=Hansen, " +
-                "LastName=Pritmaskine, " +
-                "UserName=hehapri, " +
-                "Password=1234, " +
-                "WHERE ID=3";*/
-
-            //Checking if the object is the same as the id number from the adressline.
-            if (ID == user.ID) { 
-
-            /*cmd.CommandText = "UPDATE user SET " +
-
-            "FirstName=@FirstName, " +
-            "MiddleName=@MiddleName, " +
-            "LastName=@LastName, " +
-            "UserName=@UserName, " +
-            "Password=@Password, " +
-            "WHERE ID=@ID";
-
-            cmd.Parameters.AddWithValue("@ID", ID);
-            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
-            cmd.Parameters.AddWithValue("@MiddleName", user.MiddleName);
-            cmd.Parameters.AddWithValue("@LastName", user.LastName);
-            cmd.Parameters.AddWithValue("@UserName", user.UserName);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
-            cmd.Parameters.AddWithValue("@Date", user.Date);*/
-
-            cmd.CommandText = "UPDATE user SET FirstName=" + user.FirstName + ", MiddleName=" + user.MiddleName + ", LastName=" + user.LastName + ", Password=" + user.Password;
-
-                //Console.WriteLine("sql command string: " + cmd.CommandText);
-            conn.executeSqlWrite(cmd);
+            using (var context = new rulesencyclopediaDBEntities1())
+            {
+                var user = context.User.First(a => a.Id == ID);
+                user.FirstName = DTO.FirstName;
+                user.MiddleName = DTO.MiddleName;
+                user.LastName = DTO.LastName;
+                user.UserName = DTO.UserName;
+                user.Password = DTO.Password;
+                user.Date = DateTime.Now;
+                context.SaveChanges();
             }
+            
+            
+            /*   MySqlCommand cmd = new MySqlCommand();
+
+               cmd.CommandText = "UPDATE user SET " +
+                   "FirstName=Helge, " +
+                   "MiddleName=Hansen, " +
+                   "LastName=Pritmaskine, " +
+                   "UserName=hehapri, " +
+                   "Password=1234, " +
+                   "WHERE ID=3";
+
+               //Checking if the object is the same as the id number from the adressline.
+               if (ID == user.ID) { 
+
+               /*cmd.CommandText = "UPDATE user SET " +
+
+               "FirstName=@FirstName, " +
+               "MiddleName=@MiddleName, " +
+               "LastName=@LastName, " +
+               "UserName=@UserName, " +
+               "Password=@Password, " +
+               "WHERE ID=@ID";
+
+               cmd.Parameters.AddWithValue("@ID", ID);
+               cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+               cmd.Parameters.AddWithValue("@MiddleName", user.MiddleName);
+               cmd.Parameters.AddWithValue("@LastName", user.LastName);
+               cmd.Parameters.AddWithValue("@UserName", user.UserName);
+               cmd.Parameters.AddWithValue("@Password", user.Password);
+               cmd.Parameters.AddWithValue("@Date", user.Date);
+
+               cmd.CommandText = "UPDATE user SET FirstName=" + user.FirstName + ", MiddleName=" + user.MiddleName + ", LastName=" + user.LastName + ", Password=" + user.Password;
+
+                   //Console.WriteLine("sql command string: " + cmd.CommandText);
+               conn.executeSqlWrite(cmd);
+               }*/
         }
     }
 }

@@ -98,3 +98,7 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\K4os.Compression.LZ4.dll
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\K4os.Hash.xxHash.dll
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\MySql.Data.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Microsoft.Configuration.ConfigurationBuilders.Base.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml

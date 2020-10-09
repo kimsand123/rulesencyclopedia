@@ -13,10 +13,10 @@ namespace rulesencyclopediabackend
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class rulesencyclopediaDBEntities : DbContext
+    public partial class rulesencyclopediaDBEntities1 : DbContext
     {
-        public rulesencyclopediaDBEntities()
-            : base("name=rulesencyclopediaDBEntities")
+        public rulesencyclopediaDBEntities1()
+            : base("name=rulesencyclopediaDBEntities1")
         {
         }
     
@@ -25,6 +25,6 @@ namespace rulesencyclopediabackend
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<user> user { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }
