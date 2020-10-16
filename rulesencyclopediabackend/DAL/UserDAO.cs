@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using rulesencyclopediabackend.Exceptions;
-using rulesencyclopediabackend.Tools;
+﻿using rulesencyclopediabackend.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,12 +18,12 @@ namespace rulesencyclopediabackend
         public UserDAO()
         {
         }
-        public List<User> getUserList()
+        internal List<User> getUserList()
         {
             List<User> userList=null;
             try
             {
-                using(var context = new rulesencyclopediaDBEntities1())
+                var context = new rulesencyclopediaDBEntities1();
                 {
                     userList = context.User.ToList();
                 }
@@ -36,12 +34,12 @@ namespace rulesencyclopediabackend
             return userList;
         }
 
-        public User getUser(int ID)
+        internal User getUser(int ID)
         {
             User user=null;
             try
             {
-                using(var context = new rulesencyclopediaDBEntities1())
+                var context = new rulesencyclopediaDBEntities1();
                 {
                     user = context.User.Single(element => element.Id == ID);    
                 }
@@ -52,11 +50,11 @@ namespace rulesencyclopediabackend
             return user;
         }
 
-        public void postUser(User user)
+        internal void postUser(User user)
         {
             try
             {
-                using (var context = new rulesencyclopediaDBEntities1())
+                var context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
                     User result = context.User.Add(user);
@@ -68,9 +66,9 @@ namespace rulesencyclopediabackend
             }
         }
 
-        public void editUser(int ID, User alteredUser)
+        internal void editUser(int ID, User alteredUser)
         {
-            using (var context = new rulesencyclopediaDBEntities1())
+            var context = new rulesencyclopediaDBEntities1();
             {
                 var user = context.User.First(a => a.Id == ID);
                 user.FirstName = alteredUser.FirstName;
@@ -83,11 +81,11 @@ namespace rulesencyclopediabackend
             }
         }
 
-        public void deleteUser(int ID)
+        internal void deleteUser(int ID)
         {
             try
             {
-                using(var context = new rulesencyclopediaDBEntities1())
+                var context = new rulesencyclopediaDBEntities1();
                 {
                     var user = new User { Id = ID };
                     context.User.Attach(user);

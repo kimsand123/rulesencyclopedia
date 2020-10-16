@@ -26,8 +26,9 @@ namespace rulesencyclopediabackend
         }
     
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Entry> Entry { get; set; }
-        public virtual DbSet<TOC> TOC { get; set; }
         public virtual DbSet<Rules> Rules { get; set; }
+        public virtual DbSet<Entry> Entry { get; set; }
+        public virtual DbSet<Game> Game { get; set; }
+        public virtual DbSet<TOC> TOC { get; set; }
     }
 }

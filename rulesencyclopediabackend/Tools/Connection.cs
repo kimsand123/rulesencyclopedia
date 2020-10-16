@@ -30,9 +30,9 @@ namespace rulesencyclopediabackend.Tools
                     }
                 }
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
+                exHandler.exceptionHandlerMsSql(ex, cmd.CommandText);
             }
             finally
             {
@@ -50,9 +50,9 @@ namespace rulesencyclopediabackend.Tools
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, cmd.CommandText);
+                exHandler.exceptionHandlerMsSql(ex, cmd.CommandText);
             }
             finally
             {
@@ -70,9 +70,9 @@ namespace rulesencyclopediabackend.Tools
             {
                 connection = new MySqlConnection(connectionString);
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, "Could not connect to " +connectionString);
+                exHandler.exceptionHandlerMsSql(ex, "Could not connect to " +connectionString);
             }
             return connection;
         }
@@ -87,9 +87,9 @@ namespace rulesencyclopediabackend.Tools
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                exHandler.exceptionHandlerMySql(ex, "Problem with the sqlStatement: " + cmd.CommandText);
+                exHandler.exceptionHandlerMsSql(ex, "Problem with the sqlStatement: " + cmd.CommandText);
             }
             finally
             {

@@ -12,22 +12,21 @@ namespace rulesencyclopediabackend
     using System;
     using System.Collections.Generic;
     
-    public partial class TOC
+    public partial class Game
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TOC()
+        public Game()
         {
-            this.Entry = new HashSet<Entry>();
+            this.TOC = new HashSet<TOC>();
         }
     
         public int Id { get; set; }
-        public string Text { get; set; }
-        public int Revisions { get; set; }
+        public string Name { get; set; }
+        public string Company { get; set; }
+        public int Revision { get; set; }
         public string Editor { get; set; }
-        public int Game { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry> Entry { get; set; }
-        public virtual Game Game1 { get; set; }
+        public virtual ICollection<TOC> TOC { get; set; }
     }
 }

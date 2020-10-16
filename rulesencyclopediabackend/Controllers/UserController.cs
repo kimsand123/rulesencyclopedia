@@ -1,6 +1,4 @@
-﻿using Microsoft.Ajax.Utilities;
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +8,19 @@ using System.Web.Http;
 using System.Web.UI.WebControls.WebParts;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using rulesencyclopediabackend.DAL;
+using rulesencyclopediabackend.Exceptions;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class UserController : ApiController
     {
-        UserDAO userDao = new UserDAO();
-
+        UserDAO dao = new UserDAO();
+        ExceptionHandling exHandler = new ExceptionHandling();
         // GET api/users
-        public String Get()
+        public string Get()
         {
-            List<User> userList = userDao.getUserList();
+            List<User> userList = dao.getUserList();
             string responseJson = JsonSerializer.Serialize(userList);
             return responseJson;
         }
@@ -28,7 +28,7 @@ namespace rulesencyclopediabackend.Controllers
          // GET api/users/5
         public String Get(int id)
         {
-            User user = userDao.getUser(id);
+            User user = dao.getUser(id);
             string responseJson = JsonSerializer.Serialize(user);
             return responseJson;
         }
@@ -36,19 +36,19 @@ namespace rulesencyclopediabackend.Controllers
         // POST api/users
         public void Post([FromBody] User user)
         {
-            userDao.postUser(user);
+            dao.postUser(user);
         }
 
         // PUT api/users/5
         public void Put(int id, [FromBody] User user)
         {
-            userDao.editUser(id, user);
+            dao.editUser(id, user);
         }
 
         // DELETE api/users/5
         public void Delete(int id)
         {
-            userDao.deleteUser(id);
+            dao.deleteUser(id);
         }
     }
 }

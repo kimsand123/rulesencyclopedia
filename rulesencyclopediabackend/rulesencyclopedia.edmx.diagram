@@ -6,9 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="465c5ef388b24fe484c54d407f15efd0" Name="Diagram1">
         <EntityTypeShape EntityType="rulesencyclopediaDBModel.User" Width="1.5" PointX="0.5" PointY="0.75" />
-        <EntityTypeShape EntityType="rulesencyclopediaDBModel.Entry" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="rulesencyclopediaDBModel.TOC" Width="1.5" PointX="3.625" PointY="0.75" />
-        <EntityTypeShape EntityType="rulesencyclopediaDBModel.Rules" Width="1.5" PointX="5.5" PointY="0.75" />
+        <EntityTypeShape EntityType="rulesencyclopediaDBModel.Rules" Width="1.5" PointX="2.25" PointY="2" />
+        <EntityTypeShape EntityType="rulesencyclopediaDBModel.Entry" Width="1.5" PointX="8.875" PointY="1" />
+        <EntityTypeShape EntityType="rulesencyclopediaDBModel.Game" Width="1.5" PointX="4.375" PointY="1.125" />
+        <EntityTypeShape EntityType="rulesencyclopediaDBModel.TOC" Width="1.5" PointX="6.625" PointY="1" />
+        <AssociationConnector Association="rulesencyclopediaDBModel.FK__Entry__TOC__4BAC3F29" />
+        <AssociationConnector Association="rulesencyclopediaDBModel.FK__TOC__Game__4CA06362" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
