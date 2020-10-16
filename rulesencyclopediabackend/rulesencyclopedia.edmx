@@ -10,10 +10,10 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.Entry' does not have a pri
         <EntityType Name="Entry">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="ParagraphNumber" />
-            <PropertyRef Name="Revisions" />
-            <PropertyRef Name="Text" />
-            <PropertyRef Name="Type" />
+            
+            
+            
+            
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
@@ -35,8 +35,8 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
         <EntityType Name="TOC">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Text" />
-            <PropertyRef Name="Revisions" />
+            
+            
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Text" Type="varchar(max)" Nullable="false" />
@@ -83,18 +83,10 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
       <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
-          <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
           <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
           <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
-          <AssociationSet Name="TOCRules" Association="rulesencyclopediaDBModel.TOCRules">
-            <End Role="TOC" EntitySet="TOC" />
-            <End Role="Rules" EntitySet="Rules" />
-          </AssociationSet>
-          <AssociationSet Name="EntryRules" Association="rulesencyclopediaDBModel.EntryRules">
-            <End Role="Entry" EntitySet="Entry" />
-            <End Role="Rules" EntitySet="Rules" />
-          </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
+          </EntityContainer>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -107,23 +99,9 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
           <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Rules">
-          <Key>
-            <PropertyRef Name="Entry_ID" />
-            <PropertyRef Name="TOC_ID" />
-          </Key>
-          <Property Name="Entry_ID" Type="Int32" Nullable="false" />
-          <Property Name="TOC_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.TOCRules" FromRole="Rules" ToRole="TOC" />
-          <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.EntryRules" FromRole="Rules" ToRole="Entry" />
-        </EntityType>
         <EntityType Name="Entry">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="ParagraphNumber" />
-            <PropertyRef Name="Revisions" />
-            <PropertyRef Name="Text" />
-            <PropertyRef Name="Type" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -131,29 +109,25 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Rules" Relationship="rulesencyclopediaDBModel.EntryRules" FromRole="Entry" ToRole="Rules" />
         </EntityType>
         <EntityType Name="TOC">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Text" />
-            <PropertyRef Name="Revisions" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Revisions" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Rules" Relationship="rulesencyclopediaDBModel.TOCRules" FromRole="TOC" ToRole="Rules" />
         </EntityType>
-        <Association Name="TOCRules">
-          <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
-          <End Type="rulesencyclopediaDBModel.Rules" Role="Rules" Multiplicity="*" />
-        </Association>
-        <Association Name="EntryRules">
-          <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="1" />
-          <End Type="rulesencyclopediaDBModel.Rules" Role="Rules" Multiplicity="*" />
-        </Association>
-      </Schema>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Entry_ID" />
+            <PropertyRef Name="TOC_ID" />
+          </Key>
+          <Property Name="Entry_ID" Type="Int32" Nullable="false" />
+          <Property Name="TOC_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -169,14 +143,6 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rules">
-            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
-              <MappingFragment StoreEntitySet="Rules">
-                <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
-                <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -202,7 +168,15 @@ warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Rules">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
+              <MappingFragment StoreEntitySet="Rules">
+                <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
+                <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

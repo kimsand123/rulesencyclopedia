@@ -16,8 +16,5 @@ namespace rulesencyclopediabackend
     {
         public int Entry_ID { get; set; }
         public int TOC_ID { get; set; }
-    
-        public virtual TOC TOC { get; set; }
-        public virtual Entry Entry { get; set; }
     }
 }

@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="rulesencyclopediaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'rulesencyclopediaDB.dbo.Entry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Entry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Editor" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'rulesencyclopediaDB.dbo.TOC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TOC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="varchar(max)" Nullable="false" />
+    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Editor" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
@@ -14,5 +38,23 @@
   </EntityType>
   <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entry" EntityType="Self.Entry" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Entry].[Id] AS [Id], 
+    [Entry].[ParagraphNumber] AS [ParagraphNumber], 
+    [Entry].[Revisions] AS [Revisions], 
+    [Entry].[Text] AS [Text], 
+    [Entry].[Type] AS [Type], 
+    [Entry].[Editor] AS [Editor]
+    FROM [dbo].[Entry] AS [Entry]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TOC" EntityType="Self.TOC" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TOC].[Id] AS [Id], 
+    [TOC].[Text] AS [Text], 
+    [TOC].[Revisions] AS [Revisions], 
+    [TOC].[Editor] AS [Editor]
+    FROM [dbo].[TOC] AS [TOC]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

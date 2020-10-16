@@ -2,6 +2,12 @@
 <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
+    <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
+    <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
+    <AssociationSet Name="EntryTOC" Association="rulesencyclopediaDBModel.EntryTOC">
+      <End Role="Entry" EntitySet="Entry" />
+      <End Role="TOC" EntitySet="TOC" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -15,4 +21,30 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="3" />
   </EntityType>
+  <EntityType Name="Entry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.EntryTOC" FromRole="Entry" ToRole="TOC" />
+  </EntityType>
+  <EntityType Name="TOC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.EntryTOC" FromRole="TOC" ToRole="Entry" />
+  </EntityType>
+  <Association Name="EntryTOC">
+    <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="*" />
+    <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
+  </Association>
 </Schema>

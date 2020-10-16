@@ -14,20 +14,11 @@ namespace rulesencyclopediabackend
     
     public partial class Entry
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Entry()
-        {
-            this.Rules = new HashSet<Rules>();
-        }
-    
         public int Id { get; set; }
         public string ParagraphNumber { get; set; }
         public int Revisions { get; set; }
         public string Text { get; set; }
         public int Type { get; set; }
         public string Editor { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rules> Rules { get; set; }
     }
 }

@@ -14,5 +14,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Entry">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
+        <MappingFragment StoreEntitySet="Entry">
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TOC">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
+        <MappingFragment StoreEntitySet="TOC">
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
