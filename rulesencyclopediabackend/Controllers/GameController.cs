@@ -34,6 +34,10 @@ namespace rulesencyclopediabackend.Controllers
                 // TODO: write ex to logfile.
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the games list");
             }
+            finally
+            {
+                // TODO: close the logfile
+            }
             return response;
         }
 
@@ -51,6 +55,10 @@ namespace rulesencyclopediabackend.Controllers
             {
                 // TODO: write ex to logfile.
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the game");
+            }
+            finally
+            {
+                // TODO: close the logfile
             }
             return response;
         }

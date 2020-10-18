@@ -1,36 +1,57 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.UI.WebControls.WebParts;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using rulesencyclopediabackend.DAL;
-using rulesencyclopediabackend.Exceptions;
+using Newtonsoft.Json;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class UserController : ApiController
-    {
+    { 
         UserDAO dao = new UserDAO();
-        ExceptionHandling exHandler = new ExceptionHandling();
         // GET api/users
-        public string Get()
+        public HttpResponseMessage Get()
         {
+            HttpResponseMessage response = new HttpResponseMessage();
             List<User> userList = dao.getUserList();
-            string responseJson = JsonSerializer.Serialize(userList);
-            return responseJson;
+            try
+            {
+                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+                string responseJson = JsonConvert.SerializeObject(userList, Formatting.Indented, serializerSettings);
+                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
+            } catch (JsonSerializationException ex)
+            {
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Cannot serialize the userList");
+            } finally
+            {
+                // TODO: close the logfile
+            }
+            return response;
         }
 
          // GET api/users/5
-        public String Get(int id)
+        public HttpResponseMessage Get(int id)
         {
+            HttpResponseMessage response = new HttpResponseMessage();
             User user = dao.getUser(id);
-            string responseJson = JsonSerializer.Serialize(user);
-            return responseJson;
+            try
+            {
+                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+                string responseJson = JsonConvert.SerializeObject(user, Formatting.Indented, serializerSettings);
+                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
+            }
+            catch (JsonSerializationException ex)
+            {
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Cannot serialize the user");
+            }
+            finally
+            {
+                // TODO: close the logfile
+            }
+            return response;
         }
 
         // POST api/users

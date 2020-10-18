@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using rulesencyclopediabackend.DAL;
-using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using System.Collections.Generic;
 using System.Net;
@@ -11,12 +10,10 @@ namespace rulesencyclopediabackend.Controllers
 {
     public class TOCController : ApiController
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
         TOCDAO dao = new TOCDAO();
         // GET: api/TOC
         public HttpResponseMessage Get([FromBody] GameDTOFromView gameData)
         {
-            
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOC> tocList = dao.getTOCList(gameData.gameID);
             try
@@ -30,6 +27,10 @@ namespace rulesencyclopediabackend.Controllers
             {
                 // TODO: write ex to a logfile
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC list");
+            }
+            finally
+            {
+                // TODO: close the logfile
             }
             return response;
             
@@ -48,6 +49,10 @@ namespace rulesencyclopediabackend.Controllers
             }catch (JsonSerializationException ex)
             {
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC");
+            }
+            finally
+            {
+                // TODO: close the logfile
             }
             return response;
         }

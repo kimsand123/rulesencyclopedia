@@ -1,7 +1,4 @@
-﻿
-using Newtonsoft.Json;
-using rulesencyclopediabackend.DAL;
-using rulesencyclopediabackend.Exceptions;
+﻿using Newtonsoft.Json;
 using rulesencyclopediabackend.Models;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -12,11 +9,7 @@ namespace rulesencyclopediabackend.Controllers
 {
     public class EntryController : ApiController
     {
-
- 
-        ExceptionHandling exHandler = new ExceptionHandling();
         EntryDAO dao = new EntryDAO();
-
         // GET: api/Entry
         public HttpResponseMessage Get([FromBody] TOCDTOFromView tocData)
         {
@@ -34,15 +27,19 @@ namespace rulesencyclopediabackend.Controllers
                 // TODO: write ex to logfile.
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
             }
+            finally
+            {
+                // TODO: close the logfile
+            }
             return response;
         }
 
 
         // GET: api/Entry/5
-        public HttpResponseMessage Get(int TOCID)
+        public HttpResponseMessage Get(int ID)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            Entry entry = dao.getEntry(TOCID);
+            Entry entry = dao.getEntry(ID);
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
@@ -51,6 +48,10 @@ namespace rulesencyclopediabackend.Controllers
             {
                 // TODO: write ex to logfile.
                 response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry");
+            }
+            finally
+            {
+                // TODO: close the logfile
             }
             return response;
         }
