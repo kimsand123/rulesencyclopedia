@@ -25,6 +25,7 @@
     <EntitySetMapping Name="Entry">
       <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
         <MappingFragment StoreEntitySet="Entry">
+          <ScalarProperty Name="Headline" ColumnName="Headline" />
           <ScalarProperty Name="TOC" ColumnName="TOC" />
           <ScalarProperty Name="Editor" ColumnName="Editor" />
           <ScalarProperty Name="Type" ColumnName="Type" />

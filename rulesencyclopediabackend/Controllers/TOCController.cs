@@ -2,14 +2,8 @@
 using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.Json;
 using System.Web.Http;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace rulesencyclopediabackend.Controllers
 {
@@ -18,11 +12,11 @@ namespace rulesencyclopediabackend.Controllers
         ExceptionHandling exHandler = new ExceptionHandling();
         TOCDAO dao = new TOCDAO();
         // GET: api/TOC
-        public string Get([FromBody] TOCDTOFromView tocData)
+        public string Get([FromBody] GameDTOFromView gameData)
         {
             string responseJson = "";
 
-            List<TOC> tocList = dao.getTOCList(tocData.gameID);
+            List<TOC> tocList = dao.getTOCList(gameData.gameID);
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };

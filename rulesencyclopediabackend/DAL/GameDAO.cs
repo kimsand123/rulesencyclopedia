@@ -20,8 +20,7 @@ namespace rulesencyclopediabackend.DAL
         {
 
         }
-
-        public List<Game> getGameList()
+        internal List<Game> getGameList()
         {
             List<Game> gameList = null;
             rulesencyclopediaDBEntities1 context = null;

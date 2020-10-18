@@ -11,6 +11,7 @@
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
     <Property Name="TOC" Type="int" Nullable="false" />
+    <Property Name="Headline" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Game">
     <Key>

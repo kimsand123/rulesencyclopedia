@@ -7,6 +7,6 @@ namespace rulesencyclopediabackend.Models
 {
     public class TOCDTOFromView
     {
-        public int gameID { get; set; }
+        public int tocID { get; set; }
     }
 }
