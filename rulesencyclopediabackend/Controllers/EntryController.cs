@@ -1,43 +1,58 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Net.Http;
+using System.Net;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class EntryController : ApiController
     {
+
+ 
         ExceptionHandling exHandler = new ExceptionHandling();
         EntryDAO dao = new EntryDAO();
+
         // GET: api/Entry
-        public string Get([FromBody] TOCDTOFromView tocData)
+        public HttpResponseMessage Get([FromBody] TOCDTOFromView tocData)
         {
-            string responseJson = "";
-            
+            HttpResponseMessage response = new HttpResponseMessage();
             List<Entry> entryList = dao.getEntriesForToc(tocData.tocID);
             try
             {
                 //For at håndtere cirkulære referencer der gjorde at der kom uendeligt antal objekter.
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                responseJson = JsonConvert.SerializeObject(entryList, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(entryList, Formatting.Indented, serializerSettings);
+                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }
             catch (JsonSerializationException ex)
             {
-                exHandler.exceptionHandlerJson(ex, "cannot serialize the entryList");
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
             }
-            return responseJson;
+            return response;
         }
 
 
         // GET: api/Entry/5
-        public string Get(int TOCID)
+        public HttpResponseMessage Get(int TOCID)
         {
+            HttpResponseMessage response = new HttpResponseMessage();
             Entry entry = dao.getEntry(TOCID);
-            var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-            string responseJson = JsonConvert.SerializeObject(entry, Formatting.Indented, serializerSettings);
-            return responseJson;
+            try
+            {
+                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+                string responseJson = JsonConvert.SerializeObject(entry, Formatting.Indented, serializerSettings);
+            } catch (JsonSerializationException ex)
+            {
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry");
+            }
+            return response;
         }
 
         // POST: api/Entry

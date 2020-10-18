@@ -20,31 +20,39 @@ namespace rulesencyclopediabackend.Controllers
         ExceptionHandling exHandler = new ExceptionHandling();
         GameDAO dao = new GameDAO();
         // GET: api/Game
-        public string Get()
+        public HttpResponseMessage Get()
         {
-            string responseJson = "";
-
+            HttpResponseMessage response = new HttpResponseMessage();
             List<Game> gameList = dao.getGameList();
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                responseJson = JsonConvert.SerializeObject(gameList, Formatting.Indented, serializerSettings);
-                //responseJson = JsonSerializer.Serialize(gameList);
+                string responseJson = JsonConvert.SerializeObject(gameList, Formatting.Indented, serializerSettings);
+                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             } catch (JsonSerializationException ex)
             {
-                exHandler.exceptionHandlerJson(ex, "cannot serialize the gamelist");
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the games list");
             }
-            return responseJson;
+            return response;
         }
 
         // GET: api/Game/5
-        public string Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-
+            HttpResponseMessage response = new HttpResponseMessage();
             Game game = dao.getGame(id);
-            var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-            string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
-            return responseJson;
+            try
+            {
+                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+                string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
+                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
+            } catch (JsonSerializationException ex)
+            {
+                // TODO: write ex to logfile.
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the game");
+            }
+            return response;
         }
 
         // POST: api/Game

@@ -218,6 +218,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\EntryController.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\testController.cs" />
     <Compile Include="Controllers\TOCController.cs" />
     <Compile Include="DAL\EntryDAO.cs" />
     <Compile Include="Controllers\HomeController.cs" />
