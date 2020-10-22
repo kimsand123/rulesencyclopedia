@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -11,15 +12,22 @@ namespace rulesencyclopediabackend.Controllers
     public class TOCController : ApiController
     {
         TOCDAO dao = new TOCDAO();
+        ConvertToDTO DTOConverter = new ConvertToDTO();
+        TOCDTO tocDTO;
         // GET: api/TOC
         public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOC> tocList = dao.getTOCList(gameId);
+            List<TOCDTO> tocDTOs = new List<TOCDTO>();
+            foreach (TOC toc in tocList)
+            {
+                tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
+                tocDTOs.Add(tocDTO);
+            }
             try
             {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(tocList, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(tocDTOs);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
 
             }
@@ -41,10 +49,10 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             TOC toc = dao.getTOC(ID);
+            tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
             try
             {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(toc, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(tocDTO);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }catch (JsonSerializationException ex)
             {
