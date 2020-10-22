@@ -18,16 +18,10 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            List<TOC> tocList = dao.getTOCList(gameId);
-            List<TOCDTO> tocDTOs = new List<TOCDTO>();
-            foreach (TOC toc in tocList)
-            {
-                tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
-                tocDTOs.Add(tocDTO);
-            }
+            List<TOCDTO> tocList = dao.getTOCList(gameId);
             try
             {
-                string responseJson = JsonConvert.SerializeObject(tocDTOs);
+                string responseJson = JsonConvert.SerializeObject(tocList);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
 
             }
@@ -48,11 +42,10 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get(int ID)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            TOC toc = dao.getTOC(ID);
-            tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
+            TOCDTO toc = dao.getTOC(ID);
             try
             {
-                string responseJson = JsonConvert.SerializeObject(tocDTO);
+                string responseJson = JsonConvert.SerializeObject(toc);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }catch (JsonSerializationException ex)
             {

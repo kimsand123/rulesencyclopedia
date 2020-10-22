@@ -1,4 +1,6 @@
 ﻿using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,25 +12,34 @@ namespace rulesencyclopediabackend.DAL
 {
     public class TOCDAO
     {
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         ExceptionHandling exHandler = new ExceptionHandling();
-        internal List<TOC> getTOCList(int gameID)
+        internal List<TOCDTO> getTOCList(int gameID)
         {
             List<TOC> TOCList = null;
+            List<TOCDTO> tocDTOs = null;
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
                 {
                     TOCList = context.TOC.Where(element => element.Id == gameID).ToList();
+                    tocDTOs = new List<TOCDTO>();
+                    foreach (TOC toc in TOCList)
+                    {
+                        TOCDTO tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
+                        tocDTOs.Add(tocDTO);
+                    }
                 }
             }
             catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "something happened while fetching the gamelist");
             }
-            return TOCList;
+
+            return tocDTOs;
         }
 
-        internal TOC getTOC(int ID)
+        internal TOCDTO getTOC(int ID)
         {
             TOC toc = null;
             try
@@ -42,7 +53,8 @@ namespace rulesencyclopediabackend.DAL
             {
                 exHandler.exceptionHandlerEntity(ex, "something went wrong when getting game");
             }
-            return toc;
+            TOCDTO tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
+            return tocDTO;
         }
 
         internal void postTOC(TOC toc)

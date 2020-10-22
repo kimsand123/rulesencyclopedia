@@ -1,5 +1,7 @@
 ﻿using rulesencyclopediabackend.Data;
 using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,19 +18,29 @@ namespace rulesencyclopediabackend.DAL
     public class GameDAO
     {
         ExceptionHandling exHandler = new ExceptionHandling();
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         public GameDAO()
         {
 
         }
-        internal List<Game> getGameList()
+        internal List<GameDTO> getGameList()
         {
             List<Game> gameList = null;
+            List<GameDTO> gameDTOs = null;
             rulesencyclopediaDBEntities1 context = null;
+            
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     gameList = context.Game.ToList();
+                    gameDTOs = new List<GameDTO>();
+
+                    foreach (Game game in gameList)
+                    {
+                        GameDTO gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
+                        gameDTOs.Add(gameDTO);
+                    }
                 }
             } catch (EntityException ex)
             {
@@ -38,7 +50,7 @@ namespace rulesencyclopediabackend.DAL
             {
                // context.Dispose();
             }
-            return gameList;
+            return gameDTOs;
         }
 
         internal void postGame(Game game)
@@ -101,15 +113,17 @@ namespace rulesencyclopediabackend.DAL
             context.Dispose();
         }
 
-        internal Game getGame(int ID)
+        internal GameDTO getGame(int ID)
         {
             Game game = null;
+            GameDTO gameDTO = null;
             rulesencyclopediaDBEntities1 context = null;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     game = context.Game.Single(element => element.Id == ID);
+                    gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
                 }
             }
             catch (EntityException ex)
@@ -120,7 +134,7 @@ namespace rulesencyclopediabackend.DAL
             {
                 context.Dispose();
             }
-            return game;
+            return gameDTO;
         }
 
     }

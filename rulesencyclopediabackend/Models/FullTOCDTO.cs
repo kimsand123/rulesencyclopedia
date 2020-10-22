@@ -7,7 +7,7 @@ namespace rulesencyclopediabackend.Models
 {
     public class FullTOCDTO
     {
-        TOCDTO toc { get; set; }
-        List<EntryDTO> entryList {get;set;}
+        internal TOCDTO toc { get; set; }
+        internal List<EntryDTO> entryList {get;set;}
     }
 }

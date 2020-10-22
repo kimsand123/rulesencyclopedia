@@ -27,18 +27,10 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            List<Game> gameList = dao.getGameList();
-            List<GameDTO> gameDTOs = new List<GameDTO>();
-
-            foreach (Game game in gameList)
-            {
-                gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
-                gameDTOs.Add(gameDTO);
-            }
-            
+            List<GameDTO> gameList = dao.getGameList();
             try
             {
-                string responseJson = JsonConvert.SerializeObject(gameDTOs);
+                string responseJson = JsonConvert.SerializeObject(gameList);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             } catch (JsonSerializationException ex)
             {
@@ -56,8 +48,8 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            Game game = dao.getGame(id);
-            gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
+            GameDTO game = dao.getGame(id);
+
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };

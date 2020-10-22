@@ -225,6 +225,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\GameDAO.cs" />
+    <Compile Include="DAL\GetFullGameDAO.cs" />
     <Compile Include="DAL\TOCDAO.cs" />
     <Compile Include="DAL\UserDAO.cs" />
     <Compile Include="Data\rulesencyclopediabackendContext.cs" />

@@ -1,4 +1,6 @@
 ﻿using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -9,21 +11,29 @@ namespace rulesencyclopediabackend.Controllers
 {
     internal class EntryDAO
     {
-
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         public EntryDAO()
         {
 
         }
         ExceptionHandling exHandler = new ExceptionHandling();
-        internal List<Entry> getEntriesForToc(int TOCId)
+        internal List<EntryDTO> getEntriesForToc(int TOCId)
         {
             List<Entry> entryList = null;
             rulesencyclopediaDBEntities1 context = null;
+            EntryDTO entryDTO = null;
+            List<EntryDTO> entryDTOs = null;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     entryList = context.Entry.ToList();
+                    entryDTOs = new List<EntryDTO>();
+                    foreach (Entry entry in entryList)
+                    {
+                        entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
+                        entryDTOs.Add(entryDTO);
+                    }
                 }
             }
             catch (EntityException ex)
@@ -34,18 +44,20 @@ namespace rulesencyclopediabackend.Controllers
             {
                 // context.Dispose();
             }
-            return entryList;
+            return entryDTOs;
         }
 
-        internal Entry getEntry(int ID)
+        internal EntryDTO getEntry(int ID)
         {
             Entry entry = null;
+            EntryDTO entryDTO = null;
             rulesencyclopediaDBEntities1 context = null;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     entry = context.Entry.Single(element => element.Id == ID);
+                    entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
                 }
             }
             catch (EntityException ex)
@@ -56,7 +68,7 @@ namespace rulesencyclopediabackend.Controllers
             {
                 context.Dispose();
             }
-            return entry;
+            return entryDTO;
         }
 
         internal void postEntry(Entry entry)

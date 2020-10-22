@@ -17,19 +17,10 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
- 
-
-            List<Entry> entryList = dao.getEntriesForToc(tocId);
-            List<EntryDTO> entryDTOs = new List<EntryDTO>();
-            foreach (Entry entry in entryList)
-            {
-                entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
-                entryDTOs.Add(entryDTO);
-            }
-
+            List<EntryDTO> entryList = dao.getEntriesForToc(tocId);
             try
             {
-                string responseJson = JsonConvert.SerializeObject(entryDTOs);
+                string responseJson = JsonConvert.SerializeObject(entryList);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }
             catch (JsonSerializationException ex)
@@ -49,8 +40,8 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get(int ID)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            Entry entry = dao.getEntry(ID);
-            entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
+            EntryDTO entry = dao.getEntry(ID);
+
             try
             {
                 string responseJson = JsonConvert.SerializeObject(entryDTO);
