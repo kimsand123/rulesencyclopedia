@@ -12,6 +12,8 @@ using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Exceptions;
 using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 
 namespace rulesencyclopediabackend.Controllers
 {
@@ -19,11 +21,18 @@ namespace rulesencyclopediabackend.Controllers
     {
         ExceptionHandling exHandler = new ExceptionHandling();
         GameDAO dao = new GameDAO();
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<Game> gameList = dao.getGameList();
+            GameDTO gameDTO;
+            foreach (Game game in gameList)
+            {
+                gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
+            }
+            
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };

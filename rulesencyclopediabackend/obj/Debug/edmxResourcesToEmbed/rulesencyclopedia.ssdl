@@ -10,8 +10,8 @@
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
-    <Property Name="TOC" Type="int" Nullable="false" />
     <Property Name="Headline" Type="varchar" MaxLength="50" />
+    <Property Name="TOC" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Game">
     <Key>
@@ -39,7 +39,7 @@
     <Property Name="Text" Type="varchar(max)" Nullable="false" />
     <Property Name="Revisions" Type="int" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
-    <Property Name="Game" Type="int" Nullable="false" />
+    <Property Name="Games" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -53,7 +53,7 @@
     <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Date" Type="datetime" />
   </EntityType>
-  <Association Name="FK__Entry__TOC__4BAC3F29">
+  <Association Name="FK__Entry__TOC__619B8048">
     <End Role="TOC" Type="Self.TOC" Multiplicity="1" />
     <End Role="Entry" Type="Self.Entry" Multiplicity="*" />
     <ReferentialConstraint>
@@ -65,7 +65,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TOC__Game__4CA06362">
+  <Association Name="FK__TOC__Games__628FA481">
     <End Role="Game" Type="Self.Game" Multiplicity="1" />
     <End Role="TOC" Type="Self.TOC" Multiplicity="*" />
     <ReferentialConstraint>
@@ -73,7 +73,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="TOC">
-        <PropertyRef Name="Game" />
+        <PropertyRef Name="Games" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -83,11 +83,11 @@
     <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Entry__TOC__4BAC3F29" Association="Self.FK__Entry__TOC__4BAC3F29">
+    <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">
       <End Role="TOC" EntitySet="TOC" />
       <End Role="Entry" EntitySet="Entry" />
     </AssociationSet>
-    <AssociationSet Name="FK__TOC__Game__4CA06362" Association="Self.FK__TOC__Game__4CA06362">
+    <AssociationSet Name="FK__TOC__Games__628FA481" Association="Self.FK__TOC__Games__628FA481">
       <End Role="Game" EntitySet="Game" />
       <End Role="TOC" EntitySet="TOC" />
     </AssociationSet>

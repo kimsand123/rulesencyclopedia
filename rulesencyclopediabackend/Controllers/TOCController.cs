@@ -12,10 +12,10 @@ namespace rulesencyclopediabackend.Controllers
     {
         TOCDAO dao = new TOCDAO();
         // GET: api/TOC
-        public HttpResponseMessage Get([FromBody] GameDTOFromView gameData)
+        public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            List<TOC> tocList = dao.getTOCList(gameData.gameID);
+            List<TOC> tocList = dao.getTOCList(gameId);
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };

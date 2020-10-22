@@ -4,6 +4,6 @@
     [Company]  VARCHAR (100) NOT NULL,
     [Revision] INT           NOT NULL,
     [Editor]   VARCHAR (50)  NULL,
-    CONSTRAINT [PK_Game] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_Game] PRIMARY KEY CLUSTERED ([Id] ASC),
 );
 

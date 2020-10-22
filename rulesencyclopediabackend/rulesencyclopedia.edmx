@@ -15,8 +15,8 @@
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
-          <Property Name="TOC" Type="int" Nullable="false" />
           <Property Name="Headline" Type="varchar" MaxLength="50" />
+          <Property Name="TOC" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -44,7 +44,7 @@
           <Property Name="Text" Type="varchar(max)" Nullable="false" />
           <Property Name="Revisions" Type="int" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
-          <Property Name="Game" Type="int" Nullable="false" />
+          <Property Name="Games" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -58,7 +58,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Date" Type="datetime" />
         </EntityType>
-        <Association Name="FK__Entry__TOC__4BAC3F29">
+        <Association Name="FK__Entry__TOC__619B8048">
           <End Role="TOC" Type="Self.TOC" Multiplicity="1" />
           <End Role="Entry" Type="Self.Entry" Multiplicity="*" />
           <ReferentialConstraint>
@@ -70,7 +70,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TOC__Game__4CA06362">
+        <Association Name="FK__TOC__Games__628FA481">
           <End Role="Game" Type="Self.Game" Multiplicity="1" />
           <End Role="TOC" Type="Self.TOC" Multiplicity="*" />
           <ReferentialConstraint>
@@ -78,7 +78,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="TOC">
-              <PropertyRef Name="Game" />
+              <PropertyRef Name="Games" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -88,11 +88,11 @@
           <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Entry__TOC__4BAC3F29" Association="Self.FK__Entry__TOC__4BAC3F29">
+          <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">
             <End Role="TOC" EntitySet="TOC" />
             <End Role="Entry" EntitySet="Entry" />
           </AssociationSet>
-          <AssociationSet Name="FK__TOC__Game__4CA06362" Association="Self.FK__TOC__Game__4CA06362">
+          <AssociationSet Name="FK__TOC__Games__628FA481" Association="Self.FK__TOC__Games__628FA481">
             <End Role="Game" EntitySet="Game" />
             <End Role="TOC" EntitySet="TOC" />
           </AssociationSet>
@@ -107,11 +107,11 @@
           <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
           <EntitySet Name="Game" EntityType="rulesencyclopediaDBModel.Game" />
           <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
-          <AssociationSet Name="FK__Entry__TOC__4BAC3F29" Association="rulesencyclopediaDBModel.FK__Entry__TOC__4BAC3F29">
+          <AssociationSet Name="FK__Entry__TOC__619B8048" Association="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048">
             <End Role="TOC" EntitySet="TOC" />
             <End Role="Entry" EntitySet="Entry" />
           </AssociationSet>
-          <AssociationSet Name="FK__TOC__Game__4CA06362" Association="rulesencyclopediaDBModel.FK__TOC__Game__4CA06362">
+          <AssociationSet Name="FK__TOC__Games__628FA481" Association="rulesencyclopediaDBModel.FK__TOC__Games__628FA481">
             <End Role="Game" EntitySet="Game" />
             <End Role="TOC" EntitySet="TOC" />
           </AssociationSet>
@@ -146,9 +146,9 @@
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TOC" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TOC1" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__4BAC3F29" FromRole="Entry" ToRole="TOC" />
           <Property Name="Headline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOC" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TOC1" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="Entry" ToRole="TOC" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -159,7 +159,7 @@
           <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Revision" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.FK__TOC__Game__4CA06362" FromRole="Game" ToRole="TOC" />
+          <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="Game" ToRole="TOC" />
         </EntityType>
         <EntityType Name="TOC">
           <Key>
@@ -169,11 +169,11 @@
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Revisions" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Game" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__4BAC3F29" FromRole="TOC" ToRole="Entry" />
-          <NavigationProperty Name="Game1" Relationship="rulesencyclopediaDBModel.FK__TOC__Game__4CA06362" FromRole="TOC" ToRole="Game" />
+          <Property Name="Games" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="TOC" ToRole="Entry" />
+          <NavigationProperty Name="Game" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="TOC" ToRole="Game" />
         </EntityType>
-        <Association Name="FK__Entry__TOC__4BAC3F29">
+        <Association Name="FK__Entry__TOC__619B8048">
           <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
           <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TOC__Game__4CA06362">
+        <Association Name="FK__TOC__Games__628FA481">
           <End Type="rulesencyclopediaDBModel.Game" Role="Game" Multiplicity="1" />
           <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,7 +193,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="TOC">
-              <PropertyRef Name="Game" />
+              <PropertyRef Name="Games" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,8 +227,8 @@
           <EntitySetMapping Name="Entry">
             <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
               <MappingFragment StoreEntitySet="Entry">
-                <ScalarProperty Name="Headline" ColumnName="Headline" />
                 <ScalarProperty Name="TOC" ColumnName="TOC" />
+                <ScalarProperty Name="Headline" ColumnName="Headline" />
                 <ScalarProperty Name="Editor" ColumnName="Editor" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
@@ -252,7 +252,7 @@
           <EntitySetMapping Name="TOC">
             <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
               <MappingFragment StoreEntitySet="TOC">
-                <ScalarProperty Name="Game" ColumnName="Game" />
+                <ScalarProperty Name="Games" ColumnName="Games" />
                 <ScalarProperty Name="Editor" ColumnName="Editor" />
                 <ScalarProperty Name="Revisions" ColumnName="Revisions" />
                 <ScalarProperty Name="Text" ColumnName="Text" />

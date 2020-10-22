@@ -1,25 +1,35 @@
 ﻿using Newtonsoft.Json;
-using rulesencyclopediabackend.Models;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
+using System.Configuration;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 
 namespace rulesencyclopediabackend.Controllers
-{
+{   
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
-        // GET: api/Entry
-        public HttpResponseMessage Get([FromBody] TOCDTOFromView tocData)
+        ConvertToDTO DTOConverter = new ConvertToDTO();
+        public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            List<Entry> entryList = dao.getEntriesForToc(tocData.tocID);
+            EntryDTO entryDTO;
+            List<EntryDTO> entryDTOs = new List<EntryDTO>();
+            List<Entry> entryList = dao.getEntriesForToc(tocId);
+
+            foreach(Entry entry in entryList)
+            {
+                entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
+                entryDTOs.Add(entryDTO);
+            }
+
             try
             {
                 //For at håndtere cirkulære referencer der gjorde at der kom uendeligt antal objekter.
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(entryList, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(entryDTOs);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }
             catch (JsonSerializationException ex)

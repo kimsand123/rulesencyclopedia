@@ -25,8 +25,8 @@
     <EntitySetMapping Name="Entry">
       <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
         <MappingFragment StoreEntitySet="Entry">
-          <ScalarProperty Name="Headline" ColumnName="Headline" />
           <ScalarProperty Name="TOC" ColumnName="TOC" />
+          <ScalarProperty Name="Headline" ColumnName="Headline" />
           <ScalarProperty Name="Editor" ColumnName="Editor" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Text" ColumnName="Text" />
@@ -50,7 +50,7 @@
     <EntitySetMapping Name="TOC">
       <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
         <MappingFragment StoreEntitySet="TOC">
-          <ScalarProperty Name="Game" ColumnName="Game" />
+          <ScalarProperty Name="Games" ColumnName="Games" />
           <ScalarProperty Name="Editor" ColumnName="Editor" />
           <ScalarProperty Name="Revisions" ColumnName="Revisions" />
           <ScalarProperty Name="Text" ColumnName="Text" />

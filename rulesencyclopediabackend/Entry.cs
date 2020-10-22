@@ -20,8 +20,8 @@ namespace rulesencyclopediabackend
         public string Text { get; set; }
         public int Type { get; set; }
         public string Editor { get; set; }
-        public int TOC { get; set; }
         public string Headline { get; set; }
+        public int TOC { get; set; }
     
         public virtual TOC TOC1 { get; set; }
     }
