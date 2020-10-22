@@ -7,6 +7,11 @@ namespace rulesencyclopediabackend.Tools
 {
     public class ConvertToDTO
     {
+    //Takes all objects recieved from the MSSQL EntityFramwork call and transfers them into DTO object
+    //finds the properties of the DTO object and compares them with the properties of the return object.
+    //if the name of the property exists in both, the value from the return object is transfered
+    //to the DTO object. There can be an unequal number of properties in the objects. only the ones with
+    //the exact same names will transfer.
         public Object Converter(Object objDTO, Object obj2)
         {
             List<PropertyInfo> objDTOProperties = fillObjectPropertiesList(objDTO);

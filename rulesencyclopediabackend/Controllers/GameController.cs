@@ -21,22 +21,24 @@ namespace rulesencyclopediabackend.Controllers
     {
         ExceptionHandling exHandler = new ExceptionHandling();
         GameDAO dao = new GameDAO();
+        GameDTO gameDTO;
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<Game> gameList = dao.getGameList();
-            GameDTO gameDTO;
+            List<GameDTO> gameDTOs = new List<GameDTO>();
+
             foreach (Game game in gameList)
             {
                 gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
+                gameDTOs.Add(gameDTO);
             }
             
             try
             {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(gameList, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(gameDTOs);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             } catch (JsonSerializationException ex)
             {
@@ -55,10 +57,11 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             Game game = dao.getGame(id);
+            gameDTO = (GameDTO)DTOConverter.Converter(new GameDTO(), game);
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(gameDTO, Formatting.Indented, serializerSettings);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             } catch (JsonSerializationException ex)
             {

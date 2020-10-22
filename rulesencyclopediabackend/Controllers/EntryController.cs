@@ -12,15 +12,16 @@ namespace rulesencyclopediabackend.Controllers
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
+        EntryDTO entryDTO;
         ConvertToDTO DTOConverter = new ConvertToDTO();
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            EntryDTO entryDTO;
-            List<EntryDTO> entryDTOs = new List<EntryDTO>();
-            List<Entry> entryList = dao.getEntriesForToc(tocId);
+ 
 
-            foreach(Entry entry in entryList)
+            List<Entry> entryList = dao.getEntriesForToc(tocId);
+            List<EntryDTO> entryDTOs = new List<EntryDTO>();
+            foreach (Entry entry in entryList)
             {
                 entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
                 entryDTOs.Add(entryDTO);
@@ -28,7 +29,6 @@ namespace rulesencyclopediabackend.Controllers
 
             try
             {
-                //For at håndtere cirkulære referencer der gjorde at der kom uendeligt antal objekter.
                 string responseJson = JsonConvert.SerializeObject(entryDTOs);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             }
@@ -50,10 +50,10 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             Entry entry = dao.getEntry(ID);
+            entryDTO = (EntryDTO)DTOConverter.Converter(new EntryDTO(), entry);
             try
             {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(entry, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(entryDTO);
             } catch (JsonSerializationException ex)
             {
                 // TODO: write ex to logfile.
