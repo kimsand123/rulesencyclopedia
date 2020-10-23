@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
+    <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
+    <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
+    <EntitySet Name="Game" EntityType="rulesencyclopediaDBModel.Game" />
+    <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
+    <AssociationSet Name="FK__Entry__TOC__619B8048" Association="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048">
+      <End Role="TOC" EntitySet="TOC" />
+      <End Role="Entry" EntitySet="Entry" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TOC__Games__628FA481" Association="rulesencyclopediaDBModel.FK__TOC__Games__628FA481">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="TOC" EntitySet="TOC" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Rules">
+    <Key>
+      <PropertyRef Name="Entry_ID" />
+      <PropertyRef Name="TOC_ID" />
+    </Key>
+    <Property Name="Entry_ID" Type="Int32" Nullable="false" />
+    <Property Name="TOC_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Headline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOC" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TOC1" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="Entry" ToRole="TOC" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Revision" Type="Int32" Nullable="false" />
+    <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="Game" ToRole="TOC" />
+  </EntityType>
+  <EntityType Name="TOC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Games" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="TOC" ToRole="Entry" />
+    <NavigationProperty Name="Game" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="TOC" ToRole="Game" />
+  </EntityType>
+  <Association Name="FK__Entry__TOC__619B8048">
+    <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
+    <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TOC">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entry">
+        <PropertyRef Name="TOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TOC__Games__628FA481">
+    <End Type="rulesencyclopediaDBModel.Game" Role="Game" Multiplicity="1" />
+    <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TOC">
+        <PropertyRef Name="Games" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

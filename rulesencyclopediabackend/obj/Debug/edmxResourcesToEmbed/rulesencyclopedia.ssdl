@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="rulesencyclopediaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Entry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Editor" Type="varchar" MaxLength="50" />
+    <Property Name="Headline" Type="varchar" MaxLength="50" />
+    <Property Name="TOC" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Company" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Revision" Type="int" Nullable="false" />
+    <Property Name="Editor" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rules">
+    <Key>
+      <PropertyRef Name="Entry_ID" />
+      <PropertyRef Name="TOC_ID" />
+    </Key>
+    <Property Name="Entry_ID" Type="int" Nullable="false" />
+    <Property Name="TOC_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TOC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="varchar(max)" Nullable="false" />
+    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Editor" Type="varchar" MaxLength="50" />
+    <Property Name="Games" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Entry__TOC__619B8048">
+    <End Role="TOC" Type="Self.TOC" Multiplicity="1" />
+    <End Role="Entry" Type="Self.Entry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TOC">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entry">
+        <PropertyRef Name="TOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TOC__Games__628FA481">
+    <End Role="Game" Type="Self.Game" Multiplicity="1" />
+    <End Role="TOC" Type="Self.TOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TOC">
+        <PropertyRef Name="Games" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
+    <EntitySet Name="Entry" EntityType="Self.Entry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">
+      <End Role="TOC" EntitySet="TOC" />
+      <End Role="Entry" EntitySet="Entry" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TOC__Games__628FA481" Association="Self.FK__TOC__Games__628FA481">
+      <End Role="Game" EntitySet="Game" />
+      <End Role="TOC" EntitySet="TOC" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
