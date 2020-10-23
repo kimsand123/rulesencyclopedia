@@ -19,12 +19,13 @@ namespace rulesencyclopediabackend.Auth
                 var authToken = actionContext.Request.Headers.Authorization.Parameter;
                 if (!(CheckToken.Instance.doCheckToken(authToken)))
                 {
+                    
                     actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Token is not valid, login again or create a user");
                 }
             }
             else
             {
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "No Auth token in request");
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "No Auth token in request.");
             } 
         }
     }
