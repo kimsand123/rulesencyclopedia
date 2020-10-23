@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="rulesencyclopediaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Editor" Type="varchar" MaxLength="50" />
+          <Property Name="Headline" Type="varchar" MaxLength="50" />
+          <Property Name="TOC" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Revision" Type="int" Nullable="false" />
+          <Property Name="Editor" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Entry_ID" />
+            <PropertyRef Name="TOC_ID" />
+          </Key>
+          <Property Name="Entry_ID" Type="int" Nullable="false" />
+          <Property Name="TOC_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOC">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar(max)" Nullable="false" />
+          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Editor" Type="varchar" MaxLength="50" />
+          <Property Name="Games" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Entry__TOC__619B8048">
+          <End Role="TOC" Type="Self.TOC" Multiplicity="1" />
+          <End Role="Entry" Type="Self.Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TOC">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entry">
+              <PropertyRef Name="TOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TOC__Games__628FA481">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="TOC" Type="Self.TOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TOC">
+              <PropertyRef Name="Games" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
+          <EntitySet Name="Entry" EntityType="Self.Entry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">
+            <End Role="TOC" EntitySet="TOC" />
+            <End Role="Entry" EntitySet="Entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TOC__Games__628FA481" Association="Self.FK__TOC__Games__628FA481">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="TOC" EntitySet="TOC" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
+          <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
+          <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
+          <EntitySet Name="Game" EntityType="rulesencyclopediaDBModel.Game" />
+          <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
+          <AssociationSet Name="FK__Entry__TOC__619B8048" Association="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048">
+            <End Role="TOC" EntitySet="TOC" />
+            <End Role="Entry" EntitySet="Entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TOC__Games__628FA481" Association="rulesencyclopediaDBModel.FK__TOC__Games__628FA481">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="TOC" EntitySet="TOC" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Entry_ID" />
+            <PropertyRef Name="TOC_ID" />
+          </Key>
+          <Property Name="Entry_ID" Type="Int32" Nullable="false" />
+          <Property Name="TOC_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Revisions" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Headline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOC" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TOC1" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="Entry" ToRole="TOC" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Revision" Type="Int32" Nullable="false" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="Game" ToRole="TOC" />
+        </EntityType>
+        <EntityType Name="TOC">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Revisions" Type="Int32" Nullable="false" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Games" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="TOC" ToRole="Entry" />
+          <NavigationProperty Name="Game" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="TOC" ToRole="Game" />
+        </EntityType>
+        <Association Name="FK__Entry__TOC__619B8048">
+          <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
+          <End Type="rulesencyclopediaDBModel.Entry" Role="Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TOC">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entry">
+              <PropertyRef Name="TOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TOC__Games__628FA481">
+          <End Type="rulesencyclopediaDBModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TOC">
+              <PropertyRef Name="Games" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="rulesencyclopediaDBModelStoreContainer" CdmEntityContainer="rulesencyclopediaDBEntities1">
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rules">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
+              <MappingFragment StoreEntitySet="Rules">
+                <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
+                <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entry">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
+              <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="TOC" ColumnName="TOC" />
+                <ScalarProperty Name="Headline" ColumnName="Headline" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+                <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Game">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOC">
+            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
+              <MappingFragment StoreEntitySet="TOC">
+                <ScalarProperty Name="Games" ColumnName="Games" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

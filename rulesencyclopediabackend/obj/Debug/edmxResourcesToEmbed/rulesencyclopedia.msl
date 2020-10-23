@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="rulesencyclopediaDBModelStoreContainer" CdmEntityContainer="rulesencyclopediaDBEntities1">
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rules">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
+        <MappingFragment StoreEntitySet="Rules">
+          <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
+          <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entry">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
+        <MappingFragment StoreEntitySet="Entry">
+          <ScalarProperty Name="TOC" ColumnName="TOC" />
+          <ScalarProperty Name="Headline" ColumnName="Headline" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Game">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Game">
+        <MappingFragment StoreEntitySet="Game">
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TOC">
+      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
+        <MappingFragment StoreEntitySet="TOC">
+          <ScalarProperty Name="Games" ColumnName="Games" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
