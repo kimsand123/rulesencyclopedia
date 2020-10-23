@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rulesencyclopediaclient"
         mc:Ignorable="d"
-        Title="Login Rules Encyclopedia" Height="167.511" Width="323.238">
+        Title="Login Rules Encyclopedia" Height="161.564" Width="319.273">
     <Grid>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="218,84,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox x:Name="userNameBox" HorizontalAlignment="Left" Height="22" Margin="74,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
