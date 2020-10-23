@@ -36,9 +36,6 @@ namespace rulesencyclopediabackend.Controllers
                 // TODO: close the logfile
             }
             return response;
-
-
-            return response;
         }
 
         // DELETE: api/GetFullGame/5

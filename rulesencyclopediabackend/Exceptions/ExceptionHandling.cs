@@ -29,6 +29,12 @@ namespace rulesencyclopediabackend.Exceptions
             Console.WriteLine("Exception message: " + ex.Message);
         }
 
+        public void exceptionHandlerInvalidOperation(System.InvalidOperationException ex, string text)
+        {
+            Console.WriteLine("No record found: " + text);
+            Console.WriteLine("Exception message: " + ex.Message);
+        }
+
 
 
 

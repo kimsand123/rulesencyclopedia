@@ -130,6 +130,10 @@ namespace rulesencyclopediabackend.DAL
             {
                 exHandler.exceptionHandlerEntity(ex, "something went wrong when getting game");
             } 
+            catch (System.InvalidOperationException ex)
+            {
+                exHandler.exceptionHandlerInvalidOperation(ex, "Something went wrong. Record not found.");
+            }
             finally
             {
                 context.Dispose();

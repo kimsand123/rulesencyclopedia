@@ -13,7 +13,6 @@ namespace rulesencyclopediabackend.Controllers
     {
         TOCDAO dao = new TOCDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
-        TOCDTO tocDTO;
         // GET: api/TOC
         public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
         {

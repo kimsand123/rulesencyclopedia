@@ -22,7 +22,7 @@ namespace rulesencyclopediabackend.DAL
             {
                 var context = new rulesencyclopediaDBEntities1();
                 {
-                    TOCList = context.TOC.Where(element => element.Id == gameID).ToList();
+                    TOCList = context.TOC.Where(element => element.Games == gameID).ToList();
                     tocDTOs = new List<TOCDTO>();
                     foreach (TOC toc in TOCList)
                     {

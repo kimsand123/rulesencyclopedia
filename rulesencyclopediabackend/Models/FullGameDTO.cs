@@ -7,7 +7,7 @@ namespace rulesencyclopediabackend.Models
 {
     public class FullGameDTO
     {
-        internal GameDTO game { get; set; }
-        internal List<FullTOCDTO> tocList { get; set; }
+        public GameDTO game { get; set; }
+        public List<FullTOCDTO> tocList { get; set; }
     }
 }

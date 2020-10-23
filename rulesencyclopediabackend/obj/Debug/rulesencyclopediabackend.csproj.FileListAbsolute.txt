@@ -55,7 +55,6 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\System.Web.WebPages.Razor.xml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Antlr3.Runtime.pdb
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\obj\Debug\rulesencyclopediabackend.csprojAssemblyReference.cache
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\obj\Debug\rulesencyclopediabackend.csproj.CoreCompileInputs.cache
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\obj\Debug\rulesencyclopediabackend.csproj.CopyComplete
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\obj\Debug\rulesencyclopediabackend.dll

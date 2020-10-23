@@ -14,8 +14,6 @@ namespace rulesencyclopediabackend.DAL
         TOCDAO tocDao = new TOCDAO();
         EntryDAO entryDao = new EntryDAO();
         FullGameDTO fullGame = new FullGameDTO();
-        GameDTO gameDTO;
-        ConvertToDTO DTOConverter = new ConvertToDTO();
         List<EntryDTO> entryList = new List<EntryDTO>();
         public FullGameDTO getTheGame(int id)
         {

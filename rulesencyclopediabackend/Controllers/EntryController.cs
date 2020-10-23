@@ -12,7 +12,7 @@ namespace rulesencyclopediabackend.Controllers
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
-        EntryDTO entryDTO;
+
         ConvertToDTO DTOConverter = new ConvertToDTO();
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
@@ -41,6 +41,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             EntryDTO entry = dao.getEntry(ID);
+            EntryDTO entryDTO = null;
 
             try
             {

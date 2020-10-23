@@ -21,7 +21,7 @@ namespace rulesencyclopediabackend.Controllers
     {
         ExceptionHandling exHandler = new ExceptionHandling();
         GameDAO dao = new GameDAO();
-        GameDTO gameDTO;
+
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
         public HttpResponseMessage Get()
@@ -49,11 +49,10 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             GameDTO game = dao.getGame(id);
-
             try
             {
                 var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(gameDTO, Formatting.Indented, serializerSettings);
+                string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
                 response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
             } catch (JsonSerializationException ex)
             {
