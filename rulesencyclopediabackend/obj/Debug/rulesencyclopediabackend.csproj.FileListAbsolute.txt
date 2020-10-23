@@ -136,3 +136,4 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\ru\System.Spatial.resources.dll
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\bin\zh-Hant\System.Spatial.resources.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediabackend\obj\Debug\rulesencyclopediabackend.csprojAssemblyReference.cache

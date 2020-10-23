@@ -9,10 +9,12 @@ namespace rulesencyclopediabackend.Controllers
 {
     public class LoginController : ApiController
     {
-        // GET api/login
-        public String Post([FromBody]string UserName, [FromBody]string Password)
+        UserDAO userDao = new UserDAO();
+
+        // POST api/login
+        public String Post([FromUri]string UserName, [FromUri]string Password)
         {
-            string token = "123456789";
+            string token = userDao.getUserFromLogin(UserName, Password);
             return token;
         }
     }

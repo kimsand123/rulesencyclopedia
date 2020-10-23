@@ -16,24 +16,33 @@ namespace rulesencyclopediabackend.Controllers
         GetFullGameDAO getTheGame = new GetFullGameDAO();
 
         // GET: api/GetFullGame/5
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage Get([FromBody] string Authentication, int id)
         {
-            FullGameDTO fullGame = new FullGameDTO();
             HttpResponseMessage response = new HttpResponseMessage();
-            fullGame = getTheGame.getTheGame(id);
-            try
+            if (CheckToken.Instance.doCheckToken(Authentication))
             {
-                string responseJson = JsonConvert.SerializeObject(fullGame);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }
-            catch (JsonSerializationException ex)
+
+                FullGameDTO fullGame = new FullGameDTO();
+
+                fullGame = getTheGame.getTheGame(id);
+                try
+                {
+                    string responseJson = JsonConvert.SerializeObject(fullGame);
+                    response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
+                }
+                catch (JsonSerializationException ex)
+                {
+                    // TODO: write ex to logfile.
+                    response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
+                }
+                finally
+                {
+                    // TODO: close the logfile
+                }
+
+            } else
             {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
-            }
-            finally
-            {
-                // TODO: close the logfile
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Your token is not Valid, Login again or create a user");
             }
             return response;
         }

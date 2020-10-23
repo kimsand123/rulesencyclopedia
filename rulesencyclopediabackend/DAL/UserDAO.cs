@@ -1,4 +1,6 @@
 ﻿using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
+using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +17,7 @@ namespace rulesencyclopediabackend
     public class UserDAO
     {
         ExceptionHandling exHandler = new ExceptionHandling();
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         public UserDAO()
         {
         }
@@ -96,6 +99,31 @@ namespace rulesencyclopediabackend
             {
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong while deleting the user");
             }
+        }
+
+        internal string getUserFromLogin(string userName, string password)
+        {
+            User user = null;
+            UserDTO userDto = null;
+            TokenDTO token = null;
+            try
+            {
+                var context = new rulesencyclopediaDBEntities1();
+                {
+                    user = context.User.Single(element => element.UserName == userName && element.Password==password);
+                }
+            }
+            catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "something went wrong when getting user");
+            }
+
+            if (user!= null)
+            {
+                userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+                token = CheckToken.Instance.userLogin(userDto);
+            }
+            return token.token;
         }
     }
 }
