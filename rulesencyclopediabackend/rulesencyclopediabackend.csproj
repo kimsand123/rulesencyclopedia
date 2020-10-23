@@ -216,6 +216,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Auth\BasicAuthentication.cs" />
     <Compile Include="Controllers\EntryController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GetFullGameController.cs" />
