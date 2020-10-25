@@ -24,5 +24,8 @@ namespace rulesencyclopediaclient.Pouch
         }
         public string token { get; set; }
         public UserDTO user { get; set; }
+
+        public readonly string apiAddress = "localhost";
+        public readonly string portNr = "44378";
     }
 }

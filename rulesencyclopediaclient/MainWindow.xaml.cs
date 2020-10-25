@@ -1,10 +1,12 @@
-﻿using System;
+﻿using rulesencyclopediaclient.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +25,15 @@ namespace rulesencyclopediaclient
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public void CallLoginPage(object sender, RoutedEventArgs args)
+        {
+            MainFrame.Content = new Login();
+        }
+
+        public void ExitProgram_Click(object sender, RoutedEventArgs args)
+        {
+            this.Close();
         }
     }
 }

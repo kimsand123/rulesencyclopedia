@@ -32,9 +32,11 @@ namespace rulesencyclopediaclient.DAL
 
         }
 
-        public HttpWebResponse getUser(String token)
+        public HttpWebResponse GetUser(String token)
         {
+            HttpWebResponse response = null;
 
+            return response;
         }
 
     }
