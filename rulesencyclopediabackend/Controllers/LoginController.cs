@@ -12,7 +12,7 @@ namespace rulesencyclopediabackend.Controllers
         UserDAO userDao = new UserDAO();
 
         // POST api/login
-        public String Post([FromUri]string UserName, [FromUri]string Password)
+        public String Get([FromUri]string UserName, [FromUri]string Password)
         {
             string token = userDao.getUserFromLogin(UserName, Password);
             return token;

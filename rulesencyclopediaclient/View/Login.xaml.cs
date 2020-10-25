@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Security.Policy;
 using System.Net.Http.Headers;
 using MySqlX.XDevAPI.Common;
+using System.Text.RegularExpressions;
 
 namespace rulesencyclopediaclient.View
 {
@@ -43,12 +44,12 @@ namespace rulesencyclopediaclient.View
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //her sætter vi addressen og porten for API servicen
-            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.Pouch.Instance.apiAddress + ":" + Pouch.Pouch.Instance.portNr + "/");
-            uriBuilder.Query = "userName=" + userName + "&password=" + password;
+            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.Pouch.Instance.apiAddress + ":" + Pouch.Pouch.Instance.portNr + "/api/Login");
+            uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
         
             var response = client.GetAsync(uriBuilder.Uri).Result;
-            var result = response.Content.ReadAsStringAsync();
-
+            string result = response.Content.ReadAsStringAsync().Result.Replace("\"","");
+            Pouch.Pouch.Instance.token = result;
             //get values from textfields.
             //send values to api/login as parameters;
             //recieve token
