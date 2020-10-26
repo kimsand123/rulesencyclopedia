@@ -1,4 +1,3 @@
-C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.csprojAssemblyReference.cache
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.exe.config
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\Login.g.cs
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\App.g.cs
@@ -34,3 +33,5 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.csproj.CopyComplete
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.exe
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.pdb
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\MainInfoWindow.g.cs
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\MainInfoWindow.baml

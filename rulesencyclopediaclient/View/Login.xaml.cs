@@ -20,6 +20,7 @@ using System.Security.Policy;
 using System.Net.Http.Headers;
 using MySqlX.XDevAPI.Common;
 using System.Text.RegularExpressions;
+using rulesencyclopediaclient.Singletons;
 
 namespace rulesencyclopediaclient.View
 {
@@ -28,6 +29,7 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class Login : Page
     {
+
         public Login()
         {
             InitializeComponent();
@@ -35,26 +37,30 @@ namespace rulesencyclopediaclient.View
 
         protected void Login_ClickAsync(object sender, RoutedEventArgs args)
         {
+            //get values from textfields.
             string userName = this.userNameBox.Text;
             string password = this.passwordBox.Password.ToString();
 
-            //You could check for business rules concerning username and password.
+            //TODO: Check for business rules concerning username and password.
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //her sætter vi addressen og porten for API servicen
+            //setting address and port for the service.
             UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.Pouch.Instance.apiAddress + ":" + Pouch.Pouch.Instance.portNr + "/api/Login");
-            uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
-        
-            var response = client.GetAsync(uriBuilder.Uri).Result;
-            string result = response.Content.ReadAsStringAsync().Result.Replace("\"","");
-            Pouch.Pouch.Instance.token = result;
-            //get values from textfields.
             //send values to api/login as parameters;
+            uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
-            //store token
-
+            var response = client.GetAsync(uriBuilder.Uri).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
+                //store token
+                Pouch.Pouch.Instance.token = result;
+                Page newPage = new MainInfoWindow();
+                MainWindowState.Instance.changePageInFrame(newPage);
+                MainWindowState.Instance.changeMenuState("logon");
+            }
         }
     }
 }

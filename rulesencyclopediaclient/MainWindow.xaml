@@ -11,15 +11,20 @@
         <Frame x:Name="MainFrame" Margin="0,0,21.4,-0.4" />
         <DockPanel Margin="0,0,3.4,9.6">
             <!-- Dock menu system on the top -->
-            <Menu DockPanel.Dock ="Top"
- HorizontalAlignment="Left" Background="White" BorderBrush ="Black">
-                <MenuItem Header="_Login">
+            <Menu DockPanel.Dock ="Top" HorizontalAlignment="Left" Background="White" BorderBrush ="Black">
+                <MenuItem Name="LoginPoint" Header ="_Login" IsEnabled="True">
                     <Separator/>
-                    <MenuItem Header="_Login" Click="CallLoginPage"/>
-                    <MenuItem Header ="_Exit" Click ="ExitProgram_Click"/>
+                    <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" IsEnabled="True"/>
+                    <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" IsEnabled="False"/>
+                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" IsEnabled="False"/>
+                    <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" IsEnabled="True"/>
+                </MenuItem>
+                <MenuItem Name="OtherPoint" Header="_Other" IsEnabled="False">
+                    <Separator/>
+                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" IsEnabled="False"/>
+                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" IsEnabled="False"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
-
     </Grid>
 </Window>

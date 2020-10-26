@@ -1,4 +1,5 @@
-﻿using rulesencyclopediaclient.View;
+﻿using rulesencyclopediaclient.Singletons;
+using rulesencyclopediaclient.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,42 @@ namespace rulesencyclopediaclient
     {
         public MainWindow()
         {
+
             InitializeComponent();
         }
         public void CallLoginPage(object sender, RoutedEventArgs args)
         {
-            MainFrame.Content = new Login();
+            this.SizeToContent = SizeToContent.WidthAndHeight;
+            MainWindowState.Instance.changePageInFrame(new Login());
         }
 
         public void ExitProgram_Click(object sender, RoutedEventArgs args)
         {
             this.Close();
         }
+
+
+        public void CallLogoffPage(object sender, RoutedEventArgs args)
+        {
+            //close connection
+            MainWindowState.Instance.changeMenuState("logoff");
+            MainWindowState.Instance.changePageInFrame(new Login());
+        }
+
+        public void CallProfileHandling(object sender, RoutedEventArgs args)
+        {
+
+        }
+
+        public void CallSettingsPage(object sender, RoutedEventArgs args)
+        {
+
+        }
+
+        public void CallHelpPage(object sender, RoutedEventArgs args)
+        {
+
+        }
     }
+
 }

@@ -7,8 +7,6 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
