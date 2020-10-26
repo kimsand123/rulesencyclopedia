@@ -6,21 +6,19 @@
 // ad gangen der kan køre den. Disse to ting gør den lazy og threadsafe.
 namespace rulesencyclopediaclient.Pouch
 {
-    public sealed class Pouch
+    public sealed class SettingsAndData
     {
-        private Pouch()
+        private SettingsAndData()
         {
-
         }
-
-        public static Pouch Instance { get { return get.instance; } }
+        public static SettingsAndData Instance { get { return get.instance; } }
 
         private class get
         {
             static get()
             {
             }
-            internal static readonly Pouch instance = new Pouch();
+            internal static readonly SettingsAndData instance = new SettingsAndData();
         }
         public string token { get; set; }
         public UserDTO user { get; set; }

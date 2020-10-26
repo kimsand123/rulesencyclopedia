@@ -25,7 +25,6 @@ namespace rulesencyclopediaclient
     {
         public MainWindow()
         {
-
             InitializeComponent();
         }
         public void CallLoginPage(object sender, RoutedEventArgs args)
@@ -42,7 +41,7 @@ namespace rulesencyclopediaclient
 
         public void CallLogoffPage(object sender, RoutedEventArgs args)
         {
-            //close connection
+            //TODO: close connection
             MainWindowState.Instance.changeMenuState("logoff");
             MainWindowState.Instance.changePageInFrame(new Login());
         }

@@ -13,9 +13,7 @@ namespace rulesencyclopediaclient.Singletons
         MainWindow window = (MainWindow)Application.Current.MainWindow;
         private MainWindowState()
         {
-
         }
-
         public static MainWindowState Instance { get { return get.instance; } }
 
         private class get

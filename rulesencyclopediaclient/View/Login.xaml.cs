@@ -47,7 +47,7 @@ namespace rulesencyclopediaclient.View
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //setting address and port for the service.
-            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.Pouch.Instance.apiAddress + ":" + Pouch.Pouch.Instance.portNr + "/api/Login");
+            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/Login");
             //send values to api/login as parameters;
             uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
@@ -56,7 +56,7 @@ namespace rulesencyclopediaclient.View
             {
                 string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
                 //store token
-                Pouch.Pouch.Instance.token = result;
+                Pouch.SettingsAndData.Instance.token = result;
                 Page newPage = new MainInfoWindow();
                 MainWindowState.Instance.changePageInFrame(newPage);
                 MainWindowState.Instance.changeMenuState("logon");
