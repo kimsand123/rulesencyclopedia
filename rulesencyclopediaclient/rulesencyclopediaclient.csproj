@@ -72,7 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Singletons\MainWindowState.cs" />
-    <Compile Include="Singletons\Pouch.cs" />
+    <Compile Include="Singletons\SettingsAndData.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
