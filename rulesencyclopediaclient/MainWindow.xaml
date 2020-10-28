@@ -12,17 +12,18 @@
         <DockPanel Margin="0,0,3.4,9.6">
             <!-- Dock menu system on the top -->
             <Menu DockPanel.Dock ="Top" HorizontalAlignment="Left" Background="White" BorderBrush ="Black">
-                <MenuItem Name="LoginPoint" Header ="_Login" IsEnabled="True">
+                <MenuItem Name="LoginPoint" Header ="_Login" Visibility="Visible">
                     <Separator/>
-                    <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" IsEnabled="True"/>
-                    <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" IsEnabled="False"/>
-                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" IsEnabled="False"/>
-                    <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" IsEnabled="True"/>
+                    <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" Visibility="Visible"/>
+                    <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" Visibility="Hidden"/>
+                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" Visibility="Hidden"/>
+                    <MenuItem Name="CreateUser" Header="_CreateUser" Click="CallCreateUser" Visibility="Visible"/>
+                    <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" Visibility="Visible"/>
                 </MenuItem>
-                <MenuItem Name="OtherPoint" Header="_Other" IsEnabled="False">
+                <MenuItem Name="OtherPoint" Header="_Other" Visibility="Visible">
                     <Separator/>
-                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" IsEnabled="False"/>
-                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" IsEnabled="False"/>
+                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" Visibility="Hidden"/>
+                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" Visibility="Visible"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

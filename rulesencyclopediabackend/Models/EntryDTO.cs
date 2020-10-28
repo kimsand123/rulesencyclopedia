@@ -6,7 +6,6 @@ using System.Web;
 
 namespace rulesencyclopediabackend.Models
 {
-    [Serializable]
     public class EntryDTO
     {
         public int Id { get; set; }

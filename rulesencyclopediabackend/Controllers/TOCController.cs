@@ -18,21 +18,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOCDTO> tocList = dao.getTOCList(gameId);
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(tocList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-
-            }
-            catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to a logfile
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC list");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, tocList);
             return response;
             
         }
@@ -42,18 +28,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             TOCDTO toc = dao.getTOC(ID);
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(toc);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }catch (JsonSerializationException ex)
-            {
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, toc);
             return response;
         }
             

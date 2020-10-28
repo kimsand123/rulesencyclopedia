@@ -5,7 +5,6 @@ using System.Web;
 
 namespace rulesencyclopediabackend.Models
 {
-    [Serializable]
     public class FullGameDTO
     {
         public GameDTO game { get; set; }

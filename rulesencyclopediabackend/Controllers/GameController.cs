@@ -28,19 +28,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<GameDTO> gameList = dao.getGameList();
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(gameList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            } catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the games list");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
             return response;
         }
 
@@ -49,20 +37,6 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             GameDTO game = dao.getGame(id);
-            try
-            {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            } catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the game");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
             return response;
         }
 

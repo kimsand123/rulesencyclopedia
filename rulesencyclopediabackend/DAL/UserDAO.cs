@@ -122,6 +122,9 @@ namespace rulesencyclopediabackend
             {
                 userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
                 token = CheckToken.Instance.userLogin(userDto);
+            } else
+            {
+                //Create User
             }
             return token.token;
         }

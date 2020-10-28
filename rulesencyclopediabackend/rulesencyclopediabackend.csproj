@@ -272,6 +272,7 @@
     <Compile Include="Tools\CheckToken.cs" />
     <Compile Include="Tools\Connection.cs" />
     <Compile Include="Tools\ConvertToDTO.cs" />
+    <Compile Include="Tools\HashAndSalt.cs" />
     <Compile Include="User.cs">
       <DependentUpon>rulesencyclopedia.tt</DependentUpon>
     </Compile>

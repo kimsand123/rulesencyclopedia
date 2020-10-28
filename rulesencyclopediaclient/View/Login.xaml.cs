@@ -60,6 +60,13 @@ namespace rulesencyclopediaclient.View
                 Page newPage = new MainInfoWindow();
                 MainWindowState.Instance.changePageInFrame(newPage);
                 MainWindowState.Instance.changeMenuState("logon");
+            } else
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    MainWindowState.Instance.changeMenuState("createuser");
+                    MainWindowState.Instance.changePageInFrame(new CreateUser());
+                }
             }
         }
     }

@@ -5,7 +5,6 @@ using System.Web;
 
 namespace rulesencyclopediabackend.Models
 {
-    [Serializable]
     public class UserDTO
     {
         public string FirstName { get; set; }

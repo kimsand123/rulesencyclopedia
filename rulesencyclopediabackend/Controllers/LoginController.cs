@@ -10,12 +10,19 @@ namespace rulesencyclopediabackend.Controllers
     public class LoginController : ApiController
     {
         UserDAO userDao = new UserDAO();
-
+        HttpResponseMessage response = null;
         // POST api/login
-        public String Get([FromUri]string UserName, [FromUri]string Password)
+        public HttpResponseMessage Get([FromUri]string UserName, [FromUri]string Password)
         {
             string token = userDao.getUserFromLogin(UserName, Password);
-            return token;
+            if (token != "")
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, token);
+            } else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return response;
         }
     }
 }

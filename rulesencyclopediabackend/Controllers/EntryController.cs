@@ -18,20 +18,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<EntryDTO> entryList = dao.getEntriesForToc(tocId);
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(entryList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }
-            catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, entryList);
             return response;
         }
 
@@ -42,19 +29,7 @@ namespace rulesencyclopediabackend.Controllers
             HttpResponseMessage response = new HttpResponseMessage();
             EntryDTO entry = dao.getEntry(ID);
             EntryDTO entryDTO = null;
-
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(entryDTO);
-            } catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, entry);
             return response;
         }
 

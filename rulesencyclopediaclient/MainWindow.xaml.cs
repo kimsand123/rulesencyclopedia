@@ -60,6 +60,12 @@ namespace rulesencyclopediaclient
         {
 
         }
+
+        public void CallCreateUser(object sender, RoutedEventArgs args)
+        {
+            MainWindowState.Instance.changeMenuState("createuser");
+            MainWindowState.Instance.changePageInFrame(new CreateUser());
+        }
     }
 
 }

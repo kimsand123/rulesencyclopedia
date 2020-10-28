@@ -5,7 +5,6 @@ using System.Web;
 
 namespace rulesencyclopediabackend.Models
 {
-    [Serializable]
     public class TOCDTO
     {
         public int Id { get; set; }

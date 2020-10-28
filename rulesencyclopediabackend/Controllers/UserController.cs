@@ -15,19 +15,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<User> userList = dao.getUserList();
-            try
-            {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(userList, Formatting.Indented, serializerSettings);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            } catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Cannot serialize the userList");
-            } finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, userList);
             return response;
         }
 
@@ -36,21 +24,7 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             User user = dao.getUser(id);
-            try
-            {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(user, Formatting.Indented, serializerSettings);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }
-            catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Cannot serialize the user");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, user);
             return response;
         }
 
