@@ -3,6 +3,7 @@ using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
@@ -35,6 +36,22 @@ namespace rulesencyclopediabackend
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong when getting all the users");
             }
             return userList;
+        }
+
+        internal User checkUserName(string userName)
+        {
+            User user = null;
+            try
+            {
+                var context = new rulesencyclopediaDBEntities1();
+                {
+                    user = context.User.Single(element => element.UserName == userName);
+                }
+            } catch (EntityException ex)
+            { 
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when checking the username");
+            }
+            return user;
         }
 
         internal User getUser(int ID)

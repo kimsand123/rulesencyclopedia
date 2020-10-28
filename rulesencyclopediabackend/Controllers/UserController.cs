@@ -28,6 +28,21 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
+        // Get api/users/username
+        public HttpResponseMessage Get(string userName)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            User user = dao.checkUserName(userName);
+            if (user != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.Found, "Username "+userName+" is already in use");
+            } else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Username is not in use ");
+            }
+            return response;
+        }
+
         // POST api/users
         public void Post([FromBody] User user)
         {
