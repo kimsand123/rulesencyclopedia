@@ -52,6 +52,7 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Date" Type="datetime" />
+    <Property Name="Salt" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="FK__Entry__TOC__619B8048">
     <End Role="TOC" Type="Self.TOC" Multiplicity="1" />

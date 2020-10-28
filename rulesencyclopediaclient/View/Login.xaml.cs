@@ -52,20 +52,19 @@ namespace rulesencyclopediaclient.View
             uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
             var response = client.GetAsync(uriBuilder.Uri).Result;
-            if (response.IsSuccessStatusCode)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
                 //store token
                 Pouch.SettingsAndData.Instance.token = result;
-                Page newPage = new MainInfoWindow();
-                MainWindowState.Instance.changePageInFrame(newPage);
+                MainWindowState.Instance.changePageInFrame(new MainInfoWindow());
                 MainWindowState.Instance.changeMenuState("logon");
             } else
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    MainWindowState.Instance.changeMenuState("createuser");
                     MainWindowState.Instance.changePageInFrame(new CreateUser());
+                    MainWindowState.Instance.changeMenuState("createuser");
                 }
             }
         }

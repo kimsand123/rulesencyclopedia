@@ -18,9 +18,9 @@
         <TextBox x:Name="txtBoxMiddleName" HorizontalAlignment="Left" Height="23" Margin="157,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
         <TextBox x:Name="txtBoxLastName" HorizontalAlignment="Left" Height="23" Margin="157,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
         <TextBox x:Name="txtBoxUserName" HorizontalAlignment="Left" Height="23" Margin="157,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
-        <TextBox x:Name="txtBoxPassword" HorizontalAlignment="Left" Height="23" Margin="157,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
-        <TextBox x:Name="txtBoxConfirmPassword" HorizontalAlignment="Left" Height="23" Margin="157,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
-        <Button x:Name="btnCreateUser" Content="Create User" HorizontalAlignment="Left" Margin="308,202,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateUser_Click"/>
+        <Button x:Name="btnCreateUser" Content="Create User" HorizontalAlignment="Left" Margin="308,202,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateUser_ClickAsync"/>
+        <PasswordBox x:Name="pswBoxPassword" HorizontalAlignment="Left" Height="23" Margin="157,133,0,0" VerticalAlignment="Top" Width="226"/>
+        <PasswordBox x:Name="pswBoxConfirmPassworm" HorizontalAlignment="Left" Height="23" Margin="157,157,0,0" VerticalAlignment="Top" Width="226"/>
 
     </Grid>
 </Page>

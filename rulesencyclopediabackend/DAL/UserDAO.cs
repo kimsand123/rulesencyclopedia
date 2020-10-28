@@ -1,4 +1,5 @@
-﻿using rulesencyclopediabackend.Exceptions;
+﻿using MySqlX.XDevAPI.Common;
+using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
@@ -51,6 +52,11 @@ namespace rulesencyclopediabackend
             { 
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong when checking the username");
             }
+            catch (InvalidOperationException ex)
+            {
+                return null;
+            }
+
             return user;
         }
 
@@ -70,20 +76,29 @@ namespace rulesencyclopediabackend
             return user;
         }
 
-        internal void postUser(User user)
+        internal int postUser(User user)
         {
+            HashAndSalt pwSecurity = new HashAndSalt();
+            User result = null;
+            string password = user.Password;
+            string salt = pwSecurity.getSalt();
+            string saltedPassword = pwSecurity.GenerateHash(password, salt, 0);
+            user.Password = saltedPassword;
+            user.Salt = salt;
+
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    User result = context.User.Add(user);
+                    result = context.User.Add(user);
                     context.SaveChanges();
                 }
             } catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new user");
             }
+            return result.Id;
         }
 
         internal void editUser(int ID, User alteredUser)
@@ -126,22 +141,20 @@ namespace rulesencyclopediabackend
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
+                user = context.User.Single(element => element.UserName == userName && element.Password==password);
+                if (user != null)
                 {
-                    user = context.User.Single(element => element.UserName == userName && element.Password==password);
+                    userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+                    token = CheckToken.Instance.userLogin(userDto);
                 }
             }
             catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "something went wrong when getting user");
-            }
-
-            if (user!= null)
+            } 
+            catch(InvalidOperationException ex)
             {
-                userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
-                token = CheckToken.Instance.userLogin(userDto);
-            } else
-            {
-                //Create User
+                token.token="";
             }
             return token.token;
         }

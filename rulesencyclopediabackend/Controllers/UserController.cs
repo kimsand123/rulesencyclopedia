@@ -44,9 +44,13 @@ namespace rulesencyclopediabackend.Controllers
         }
 
         // POST api/users
-        public void Post([FromBody] User user)
+        public HttpResponseMessage Post([FromBody] User user)
         {
-            dao.postUser(user);
+            HttpResponseMessage response = new HttpResponseMessage();
+            int id = dao.postUser(user);
+            response = Request.CreateResponse(HttpStatusCode.Created, "/api/User/"+id);
+            return response;
+
         }
 
         // PUT api/users/5

@@ -53,6 +53,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,6 +74,9 @@
     </ApplicationDefinition>
     <Compile Include="Singletons\MainWindowState.cs" />
     <Compile Include="Singletons\SettingsAndData.cs" />
+    <Compile Include="View\CreateUser.xaml.cs">
+      <DependentUpon>CreateUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -85,6 +89,10 @@
     <Compile Include="View\MainInfoWindow.xaml.cs">
       <DependentUpon>MainInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\CreateUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
