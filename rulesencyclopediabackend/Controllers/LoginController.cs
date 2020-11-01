@@ -18,24 +18,28 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get([FromUri]string UserName, [FromUri]string Password)
         {
             UserDTO user = new UserDTO();
-            user = (UserDTO)DTOConverter.Converter(user, userDao.checkUserName(UserName));
-            HashAndSalt pwSecurity = new HashAndSalt();
-            if (pwSecurity.AreEqual(Password, user.Password, user.Salt))
+            var dbUser = userDao.checkUserName(UserName);
+            if (dbUser != null)
             {
-                string token = userDao.getUserFromLogin(UserName, user.Password);
-                if (token != "")
+                user = (UserDTO)DTOConverter.Converter(user, dbUser);
+                HashAndSalt pwSecurity = new HashAndSalt();
+                if (pwSecurity.AreEqual(Password, user.Password, user.Salt))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK, token);
+                    string token = userDao.getUserFromLogin(UserName, user.Password);
+                    if (token != "")
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, token);
+                    }
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.NoContent);
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Password is wrong. Try again");
                 }
-            }
-            else
+            } else
             {
-                response = Request.CreateResponse(HttpStatusCode.Forbidden, "Password is wrong. Try again");
+                response = Request.CreateResponse(HttpStatusCode.NoContent, "User does not exist");
             }
+
             return response;
         }
     }

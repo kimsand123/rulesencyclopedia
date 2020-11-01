@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rulesencyclopediaclient"
         mc:Ignorable="d"
-        Title="Rules Encyclopedia" Height="439.123" Width="600.974">
+        Title="Rules Encyclopedia" Height="1024" Width="768">
 
     <Grid>
-        <Frame x:Name="MainFrame" Margin="0,0,21.4,-0.4" />
-        <DockPanel Margin="0,0,3.4,9.6">
+        <DockPanel Margin="1,1,1,1">
             <!-- Dock menu system on the top -->
-            <Menu DockPanel.Dock ="Top" HorizontalAlignment="Left" Background="White" BorderBrush ="Black">
+            <Menu DockPanel.Dock ="Top" Background="White" BorderBrush ="Black" VerticalAlignment ="Top" HorizontalAlignment="Left" Width="88
+">
                 <MenuItem Name="LoginPoint" Header ="_Login" Visibility="Visible">
                     <Separator/>
                     <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" Visibility="Visible"/>
@@ -27,5 +27,6 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
+        <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame" Margin="297,205,296.6,205.4" VerticalAlignment="Center" />
     </Grid>
 </Window>

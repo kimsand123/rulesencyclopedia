@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:rulesencyclopediaclient"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Login Rules Encyclopedia" Height="161.564" Width="319.273">
+      Title="Login Rules Encyclopedia" Height="162" Width="320">
 
     <Grid x:Name="LoginPage">
         

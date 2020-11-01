@@ -25,6 +25,7 @@ namespace rulesencyclopediaclient.Singletons
         }
         public void changeMenuState(string menuSelection)
         {
+            //Control of the different menu elements in regards to which page is loaded into the Frame.
             switch (menuSelection)
             {
                 case "logon":

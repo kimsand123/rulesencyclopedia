@@ -1,23 +1,11 @@
-﻿using Newtonsoft.Json;
-using rulesencyclopediaclient.Models;
+﻿using rulesencyclopediaclient.Models;
 using rulesencyclopediaclient.Singletons;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace rulesencyclopediaclient.View
@@ -34,19 +22,26 @@ namespace rulesencyclopediaclient.View
 
         private void btnCreateUser_ClickAsync(object sender, RoutedEventArgs e)
         {
+            //if the password confirmation is OK
             if (checkPasswordConfirmation()){
             string userName = this.txtBoxUserName.Text;
+
+            //Start process by asking the backend if the username already exists.
+
+            //create the HttpClient with header
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //setting address and port for the service.
+            //Build the URI for the proper endpoint.
             UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/User");
-            //send values to api/login as parameters;
+            //send username as queryparameter to api/user;
             uriBuilder.Query = "UserName=" + userName;
+            //make the Http request and recieve the reponse.
             var response = client.GetAsync(uriBuilder.Uri).Result;
+                // if username already exists
                 if (response.StatusCode == System.Net.HttpStatusCode.Found)
                 {
-                    //If username is already in use
+                    //give message to user and make him try again with another username.
                     this.txtBoxUserName.Text = "";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     MessageBox.Show("Username is already in use. Try another username", "Username already in use", buttons, MessageBoxIcon.Warning);
@@ -54,7 +49,7 @@ namespace rulesencyclopediaclient.View
                 }
                 else
                 {
-                    //If username is not in use
+                    //If username is not in use create a new UserDTO object
                     UserDTO user = new UserDTO();
                     user.FirstName = this.txtBoxFirstName.Text;
                     user.MiddleName = this.txtBoxMiddleName.Text;
@@ -64,9 +59,12 @@ namespace rulesencyclopediaclient.View
                     user.Date = DateTime.Now;
 
                     uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/User");
-                    //send values to api/login as parameters;   
-                    string userJson = JsonConvert.SerializeObject(user);
-                    var content = new StringContent(userJson, UnicodeEncoding.UTF8, "application/json");
+                    //send user object to api/login as request body;   
+                    // TEST WITHOUT string userJson = JsonConvert.SerializeObject(user);
+                    // TEST WITHOUT var content = new StringContent(userJson, UnicodeEncoding.UTF8, "application/json");
+                    
+                    //Make post request
+                    //TODO: Exception handling.
                     var result = client.PostAsJsonAsync(uriBuilder.Uri, user).Result;
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     MessageBox.Show("User Created", "User Created", buttons);

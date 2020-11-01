@@ -1,26 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using Microsoft.Win32;
-
 using System.Net.Http;
-using System.Security.Policy;
 using System.Net.Http.Headers;
-using MySqlX.XDevAPI.Common;
-using System.Text.RegularExpressions;
 using rulesencyclopediaclient.Singletons;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace rulesencyclopediaclient.View
 {
@@ -65,6 +50,13 @@ namespace rulesencyclopediaclient.View
                 {
                     MainWindowState.Instance.changePageInFrame(new CreateUser());
                     MainWindowState.Instance.changeMenuState("createuser");
+                }
+            
+                if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    MessageBox.Show("Password is wrong. Try again", "Password wrong", buttons, MessageBoxIcon.Warning);
+                    this.passwordBox.Focus();
                 }
             }
         }
