@@ -22,7 +22,7 @@ namespace rulesencyclopediabackend.Controllers
             HashAndSalt pwSecurity = new HashAndSalt();
             if (pwSecurity.AreEqual(Password, user.Password, user.Salt))
             {
-                string token = userDao.getUserFromLogin(UserName, Password);
+                string token = userDao.getUserFromLogin(UserName, user.Password);
                 if (token != "")
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, token);

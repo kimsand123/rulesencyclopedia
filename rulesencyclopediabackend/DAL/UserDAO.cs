@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity.Core;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
@@ -83,6 +84,7 @@ namespace rulesencyclopediabackend
             string password = user.Password;
             string salt = pwSecurity.getSalt();
             string saltedPassword = pwSecurity.GenerateHash(password, salt, 0);
+            password = "";
             user.Password = saltedPassword;
             user.Salt = salt;
 
@@ -94,9 +96,8 @@ namespace rulesencyclopediabackend
                     result = context.User.Add(user);
                     context.SaveChanges();
                 }
-            } catch (EntityException ex)
+            } catch (DbEntityValidationException ex)
             {
-                exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new user");
             }
             return result.Id;
         }
@@ -137,7 +138,7 @@ namespace rulesencyclopediabackend
         {
             User user = null;
             UserDTO userDto = null;
-            TokenDTO token = null;
+            TokenDTO token = new TokenDTO();
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
