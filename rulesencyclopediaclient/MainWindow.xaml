@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rulesencyclopediaclient"
         mc:Ignorable="d"
-        Title="Rules Encyclopedia" Height="1024" Width="768">
+        Title="Rules Encyclopedia" 
+        ResizeMode="CanResize" 
+        WindowState="Maximized"
+        Height="864.775"  Width="1024" >
 
     <Grid>
+        <Image HorizontalAlignment="Stretch" 
+               Margin="-200,-200,-150,-150" 
+               VerticalAlignment="Stretch"
+               Source="Graphics/eotsmap.jpg"/>
         <DockPanel Margin="1,1,1,1">
             <!-- Dock menu system on the top -->
-            <Menu DockPanel.Dock ="Top" Background="White" BorderBrush ="Black" VerticalAlignment ="Top" HorizontalAlignment="Left" Width="88
-">
+            <Menu DockPanel.Dock ="Top" Background="Transparent" BorderBrush ="Black" VerticalAlignment ="Top" HorizontalAlignment="Left" Width="88">
                 <MenuItem Name="LoginPoint" Header ="_Login" Visibility="Visible">
                     <Separator/>
                     <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" Visibility="Visible"/>
@@ -27,6 +33,14 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame" Margin="297,205,296.6,205.4" VerticalAlignment="Center" />
+        
+        <Frame NavigationUIVisibility="Hidden" 
+               x:Name="MainFrame" 
+               HorizontalAlignment="Stretch" 
+               VerticalAlignment="Stretch"
+               Margin="0,0,0,0"
+               Height="Auto"
+               Width="Auto"/>
+
     </Grid>
 </Window>

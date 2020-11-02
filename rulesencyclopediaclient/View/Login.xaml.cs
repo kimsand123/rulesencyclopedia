@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using rulesencyclopediaclient.Singletons;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
+using System.Windows.Input;
 
 namespace rulesencyclopediaclient.View
 {
@@ -18,9 +19,12 @@ namespace rulesencyclopediaclient.View
         public Login()
         {
             InitializeComponent();
+            this.userNameBox.Focus();
+
+
         }
 
-        protected void Login_ClickAsync(object sender, RoutedEventArgs args)
+          protected void Login_ClickAsync(object sender, RoutedEventArgs args)
         {
             //get values from textfields.
             string userName = this.userNameBox.Text;
@@ -58,6 +62,15 @@ namespace rulesencyclopediaclient.View
                     MessageBox.Show("Password is wrong. Try again", "Password wrong", buttons, MessageBoxIcon.Warning);
                     this.passwordBox.Focus();
                 }
+            }
+        }
+
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key==System.Windows.Input.Key.Return || e.Key==Key.Enter)
+            {
+                Login_ClickAsync(this, z);
             }
         }
     }

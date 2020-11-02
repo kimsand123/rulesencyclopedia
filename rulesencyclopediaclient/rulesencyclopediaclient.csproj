@@ -147,5 +147,8 @@
     <Folder Include="Control\" />
     <Folder Include="Tools\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\eotsmap.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
