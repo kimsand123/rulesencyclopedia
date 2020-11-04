@@ -17,7 +17,10 @@ namespace rulesencyclopediaclient.Tools
             HttpRequestMessage requestMessage = new HttpRequestMessage();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SettingsAndData.Instance.token);
+            if (SettingsAndData.Instance.token != "")
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SettingsAndData.Instance.token);
+            }
             return client;
         }
 

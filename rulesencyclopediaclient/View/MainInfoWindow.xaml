@@ -23,13 +23,14 @@
             <Label x:Name="GamesColumnLabel" Content="Games" Margin="10,3,12.4,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="120" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="0"/>
             <Label x:Name="TOCColLabel" Content="Table of Content" Margin="9.6,3,9.8,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="215" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label x:Name="RulesColumnLabel" Content="Rules" Margin="10.2,3,10.4,6.8" Background="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="617" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="2"/>
-            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged">
+            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" Loaded="OnPageLoad">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding gamesList.Name}" FontSize="15"></TextBlock>
-                            <TextBlock Text="{Binding gamesList.Company}" FontSize="10"></TextBlock>
-                            <TextBlock Text="{Binding gamesList.Revision}" FontSize="10"></TextBlock>
+                            <TextBlock Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
+                            <TextBlock Text="Game: "> <TextBlock Text="{Binding Path=Name}" FontSize="15"></TextBlock></TextBlock>
+                            <TextBlock Text="Company: "><TextBlock Text="{Binding Path=Company}" FontSize="10"></TextBlock></TextBlock>
+                            <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}" FontSize="10"></TextBlock></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

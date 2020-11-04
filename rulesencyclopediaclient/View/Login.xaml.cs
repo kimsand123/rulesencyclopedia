@@ -23,8 +23,6 @@ namespace rulesencyclopediaclient.View
         {
             InitializeComponent();
             this.userNameBox.Focus();
-
-
         }
 
           protected void Login_ClickAsync(object sender, RoutedEventArgs args)

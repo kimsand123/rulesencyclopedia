@@ -77,6 +77,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\View\GamesListView.cs" />
     <Compile Include="Model\View\GameView.cs" />
+    <Compile Include="Model\View\TOCView.cs" />
     <Compile Include="Singletons\MainWindowState.cs" />
     <Compile Include="Singletons\SettingsAndData.cs" />
     <Compile Include="Tools\CommunicationElements.cs" />

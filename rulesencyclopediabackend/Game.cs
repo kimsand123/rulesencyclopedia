@@ -23,7 +23,7 @@ namespace rulesencyclopediabackend
         public int Id { get; set; }
         public string Name { get; set; }
         public string Company { get; set; }
-        public int Revision { get; set; }
+        public string Revision { get; set; }
         public string Editor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

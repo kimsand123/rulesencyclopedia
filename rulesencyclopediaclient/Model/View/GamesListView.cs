@@ -13,8 +13,11 @@ namespace rulesencyclopediaclient.Model.View
     {
         private List<GameView> _gamesList;
         public List<GameView> gamesList 
-        { 
-            get=> _gamesList;
+        {
+            get
+            {
+                return _gamesList;
+            }
             set
             {
                 if (value == _gamesList) return;
