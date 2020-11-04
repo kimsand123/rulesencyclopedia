@@ -1,5 +1,7 @@
 ﻿using rulesencyclopediaclient.Models;
+using rulesencyclopediaclient.Pouch;
 using rulesencyclopediaclient.Singletons;
+using rulesencyclopediaclient.Tools;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -29,11 +31,10 @@ namespace rulesencyclopediaclient.View
             //Start process by asking the backend if the username already exists.
 
             //create the HttpClient with header
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            CommunicationElements comElements = new CommunicationElements();
+            HttpClient client = comElements.getClient();
             //Build the URI for the proper endpoint.
-            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/User");
+            UriBuilder uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/User");
             //send username as queryparameter to api/user;
             uriBuilder.Query = "UserName=" + userName;
             //make the Http request and recieve the reponse.
@@ -58,7 +59,7 @@ namespace rulesencyclopediaclient.View
                     user.Password = this.pswBoxPassword.Password.ToString();
                     user.Date = DateTime.Now;
 
-                    uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/User");
+                    uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/User");
                     //send user object to api/login as request body;   
                     // TEST WITHOUT string userJson = JsonConvert.SerializeObject(user);
                     // TEST WITHOUT var content = new StringContent(userJson, UnicodeEncoding.UTF8, "application/json");

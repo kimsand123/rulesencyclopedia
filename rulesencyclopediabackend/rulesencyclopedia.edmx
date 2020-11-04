@@ -11,7 +11,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
@@ -25,7 +25,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Company" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Revision" Type="int" Nullable="false" />
+          <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Rules">
@@ -42,7 +42,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Text" Type="varchar(max)" Nullable="false" />
-          <Property Name="Revisions" Type="int" Nullable="false" />
+          <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
           <Property Name="Games" Type="int" Nullable="false" />
         </EntityType>
@@ -144,13 +144,13 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Revisions" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Headline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TOC" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TOC1" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="Entry" ToRole="TOC" />
+          <Property Name="Revision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -169,11 +169,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Revisions" Type="Int32" Nullable="false" />
           <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Games" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="TOC" ToRole="Entry" />
           <NavigationProperty Name="Game" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="TOC" ToRole="Game" />
+          <Property Name="Revision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Entry__TOC__619B8048">
           <End Type="rulesencyclopediaDBModel.TOC" Role="TOC" Multiplicity="1" />
@@ -230,12 +230,12 @@
           <EntitySetMapping Name="Entry">
             <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
               <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
                 <ScalarProperty Name="TOC" ColumnName="TOC" />
                 <ScalarProperty Name="Headline" ColumnName="Headline" />
                 <ScalarProperty Name="Editor" ColumnName="Editor" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
                 <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -255,9 +255,9 @@
           <EntitySetMapping Name="TOC">
             <EntityTypeMapping TypeName="rulesencyclopediaDBModel.TOC">
               <MappingFragment StoreEntitySet="TOC">
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
                 <ScalarProperty Name="Games" ColumnName="Games" />
                 <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="Revisions" ColumnName="Revisions" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

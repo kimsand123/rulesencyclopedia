@@ -124,7 +124,7 @@ namespace rulesencyclopediabackend.Controllers
                 entry.ParagraphNumber = alteredEntry.ParagraphNumber;
                 entry.Headline = alteredEntry.Headline;
                 entry.Text = alteredEntry.Text;
-                entry.Revisions = alteredEntry.Revisions;
+                entry.Revision = alteredEntry.Revision;
                 entry.Editor = alteredEntry.Editor;               
                 context.SaveChanges();
             }

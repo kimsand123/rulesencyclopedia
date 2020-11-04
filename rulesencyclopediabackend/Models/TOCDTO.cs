@@ -9,7 +9,7 @@ namespace rulesencyclopediabackend.Models
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public int Revision { get; set; }
+        public string Revision { get; set; }
         public string Editor { get; set; }
     }
 }

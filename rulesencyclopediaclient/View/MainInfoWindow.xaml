@@ -23,7 +23,17 @@
             <Label x:Name="GamesColumnLabel" Content="Games" Margin="10,3,12.4,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="120" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="0"/>
             <Label x:Name="TOCColLabel" Content="Table of Content" Margin="9.6,3,9.8,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="215" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label x:Name="RulesColumnLabel" Content="Rules" Margin="10.2,3,10.4,6.8" Background="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="617" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="2"/>
-            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2"/>
+            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding gamesList.Name}" FontSize="15"></TextBlock>
+                            <TextBlock Text="{Binding gamesList.Company}" FontSize="10"></TextBlock>
+                            <TextBlock Text="{Binding gamesList.Revision}" FontSize="10"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
             <ListBox x:Name="TOCListBox" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="9.6,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2"/>
             <ListBox x:Name="RulesListBox" Grid.Column="2" HorizontalAlignment="Stretch" Height="Auto" Margin="10.2,43,0,10.4" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2"/>
         </Grid>

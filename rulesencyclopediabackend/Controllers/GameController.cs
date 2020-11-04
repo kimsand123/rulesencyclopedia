@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
+using rulesencyclopediabackend.Auth;
 
 namespace rulesencyclopediabackend.Controllers
 {
@@ -24,6 +25,7 @@ namespace rulesencyclopediabackend.Controllers
 
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
+        [BasicAuthentication]
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();

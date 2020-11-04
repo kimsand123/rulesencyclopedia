@@ -38,3 +38,5 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\CreateUser.g.cs
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\CreateUser.baml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.csprojAssemblyReference.cache
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\JetBrains.Annotations.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\JetBrains.Annotations.xml

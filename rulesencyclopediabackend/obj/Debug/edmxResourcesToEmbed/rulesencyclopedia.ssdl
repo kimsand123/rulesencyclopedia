@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ParagraphNumber" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
@@ -20,7 +20,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Company" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Revision" Type="int" Nullable="false" />
+    <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Rules">
@@ -37,7 +37,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Text" Type="varchar(max)" Nullable="false" />
-    <Property Name="Revisions" Type="int" Nullable="false" />
+    <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
     <Property Name="Games" Type="int" Nullable="false" />
   </EntityType>

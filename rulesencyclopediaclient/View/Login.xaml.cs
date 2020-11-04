@@ -7,6 +7,8 @@ using rulesencyclopediaclient.Singletons;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
+using rulesencyclopediaclient.Pouch;
+using rulesencyclopediaclient.Tools;
 
 namespace rulesencyclopediaclient.View
 {
@@ -15,6 +17,7 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class Login : Page
     {
+        CommunicationElements comElements = new CommunicationElements();
 
         public Login()
         {
@@ -31,12 +34,9 @@ namespace rulesencyclopediaclient.View
             string password = this.passwordBox.Password.ToString();
 
             //TODO: Check for business rules concerning username and password.
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient client = comElements.getClient();
             //setting address and port for the service.
-            UriBuilder uriBuilder = new UriBuilder("https://" + Pouch.SettingsAndData.Instance.apiAddress + ":" + Pouch.SettingsAndData.Instance.portNr + "/api/Login");
+            UriBuilder uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/Login");
             //send values to api/login as parameters;
             uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
@@ -45,7 +45,7 @@ namespace rulesencyclopediaclient.View
             {
                 string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
                 //store token
-                Pouch.SettingsAndData.Instance.token = result;
+                SettingsAndData.Instance.token = result;
                 MainWindowState.Instance.changePageInFrame(new MainInfoWindow());
                 MainWindowState.Instance.changeMenuState("logon");
             } else

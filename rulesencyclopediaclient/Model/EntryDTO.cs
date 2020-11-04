@@ -13,7 +13,7 @@ namespace rulesencyclopediaclient.Model
         public string ParagraphNumber {get;set;}
         public string Text { get; set; }
         public int Type { get; set; }
-        public int Revision { get; set; }
+        public string Revision { get; set; }
         public string Editor { get; set; }
     }
 }
