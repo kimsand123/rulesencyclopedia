@@ -75,8 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\View\EntryListView.cs" />
     <Compile Include="Model\View\GamesListView.cs" />
     <Compile Include="Model\View\GameView.cs" />
+    <Compile Include="Model\View\TocListView.cs" />
     <Compile Include="Model\View\TOCView.cs" />
     <Compile Include="Singletons\MainWindowState.cs" />
     <Compile Include="Singletons\SettingsAndData.cs" />
