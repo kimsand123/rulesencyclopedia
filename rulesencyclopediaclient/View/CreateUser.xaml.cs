@@ -30,15 +30,13 @@ namespace rulesencyclopediaclient.View
 
             //Start process by asking the backend if the username already exists.
 
-            //create the HttpClient with header
+            //Get the client
             CommunicationElements comElements = new CommunicationElements();
             HttpClient client = comElements.getClient();
-            //Build the URI for the proper endpoint.
-            UriBuilder uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/User");
-            //send username as queryparameter to api/user;
-            uriBuilder.Query = "UserName=" + userName;
+            //Get the URI for the proper endpoint with query.
+            Uri uri = comElements.getUri("User", "UserName=" + userName);
             //make the Http request and recieve the reponse.
-            var response = client.GetAsync(uriBuilder.Uri).Result;
+            var response = client.GetAsync(uri).Result;
                 // if username already exists
                 if (response.StatusCode == System.Net.HttpStatusCode.Found)
                 {
@@ -59,14 +57,10 @@ namespace rulesencyclopediaclient.View
                     user.Password = this.pswBoxPassword.Password.ToString();
                     user.Date = DateTime.Now;
 
-                    uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/User");
-                    //send user object to api/login as request body;   
-                    // TEST WITHOUT string userJson = JsonConvert.SerializeObject(user);
-                    // TEST WITHOUT var content = new StringContent(userJson, UnicodeEncoding.UTF8, "application/json");
-                    
-                    //Make post request
+                    uri = comElements.getUri("User");
+                    //Make post request, with user as body
                     //TODO: Exception handling.
-                    var result = client.PostAsJsonAsync(uriBuilder.Uri, user).Result;
+                    var result = client.PostAsJsonAsync(uri, user).Result;
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     MessageBox.Show("User Created", "User Created", buttons);
                     //Change to login window

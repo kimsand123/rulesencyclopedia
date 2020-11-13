@@ -1,4 +1,3 @@
-C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.exe.config
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\Login.g.cs
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\App.g.cs
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient_MarkupCompile.cache
@@ -40,3 +39,10 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\rulesencyclopediaclient.csprojAssemblyReference.cache
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\JetBrains.Annotations.dll
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\JetBrains.Annotations.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Net.Http.WinHttpHandler.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Buffers.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Memory.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Net.Http.WinHttpHandler.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

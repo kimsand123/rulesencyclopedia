@@ -38,6 +38,7 @@ namespace rulesencyclopediaclient.View
             //send values to api/login as parameters;
             uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
+            
             var response = client.GetAsync(uriBuilder.Uri).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
