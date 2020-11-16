@@ -78,7 +78,7 @@ namespace rulesencyclopediaclient.Model.View
             set
             {
                 if (value == _Txt) return;
-                _Headline = value;
+                _Txt = value;
                 OnPropertyChanged();
             }
         }

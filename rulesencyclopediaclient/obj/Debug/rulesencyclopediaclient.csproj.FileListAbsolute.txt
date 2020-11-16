@@ -46,3 +46,5 @@ C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclo
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Net.Http.WinHttpHandler.xml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\AddNewRule.g.cs
+C:\Users\kimsa\OneDrive\Dokumenter\CSharp\Projekt\rulesencyclopedia\rulesencyclopediaclient\obj\Debug\View\AddNewRule.baml

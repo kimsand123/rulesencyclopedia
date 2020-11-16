@@ -49,13 +49,13 @@ namespace rulesencyclopediaclient.View
                 else
                 {
                     //If username is not in use create a new UserDTO object
-                    UserDTO user = new UserDTO();
+                   UserDTO user = new UserDTO();
                     user.FirstName = this.txtBoxFirstName.Text;
                     user.MiddleName = this.txtBoxMiddleName.Text;
                     user.LastName = this.txtBoxLastName.Text;
                     user.UserName = this.txtBoxUserName.Text;
                     user.Password = this.pswBoxPassword.Password.ToString();
-                    user.Date = DateTime.Now;
+                    user.Date = DateTime.Now; 
 
                     uri = comElements.getUri("User");
                     //Make post request, with user as body

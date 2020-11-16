@@ -23,7 +23,15 @@
             <Label x:Name="GamesColumnLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Games" Margin="10,3,12.4,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="120" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="0"/>
             <Label x:Name="TOCColLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Table of Content" Margin="9.6,3,9.8,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="215" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label x:Name="RulesColumnLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Rules" Margin="10.2,3,10.4,6.8" Background="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="617" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="2"/>
-            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" Loaded="OnPageLoad">
+            <Button Name="addRuleButton" Content="Add Rule" Width="60" Height="20" HorizontalAlignment="Right" Click="addRuleButton_Click" Grid.Column="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" Loaded="OnPageLoad" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -35,7 +43,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="TOCListBox" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="9.6,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="TocListBox_OnSelectionChanged">
+            <ListBox x:Name="TOCListBox" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="9.6,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="TocListBox_OnSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -46,19 +54,38 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="EntryListBox" Grid.Column="2" HorizontalAlignment="Stretch" Height="Auto" Margin="10.2,43,0,10.4" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
+            <ListBox x:Name="EntryListBox" Grid.Column="2" HorizontalAlignment="Stretch" Height="Auto" Margin="10.2,43,0,10.4" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
+                    
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize ="1" Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}"></TextBlock></TextBlock>
-                                <TextBlock Text="  "></TextBlock>
-                                <TextBlock Text="Editor: "><TextBlock Text="{Binding Path=Editor}"></TextBlock></TextBlock>
+                                <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}" HorizontalAlignment="Left" /></TextBlock>
+                                <TextBlock Text="  "/>
+                                <TextBlock Text="Editor: "><TextBlock Text="{Binding Path=Editor}" HorizontalAlignment="Left" /></TextBlock>
+                                <TextBlock Text="  "/>
+                                <Button Name="editRuleButton" Content="Edit Rule" Width="60" Height="20" HorizontalAlignment="Right" Click="editButton_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <TextBlock Text="  "/>
+
+                                <Button Name="deleteRuleButton" Content="Delete Rule" Width="80" Height="20" HorizontalAlignment="Right" Click="deleteRuleButton_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+
                             </StackPanel>
                             <TextBlock></TextBlock>
-                            <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}"></TextBlock>
-                            <TextBlock FontSize="15" HorizontalAlignment="Stretch" Text="{Binding Path=Txt}"></TextBlock>
+                            <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}"/>
+                            <TextBlock FontSize="15" HorizontalAlignment="Stretch" Text="{Binding Path=Txt}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -99,6 +99,9 @@
     <Compile Include="Singletons\MainWindowState.cs" />
     <Compile Include="Singletons\SettingsAndData.cs" />
     <Compile Include="Tools\CommunicationElements.cs" />
+    <Compile Include="View\AddNewRule.xaml.cs">
+      <DependentUpon>AddNewRule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
     <Compile Include="View\MainInfoWindow.xaml.cs">
       <DependentUpon>MainInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AddNewRule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreateUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,8 +1,10 @@
-﻿using rulesencyclopediaclient.Pouch;
+﻿using Newtonsoft.Json;
+using rulesencyclopediaclient.Pouch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,54 +40,72 @@ namespace rulesencyclopediaclient.Tools
             return uriBuilder.Uri;
         }
 
-        public HttpResponseMessage requestHandler(string httpRequestMethod, string apiPath, string parameters, string body)
+        public HttpResponseMessage get(string apiPath, string parameters, string body) 
         {
-            Task<HttpResponseMessage> task=null;
+            Task<HttpResponseMessage> task = null;
             HttpClient client = getClient();
             HttpResponseMessage response = new HttpResponseMessage();
             Uri uri;
             response = null;
-            if (httpRequestMethod == "GET")
+
+            if (parameters != "")
             {
-                if (parameters != "")
-                {
-                    uri = getUri(apiPath, parameters);
-                }
-                else
-                {
-                    uri = getUri(apiPath);
-                }
-                if (body != "")
-                {
-                    task = getResponseAsync(client, uri, body);
-                    response = task.Result;
-                } else
-                {
-                    task = getResponseAsync(client, uri);
-                    response = task.Result;
-                }
-
-
+                uri = getUri(apiPath, parameters);
             }
-
-            if (httpRequestMethod == "POST")
+            else
             {
-                if (body != "")
-                {
-
-                }
-
+                uri = getUri(apiPath);
             }
+            if (body != "")
+            {
+                task = getResponseAsync("GET", client, uri, body);
+                response = task.Result;
+            } else
+            {
+                task = getResponseAsync("GET", client, uri);
+                response = task.Result;
+            }
+            return response;
+        }
+        public HttpResponseMessage post(string apiPath, object payload)
+        {
+            Task<HttpResponseMessage> task = null;
+            HttpClient client = getClient();
+            HttpResponseMessage response = new HttpResponseMessage();
+            Uri uri = getUri(apiPath);
+            response = null;
 
+            if (payload != null)
+            {
+                //TODO: Exception handling.
+                task = getResponseAsync("POST", client, uri, "", payload);
+            }
+            return task.Result;
+        }
+        public HttpResponseMessage put(string httpRequestMethod, string apiPath, string parameters, string payload)
+        {
+            Task<HttpResponseMessage> task = null;
+            HttpClient client = getClient();
+            HttpResponseMessage response = new HttpResponseMessage();
+            Uri uri;
+            response = null;
             if (httpRequestMethod == "PUT")
             {
-                if (body != "")
+                if (payload != "")
                 {
 
                 }
 
             }
-
+            return response;
+        }
+        public HttpResponseMessage delete(string httpRequestMethod, string apiPath, string parameters, string body)
+        {
+            Task<HttpResponseMessage> task = null;
+            HttpClient client = getClient();
+            HttpResponseMessage response = new HttpResponseMessage();
+            Uri uri;
+            response = null;
             if (httpRequestMethod == "DELETE")
             {
                 if (body != "")
@@ -94,21 +114,42 @@ namespace rulesencyclopediaclient.Tools
                 }
 
             }
-
-
             return response;
         }
 
-        private async Task<HttpResponseMessage> getResponseAsync(HttpClient client, Uri uri, string body="")
+        private async Task<HttpResponseMessage> getResponseAsync(string httpRequestMethod, HttpClient client, Uri uri, string body = "", object payload=null)
         {
-            var request = new HttpRequestMessage
+            HttpRequestMessage request=null;
+            if (httpRequestMethod == "GET")
             {
-                Method = HttpMethod.Get,
-                RequestUri = uri,
-                Content = new StringContent(body),
-            };
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = uri,
+                };
+                if (body != "")
+                {
+                    request.Content = new StringContent(body);
+                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                }
+
+            }
+
+            if (httpRequestMethod == "POST")
+            {
+                string payloadString = JsonConvert.SerializeObject(payload);
+                request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = uri,
+                    Content = new StringContent(payloadString),
+                };
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            }
+
             var response = await client.SendAsync(request).ConfigureAwait(false);
+
             return response;
         }
     }   

@@ -22,6 +22,7 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class MainInfoWindow : Page
     {
+        int chosenTocListId = 0;
         CommunicationElements comElements = new CommunicationElements();
         public MainInfoWindow()
         {
@@ -56,7 +57,7 @@ namespace rulesencyclopediaclient.View
             this.TOCColLabel.Content = selectedGame.Name;
             //Get Tocs on the basis of the game
             List <TOCDTO> tocList;
-            var response = comElements.requestHandler("GET", "TOC", "", Convert.ToString(selectedGame.Id));
+            var response = comElements.get( "TOC", "", Convert.ToString(selectedGame.Id));
             if (response.StatusCode == HttpStatusCode.OK)
             {
 
@@ -65,7 +66,8 @@ namespace rulesencyclopediaclient.View
                 if (tocList.Count!=0)
                 {
                     int tocListId = tocList[0].Id;
-                    response = comElements.requestHandler("GET", "Entry", "tocId=" + tocListId, "");
+                    string body = "tocId=" + tocListId;
+                    response = comElements.get( "Entry",body, "");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         TOCListBox.ItemsSource = tocListView;
@@ -78,6 +80,8 @@ namespace rulesencyclopediaclient.View
                             entryListView.Add(new EntryListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline, Editor = entry.Editor, Type = entry.Type, Txt = entry.Text });
                         }
                     }
+
+                    chosenTocListId = tocListId;
                 }
                 else
                 {
@@ -85,6 +89,7 @@ namespace rulesencyclopediaclient.View
                     TOCListBox.Items.Clear();
                     entryListView.Clear();
                     EntryListBox.Items.Clear();
+                    chosenTocListId = 0;
                 }
 
             }
@@ -99,42 +104,24 @@ namespace rulesencyclopediaclient.View
 
         private void TocListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         /*   List<EntryDTO> tocDTOList;
-            ObservableCollection<EntryListView> entryListView = new ObservableCollection<EntryListView>();
-            TOCView selectedTOC = new TOCView();
-            selectedTOC = (TOCView)e.AddedItems[0];
+            //ListBoxObject.SelectedItem = ListBoxObject.Items.GetItemAt(itemIndex);
 
-            //Get Entries on the bases of the TOC
-            List<EntryDTO> entryList;
-            var response = comElements.requestHandler("GET", "Entry", "", Convert.ToString(selectedTOC.Id));
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                //Getting the paragraphnumbers and headlines for the toc.
-                var content = response.Content.ReadAsStringAsync();
-                entryList = JsonConvert.DeserializeObject<List<EntryDTO>>(content.Result);
-                if (entryList.Count != 0)
-                {
-                    int entryListId = entryList[0].Id;
-                    response = comElements.requestHandler("GET", "Entry", "tocId=" + tocListId, "");
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        TOCListBox.ItemsSource = tocListView;
-                        content = response.Content.ReadAsStringAsync();
-                        tocDTOList = JsonConvert.DeserializeObject<List<EntryDTO>>(content.Result);
-                        foreach (EntryDTO entry in tocDTOList)
-                        {
-                            tocListView.Add(new TocListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline });
-                        }
-                    }
-                }
-                else
-                {
-                    tocListView.Clear();
-                    TOCListBox.Items.Clear();
-                }
+        }
 
-            }
-         */
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addRuleButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewRule popup = new AddNewRule(chosenTocListId);
+            popup.ShowDialog();
+        }
+
+        private void deleteRuleButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

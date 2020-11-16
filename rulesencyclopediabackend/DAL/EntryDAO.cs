@@ -27,7 +27,7 @@ namespace rulesencyclopediabackend.Controllers
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
-                    entryList = context.Entry.Where(element => element.TOC == TOCId).ToList();
+                    entryList = context.Entry.Where(element => element.TOC == TOCId).OrderBy(element => element.ParagraphNumber).ToList();
                     entryDTOs = new List<EntryDTO>();
                     foreach (Entry entry in entryList)
                     {

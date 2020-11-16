@@ -15,5 +15,6 @@ namespace rulesencyclopediaclient.Model
         public int Type { get; set; }
         public string Revision { get; set; }
         public string Editor { get; set; }
+        public int TOC { get; set; }
     }
 }
