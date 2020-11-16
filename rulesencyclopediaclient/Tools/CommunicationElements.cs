@@ -82,33 +82,31 @@ namespace rulesencyclopediaclient.Tools
             }
             return task.Result;
         }
+        public HttpResponseMessage delete(string apiPath, string parameters)
+        {
+            Task<HttpResponseMessage> task;
+            HttpRequestMessage request;
+            HttpClient client = getClient();
+            Uri uri = getUri(apiPath);
+            
+            request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = uri,
+            };
+            task = getResponseAsync("DELETE", client, uri);
+            return task.Result;
+        }
         public HttpResponseMessage put(string httpRequestMethod, string apiPath, string parameters, string payload)
         {
             Task<HttpResponseMessage> task = null;
             HttpClient client = getClient();
             HttpResponseMessage response = new HttpResponseMessage();
-            Uri uri;
+            Uri uri = getUri(apiPath);
             response = null;
             if (httpRequestMethod == "PUT")
             {
                 if (payload != "")
-                {
-
-                }
-
-            }
-            return response;
-        }
-        public HttpResponseMessage delete(string httpRequestMethod, string apiPath, string parameters, string body)
-        {
-            Task<HttpResponseMessage> task = null;
-            HttpClient client = getClient();
-            HttpResponseMessage response = new HttpResponseMessage();
-            Uri uri;
-            response = null;
-            if (httpRequestMethod == "DELETE")
-            {
-                if (body != "")
                 {
 
                 }
@@ -147,6 +145,14 @@ namespace rulesencyclopediaclient.Tools
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             }
+
+            if (httpRequestMethod == "DELETE")
+                request = new HttpRequestMessage 
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = uri,
+                };
+           
 
             var response = await client.SendAsync(request).ConfigureAwait(false);
 

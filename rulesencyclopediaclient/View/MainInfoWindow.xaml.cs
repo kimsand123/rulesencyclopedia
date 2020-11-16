@@ -14,6 +14,8 @@ using rulesencyclopediaclient.Model;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace rulesencyclopediaclient.View
 {
@@ -22,7 +24,9 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class MainInfoWindow : Page
     {
-        int chosenTocListId = 0;
+        SelectionChangedEventArgs savedGame;
+        int chosenTocId = -1;
+        int chosenEntryId = -1;
         CommunicationElements comElements = new CommunicationElements();
         public MainInfoWindow()
         {
@@ -48,26 +52,27 @@ namespace rulesencyclopediaclient.View
         
         private void GamesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            savedGame = e;
             List<EntryDTO> tocDTOList;
             ObservableCollection<TocListView> tocListView = new ObservableCollection<TocListView>();
             ObservableCollection<EntryListView> entryListView = new ObservableCollection<EntryListView>();
             GameView selectedGame = new GameView();
 
             selectedGame = (GameView)e.AddedItems[0];
+            
             this.TOCColLabel.Content = selectedGame.Name;
             //Get Tocs on the basis of the game
             List <TOCDTO> tocList;
             var response = comElements.get( "TOC", "", Convert.ToString(selectedGame.Id));
             if (response.StatusCode == HttpStatusCode.OK)
             {
-
                 var content = response.Content.ReadAsStringAsync();
                 tocList = JsonConvert.DeserializeObject<List<TOCDTO>>(content.Result);
                 if (tocList.Count!=0)
                 {
                     int tocListId = tocList[0].Id;
                     string body = "tocId=" + tocListId;
-                    response = comElements.get( "Entry",body, "");
+                    response = comElements.get( "Entry", body, "");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         TOCListBox.ItemsSource = tocListView;
@@ -81,7 +86,7 @@ namespace rulesencyclopediaclient.View
                         }
                     }
 
-                    chosenTocListId = tocListId;
+                    chosenTocId = tocListId;
                 }
                 else
                 {
@@ -89,7 +94,7 @@ namespace rulesencyclopediaclient.View
                     TOCListBox.Items.Clear();
                     entryListView.Clear();
                     EntryListBox.Items.Clear();
-                    chosenTocListId = 0;
+                    chosenTocId = 0;
                 }
 
             }
@@ -115,13 +120,45 @@ namespace rulesencyclopediaclient.View
 
         private void addRuleButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewRule popup = new AddNewRule(chosenTocListId);
+            AddNewRule popup = new AddNewRule(chosenTocId);
             popup.ShowDialog();
+            SelectionChangedEventArgs savedChoice=savedGame;
+            GamesListBox_OnSelectionChanged(this, savedChoice );
         }
 
         private void deleteRuleButton_Click(object sender, RoutedEventArgs e)
         {
+            
+            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+            DialogResult diagResult = MessageBox.Show("Are you sure you want to delete this rule ?", "Delete Rule", buttons, MessageBoxIcon.Warning);
+            if (diagResult == DialogResult.Yes)
+            {
+                System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+                int index = EntryListBox.Items.IndexOf(button.DataContext);
+                var listElement = EntryListBox.Items[index];
+                var chosenEntry = (EntryListView)listElement;
 
+                //Delete rule
+                var response = comElements.delete("Entry/"+chosenEntry.Id, "");
+                if (response.StatusCode == HttpStatusCode.NoContent) //NEEDS TO BE BETTER FEEDBACK FROM SERVICE
+                {
+                    buttons = MessageBoxButtons.OK;
+                    MessageBox.Show("Rule deleted", "Rule deleted", buttons);
+                };
+                SelectionChangedEventArgs savedChoice = savedGame;
+                GamesListBox_OnSelectionChanged(this, savedChoice);
+
+            } 
+
+        }
+
+        private void EntryListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (EntryListView)EntryListBox.SelectedItem;
+            if (item != null)
+            {
+                chosenEntryId = item.Id;
+            }
         }
     }
 }
