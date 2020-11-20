@@ -8,12 +8,8 @@ using Newtonsoft.Json;
 using rulesencyclopediaclient.Model.View;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Runtime.Remoting.Channels;
 using System.Net;
 using rulesencyclopediaclient.Model;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -63,7 +59,8 @@ namespace rulesencyclopediaclient.View
             this.TOCColLabel.Content = selectedGame.Name;
             //Get Tocs on the basis of the game
             List <TOCDTO> tocList;
-            var response = comElements.get( "TOC", "", Convert.ToString(selectedGame.Id));
+            var parameter = "gameId=" + Convert.ToString(selectedGame.Id);
+            var response = comElements.get( "TOC", parameter,"");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var content = response.Content.ReadAsStringAsync();
@@ -71,8 +68,9 @@ namespace rulesencyclopediaclient.View
                 if (tocList.Count!=0)
                 {
                     int tocListId = tocList[0].Id;
-                    string body = "tocId=" + tocListId;
-                    response = comElements.get( "Entry", body, "");
+                    string parameters = "tocId=" + tocListId;
+                    //Get the entries on the basis of the TOC
+                    response = comElements.get( "Entry", parameters, "");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         TOCListBox.ItemsSource = tocListView;
@@ -85,7 +83,6 @@ namespace rulesencyclopediaclient.View
                             entryListView.Add(new EntryListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline, Editor = entry.Editor, Type = entry.Type, Txt = entry.Text });
                         }
                     }
-
                     chosenTocId = tocListId;
                 }
                 else
@@ -96,10 +93,7 @@ namespace rulesencyclopediaclient.View
                     EntryListBox.Items.Clear();
                     chosenTocId = 0;
                 }
-
             }
-
-
         }
 
         private void OnPageLoad(object sender, System.Windows.RoutedEventArgs e)

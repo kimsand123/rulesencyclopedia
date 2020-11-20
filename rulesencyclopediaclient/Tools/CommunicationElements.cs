@@ -15,9 +15,12 @@ namespace rulesencyclopediaclient.Tools
     {
         public HttpClient getClient()
         {
-            WinHttpHandler handler = new WinHttpHandler();
+            //WinHttpHandler handler = new WinHttpHandler();
+            var handler = new HttpClientHandler();
+            
             var client = new HttpClient(handler);
-            //HttpClient client = new HttpClient();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+
             HttpRequestMessage requestMessage = new HttpRequestMessage();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

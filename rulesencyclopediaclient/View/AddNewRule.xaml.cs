@@ -26,6 +26,7 @@ namespace rulesencyclopediaclient.View
     public partial class AddNewRule : Window
     {
         CommunicationElements comElements = new CommunicationElements();
+        InterfaceAnimation interfaceAnim = new InterfaceAnimation();
         int tocListId;
         public AddNewRule(int tocListId)
         {
@@ -52,6 +53,33 @@ namespace rulesencyclopediaclient.View
                 MessageBox.Show("Rule has been added", "Rule Created", buttons);
             }
             this.Close();
+        }
+
+        private void txtBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "UP");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "UP");
+            }
+
+        }
+
+        private void txtBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "DOWN");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
+            }
         }
     }
 }

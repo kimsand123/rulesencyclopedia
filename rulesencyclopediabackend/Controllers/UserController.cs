@@ -10,7 +10,7 @@ namespace rulesencyclopediabackend.Controllers
     public class UserController : ApiController
     { 
         UserDAO dao = new UserDAO();
-        // GET api/users
+        // GET api/User
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -19,7 +19,7 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
-         // GET api/users/5
+         // GET api/User/5
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -28,7 +28,7 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
-        // Get api/users/username
+        // Get api/User?UserName="username"
         public HttpResponseMessage Get(string userName)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -43,7 +43,7 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
-        // POST api/users
+        // POST api/User
         public HttpResponseMessage Post([FromBody] User user)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -53,13 +53,13 @@ namespace rulesencyclopediabackend.Controllers
 
         }
 
-        // PUT api/users/5
+        // PUT api/User/5
         public void Put(int id, [FromBody] User user)
         {
             dao.editUser(id, user);
         }
 
-        // DELETE api/users/5
+        // DELETE api/User/5
         public void Delete(int id)
         {
             dao.deleteUser(id);

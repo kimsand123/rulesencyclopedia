@@ -14,7 +14,7 @@ namespace rulesencyclopediabackend.Controllers
         TOCDAO dao = new TOCDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/TOC
-        public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
+        public HttpResponseMessage GetTocsForGame([FromUri] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOCDTO> tocList = dao.getTOCList(gameId);
@@ -24,10 +24,10 @@ namespace rulesencyclopediabackend.Controllers
         }
 
         // GET: api/TOC/5
-        public HttpResponseMessage Get(int ID)
+        public HttpResponseMessage Get(int Id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            TOCDTO toc = dao.getTOC(ID);
+            TOCDTO toc = dao.getTOC(Id);
             response = Request.CreateResponse(HttpStatusCode.OK, toc);
             return response;
         }

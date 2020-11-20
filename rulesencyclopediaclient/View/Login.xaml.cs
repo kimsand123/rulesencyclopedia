@@ -9,6 +9,9 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
 using rulesencyclopediaclient.Pouch;
 using rulesencyclopediaclient.Tools;
+using System.Windows.Media.Effects;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace rulesencyclopediaclient.View
 {
@@ -18,6 +21,7 @@ namespace rulesencyclopediaclient.View
     public partial class Login : Page
     {
         CommunicationElements comElements = new CommunicationElements();
+        InterfaceAnimation interfaceAnim = new InterfaceAnimation();
 
         public Login()
         {
@@ -32,14 +36,15 @@ namespace rulesencyclopediaclient.View
             string password = this.passwordBox.Password.ToString();
 
             //TODO: Check for business rules concerning username and password.
-            HttpClient client = comElements.getClient();
+            //HttpClient client = comElements.getClient();
             //setting address and port for the service.
-            UriBuilder uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/Login");
+            //UriBuilder uriBuilder = new UriBuilder("https://" + SettingsAndData.Instance.apiAddress + ":" + SettingsAndData.Instance.portNr + "/api/Login");
             //send values to api/login as parameters;
-            uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
+            //uriBuilder.Query = "UserName=" + userName + "&Password=" + password;
             //recieve token
-            
-            var response = client.GetAsync(uriBuilder.Uri).Result;
+
+            var response = comElements.get("Login", "UserName=" + userName + "&Password=" + password,"");
+            //var response = client.GetAsync(uriBuilder.Uri).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
@@ -70,6 +75,32 @@ namespace rulesencyclopediaclient.View
             if (e.Key==System.Windows.Input.Key.Return || e.Key==Key.Enter)
             {
                 Login_ClickAsync(this, z);
+            }
+        }
+
+        private void txtBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "UP");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "UP");
+            }
+        }
+
+        private void txtBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "DOWN");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
             }
         }
     }

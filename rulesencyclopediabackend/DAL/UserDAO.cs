@@ -84,7 +84,7 @@ namespace rulesencyclopediabackend
             string password = user.Password;
             string salt = pwSecurity.getSalt();
             string saltedPassword = pwSecurity.GenerateHash(password, salt, 0);
-            password = "";
+            password = "";  //ERASING IT FROM MEMORY
             user.Password = saltedPassword;
             user.Salt = salt;
 

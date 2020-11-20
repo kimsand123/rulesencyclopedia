@@ -99,6 +99,7 @@
     <Compile Include="Singletons\MainWindowState.cs" />
     <Compile Include="Singletons\SettingsAndData.cs" />
     <Compile Include="Tools\CommunicationElements.cs" />
+    <Compile Include="Tools\InterfaceAnimation.cs" />
     <Compile Include="View\AddNewRule.xaml.cs">
       <DependentUpon>AddNewRule.xaml</DependentUpon>
     </Compile>

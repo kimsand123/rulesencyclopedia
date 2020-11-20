@@ -7,22 +7,22 @@
         mc:Ignorable="d"
         Title="Add a new rule" Height="785.153" Width="636.093">
     <Grid>
-        <Button x:Name="addRuleButton" Content="Add Rule" HorizontalAlignment="Left" Height="30" Margin="533,707,0,0" VerticalAlignment="Top" Width="80" TabIndex="6" Click="addRuleButton_Click">
+        <Button x:Name="addRuleButton" Content="Add Rule" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" Margin="552,707,0,0" VerticalAlignment="Top" Width="61" TabIndex="6" Click="addRuleButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBox x:Name="paragraphNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="465,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" TabIndex="4"/>
-        <TextBox x:Name="ruleTextBox" HorizontalAlignment="Left" Height="510" Margin="14,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="599" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" TabIndex="5"/>
-        <TextBox x:Name="editorTextBox" HorizontalAlignment="Left" Height="30" Margin="19,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" TabIndex="1"/>
-        <TextBox x:Name="revisionTextBox" HorizontalAlignment="Left" Height="30" Margin="187,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" TabIndex="2"/>
+        <TextBox x:Name="paragraphNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="465,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" TabIndex="4" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+        <TextBox x:Name="ruleTextBox" HorizontalAlignment="Left" Height="510" Margin="14,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="599" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" TabIndex="5" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus" />
+        <TextBox x:Name="editorTextBox" HorizontalAlignment="Left" Height="30" Margin="19,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" TabIndex="1" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+        <TextBox x:Name="revisionTextBox" HorizontalAlignment="Left" Height="30" Margin="187,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" TabIndex="2" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
         <Label x:Name="paragraphNumberLabel" Content="Paragraph number" HorizontalAlignment="Left" Margin="465,81,0,0" VerticalAlignment="Top" Width="141"/>
         <Label x:Name="ruleTextLabel" Content="Rule Text" HorizontalAlignment="Left" Margin="14,144,0,0" VerticalAlignment="Top" Width="141"/>
         <Label x:Name="authorLabel" Content="Editor" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" Width="57" Height="23"/>
         <Label x:Name="revisionLabel" Content="Revision" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Width="57" Height="23" RenderTransformOrigin="-0.175,0.573"/>
-        <TextBox x:Name="headlineTextBox" HorizontalAlignment="Left" Height="30" Margin="14,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="446" TabIndex="3"/>
+        <TextBox x:Name="headlineTextBox" HorizontalAlignment="Left" Height="30" Margin="14,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="446" TabIndex="3" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
         <Label x:Name="paragraphNumberLabel_Copy" Content="Headline" HorizontalAlignment="Left" Margin="14,78,0,0" VerticalAlignment="Top" Width="141"/>
 
     </Grid>

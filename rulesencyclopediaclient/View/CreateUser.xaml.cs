@@ -17,6 +17,7 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class CreateUser : Page
     {
+        InterfaceAnimation interfaceAnim = new InterfaceAnimation();
         public CreateUser()
         {
             InitializeComponent();
@@ -30,13 +31,11 @@ namespace rulesencyclopediaclient.View
 
             //Start process by asking the backend if the username already exists.
 
-            //Get the client
             CommunicationElements comElements = new CommunicationElements();
-            HttpClient client = comElements.getClient();
-            //Get the URI for the proper endpoint with query.
-            Uri uri = comElements.getUri("User", "UserName=" + userName);
-            //make the Http request and recieve the reponse.
-            var response = client.GetAsync(uri).Result;
+            // make the Http request and recieve the reponse.
+
+            var response = comElements.get("User", "UserName=" + userName, "");
+
                 // if username already exists
                 if (response.StatusCode == System.Net.HttpStatusCode.Found)
                 {
@@ -50,22 +49,23 @@ namespace rulesencyclopediaclient.View
                 {
                     //If username is not in use create a new UserDTO object
                    UserDTO user = new UserDTO();
-                    user.FirstName = this.txtBoxFirstName.Text;
-                    user.MiddleName = this.txtBoxMiddleName.Text;
-                    user.LastName = this.txtBoxLastName.Text;
-                    user.UserName = this.txtBoxUserName.Text;
-                    user.Password = this.pswBoxPassword.Password.ToString();
-                    user.Date = DateTime.Now; 
+                   user.FirstName = this.txtBoxFirstName.Text;
+                   user.MiddleName = this.txtBoxMiddleName.Text;
+                   user.LastName = this.txtBoxLastName.Text;
+                   user.UserName = this.txtBoxUserName.Text;
+                   user.Password = this.pswBoxPassword.Password.ToString();
+                   user.Date = DateTime.Now; 
 
-                    uri = comElements.getUri("User");
-                    //Make post request, with user as body
-                    //TODO: Exception handling.
-                    var result = client.PostAsJsonAsync(uri, user).Result;
-                    MessageBoxButtons buttons = MessageBoxButtons.OK;
-                    MessageBox.Show("User Created", "User Created", buttons);
-                    //Change to login window
-                    MainWindowState.Instance.changeMenuState("login");
-                    MainWindowState.Instance.changePageInFrame(new Login());
+                   //uri = comElements.getUri("User");
+                   //Make post request, with user as body
+                   //TODO: Exception handling.
+                   response = comElements.post("User", user);
+                   //var result = client.PostAsJsonAsync(uri, user).Result
+                   MessageBoxButtons buttons = MessageBoxButtons.OK;
+                   MessageBox.Show("User Created", "User Created", buttons);
+                   //Change to login window
+                   MainWindowState.Instance.changeMenuState("login");
+                   MainWindowState.Instance.changePageInFrame(new Login());
                 }
             }           
         }
@@ -83,6 +83,33 @@ namespace rulesencyclopediaclient.View
                 return false;
             }
             return true;
+        }
+
+        private void txtBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "UP");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "UP");
+            }
+
+        }
+
+        private void txtBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.TextBox, "DOWN");
+            }
+
+            if (sender is PasswordBox)
+            {
+                interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
+            }
         }
     }
 }
