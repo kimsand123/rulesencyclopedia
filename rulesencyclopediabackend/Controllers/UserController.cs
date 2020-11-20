@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
+using rulesencyclopediabackend.Auth;
+using rulesencyclopediabackend.Exceptions;
 
 namespace rulesencyclopediabackend.Controllers
 {
@@ -15,16 +17,31 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<User> userList = dao.getUserList();
-            response = Request.CreateResponse(HttpStatusCode.OK, userList);
+            if (userList != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, userList);
+            } else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Userlist not found");
+            }
             return response;
         }
 
-         // GET api/User/5
+        // GET api/User/
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             User user = dao.getUser(id);
-            response = Request.CreateResponse(HttpStatusCode.OK, user);
+            //response = controlExcptHand.getResponseMessage(user);
+            if (user != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, user);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "User not found");
+            }
+            
             return response;
         }
 
@@ -48,21 +65,42 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             int id = dao.postUser(user);
-            response = Request.CreateResponse(HttpStatusCode.Created, "/api/User/"+id);
-            return response;
-
+            if (id != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.Created, "/api/User/" + id);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when creating user " + user.UserName);
+            }
         }
 
         // PUT api/User/5
-        public void Put(int id, [FromBody] User user)
+        [BasicAuthentication]
+        public HttpResponseMessage Put(int id, [FromBody] User user)
         {
-            dao.editUser(id, user);
+            var result = dao.editUser(id, user);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "User " + user.UserName + " has been edited");
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when editing user " + user.UserName);
+            }
         }
 
         // DELETE api/User/5
-        public void Delete(int id)
+        [BasicAuthentication]
+        public HttpResponseMessage Delete(int id)
         {
-            dao.deleteUser(id);
+            var result = dao.deleteUser(id);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "User is deleted");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when deleting user");
+            }
         }
     }
 }

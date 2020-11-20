@@ -80,7 +80,7 @@ namespace rulesencyclopediabackend
         internal int postUser(User user)
         {
             HashAndSalt pwSecurity = new HashAndSalt();
-            User result = null;
+            int result=-999999;
             string password = user.Password;
             string salt = pwSecurity.getSalt();
             string saltedPassword = pwSecurity.GenerateHash(password, salt, 0);
@@ -93,32 +93,39 @@ namespace rulesencyclopediabackend
                 var context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    result = context.User.Add(user);
-                    context.SaveChanges();
+                    context.User.Add(user);
+                    result = context.SaveChanges();
                 }
             } catch (DbEntityValidationException ex)
             {
             }
-            return result.Id;
+            return result;
         }
 
-        internal void editUser(int ID, User alteredUser)
+        internal int editUser(int ID, User alteredUser)
         {
-            var context = new rulesencyclopediaDBEntities1();
+            int result = -999999;
+            var context = new rulesencyclopediaDBEntities1();           
+            var user = context.User.First(a => a.Id == ID);
+            user.FirstName = alteredUser.FirstName;
+            user.MiddleName = alteredUser.MiddleName;
+            user.LastName = alteredUser.LastName;
+            user.UserName = alteredUser.UserName;
+            user.Password = alteredUser.Password;
+            user.Date = alteredUser.Date;
+            try
             {
-                var user = context.User.First(a => a.Id == ID);
-                user.FirstName = alteredUser.FirstName;
-                user.MiddleName = alteredUser.MiddleName;
-                user.LastName = alteredUser.LastName;
-                user.UserName = alteredUser.UserName;
-                user.Password = alteredUser.Password;
-                user.Date = alteredUser.Date;
-                context.SaveChanges();
+                result = context.SaveChanges();
+            } catch (EntityException e)
+            {
+                //needs to test errors
             }
+            return result;
         }
 
-        internal void deleteUser(int ID)
+        internal int deleteUser(int ID)
         {
+            int result = -999999;
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
@@ -126,12 +133,13 @@ namespace rulesencyclopediabackend
                     var user = new User { Id = ID };
                     context.User.Attach(user);
                     context.User.Remove(user);
-                    context.SaveChanges();
+                    result = context.SaveChanges();
                 }
             }catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong while deleting the user");
             }
+            return result;
         }
 
         internal string getUserFromLogin(string userName, string password)
@@ -139,14 +147,21 @@ namespace rulesencyclopediabackend
             User user = null;
             UserDTO userDto = null;
             TokenDTO token = new TokenDTO();
+            token.token = "";
+
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
                 user = context.User.Single(element => element.UserName == userName && element.Password==password);
                 if (user != null)
                 {
+                    //Using DTOConverter to convert entity return object to dto.
                     userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
                     token = CheckToken.Instance.userLogin(userDto);
+                }
+                else
+                {
+                    //exception handling...
                 }
             }
             catch (EntityException ex)
@@ -155,7 +170,7 @@ namespace rulesencyclopediabackend
             } 
             catch(InvalidOperationException ex)
             {
-                token.token="";
+
             }
             return token.token;
         }

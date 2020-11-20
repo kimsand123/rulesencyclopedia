@@ -6,6 +6,7 @@ using System.Net;
 using System.Configuration;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
+using rulesencyclopediabackend.Auth;
 
 namespace rulesencyclopediabackend.Controllers
 {   
@@ -14,41 +15,75 @@ namespace rulesencyclopediabackend.Controllers
         EntryDAO dao = new EntryDAO();
 
         ConvertToDTO DTOConverter = new ConvertToDTO();
+        [BasicAuthentication]
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             List<EntryDTO> entryList = dao.getEntriesForToc(tocId);
-            response = Request.CreateResponse(HttpStatusCode.OK, entryList);
-            return response;
+            if (entryList != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, entryList);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
         }
 
 
         // GET: api/Entry/5
+        [BasicAuthentication]
         public HttpResponseMessage Get(int ID)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             EntryDTO entry = dao.getEntry(ID);
-            EntryDTO entryDTO = null;
-            response = Request.CreateResponse(HttpStatusCode.OK, entry);
-            return response;
+            if (entry != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, entry);
+            }else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
         }
 
         // POST: api/Entry
-        public void Post([FromBody]Entry entry)
+        [BasicAuthentication]
+        public HttpResponseMessage Post([FromBody]Entry entry)
         {
-            dao.postEntry(entry);
+            var result = dao.postEntry(entry);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.Created, "/api/Entry/" + result);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when creating entry");
+            }
+
         }
 
         // PUT: api/Entry/5
-        public void Put(int id, [FromBody]Entry entry)
+        [BasicAuthentication]
+        public HttpResponseMessage Put(int id, [FromBody]Entry entry)
         {
-            dao.editEntry(id, entry);
+            var result = dao.editEntry(id, entry);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "/api/Entry/" + id);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when editing entry");
+            }
         }
 
         // DELETE: api/Entry/5
-        public void Delete(int id)
+        [BasicAuthentication]
+        public HttpResponseMessage Delete(int id)
         {
-            dao.deleteEntry(id);
+            var result = dao.deleteEntry(id);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Entry is deleted");
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when deleting entry");
+            }
         }
     }
 }

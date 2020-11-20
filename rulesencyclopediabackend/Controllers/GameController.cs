@@ -21,6 +21,7 @@ namespace rulesencyclopediabackend.Controllers
     public class GameController : ApiController
     {
         ExceptionHandling exHandler = new ExceptionHandling();
+
         GameDAO dao = new GameDAO();
 
         ConvertToDTO DTOConverter = new ConvertToDTO();
@@ -30,11 +31,13 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<GameDTO> gameList = dao.getGameList();
-            response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
+            //response = controlExcptHand.getResponseMessage(gameList);
+            //response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
             return response;
         }
 
         // GET: api/Game/5
+        [BasicAuthentication]
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -43,18 +46,21 @@ namespace rulesencyclopediabackend.Controllers
         }
 
         // POST: api/Game
+        [BasicAuthentication]
         public void Post([FromBody]Game game)
         {
             dao.postGame(game);
         }
 
         // PUT: api/Game/5
+        [BasicAuthentication]
         public void Put(int id, [FromBody]Game game)
         {
             dao.editGame(id, game);
         }
 
         // DELETE: api/Game/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
             dao.deleteGame(id);

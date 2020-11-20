@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using rulesencyclopediabackend.Auth;
 using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
@@ -14,6 +15,7 @@ namespace rulesencyclopediabackend.Controllers
         TOCDAO dao = new TOCDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/TOC
+        [BasicAuthentication]
         public HttpResponseMessage GetTocsForGame([FromUri] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -23,7 +25,7 @@ namespace rulesencyclopediabackend.Controllers
             
         }
 
-        // GET: api/TOC/5
+        [BasicAuthentication]
         public HttpResponseMessage Get(int Id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -31,22 +33,25 @@ namespace rulesencyclopediabackend.Controllers
             response = Request.CreateResponse(HttpStatusCode.OK, toc);
             return response;
         }
-            
-        
+
+
 
         // POST: api/TOC
+        [BasicAuthentication]
         public void Post([FromBody] TOC toc)
         {
             dao.postTOC(toc);
         }
 
         // PUT: api/TOC/5
+        [BasicAuthentication]
         public void Put(int id, [FromBody] TOC toc)
         {
             dao.editTOC(id, toc);
         }
 
         // DELETE: api/TOC/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
             dao.deleteTOC(id);

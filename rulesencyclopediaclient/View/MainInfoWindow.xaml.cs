@@ -32,8 +32,9 @@ namespace rulesencyclopediaclient.View
             HttpClient client = comElements.getClient();
             //setting address and port for the service.
             Uri uri = comElements.getUri("Game");
-            var response = client.GetAsync(uri).Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            var response = comElements.get("Game","","");
+            //var response = client.GetAsync(uri).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 ObservableCollection<GameView> gameListView = new ObservableCollection<GameView>();
                 GamesListBox.ItemsSource = gameListView;

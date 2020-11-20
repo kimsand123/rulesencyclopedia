@@ -1,4 +1,5 @@
-﻿using rulesencyclopediabackend.Models;
+﻿using rulesencyclopediabackend.Auth;
+using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;

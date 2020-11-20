@@ -23,11 +23,13 @@ namespace rulesencyclopediabackend.Controllers
             HttpResponseMessage response = new HttpResponseMessage();
             FullGameDTO fullGame = new FullGameDTO();
             fullGame = getTheGame.getTheGame(id);
+
             response = Request.CreateResponse(HttpStatusCode.OK, fullGame);
             return response;
         }
 
         // DELETE: api/GetFullGame/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
         }
