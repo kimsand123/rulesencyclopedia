@@ -81,5 +81,10 @@ namespace rulesencyclopediaclient.View
                 interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
             }
         }
+
+        private void paragraphNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
