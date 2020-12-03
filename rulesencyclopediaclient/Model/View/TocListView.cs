@@ -1,20 +1,15 @@
 ﻿using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace rulesencyclopediaclient.Model.View
 {
-    class TocListView : INotifyPropertyChanged
+    public class TocListView : INotifyPropertyChanged
     {
-        public int _Id;
-        public string _ParagraphNumber;
-        public string _Headline;
-        public string _Revision;
+        private int _Id;
+        private string _ParagraphNumber;
+        private string _Headline;
+        private string _Revision;
 
         public int Id
         {

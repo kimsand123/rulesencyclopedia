@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:rulesencyclopediaclient.View"
         mc:Ignorable="d"
         Title="Add a new rule" Height="785.153" Width="636.093">
+
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
     <Grid>
         <Button x:Name="addRuleButton" Content="Add Rule" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" Margin="552,707,0,0" VerticalAlignment="Top" Width="61" TabIndex="6" Click="addRuleButton_Click">
             <Button.Resources>
@@ -13,6 +17,9 @@
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
         </Button>
         <TextBox x:Name="paragraphNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="465,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" TabIndex="4" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
         <TextBox x:Name="ruleTextBox" HorizontalAlignment="Left" Height="510" Margin="14,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="599" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" TabIndex="5" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus" />

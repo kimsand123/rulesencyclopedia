@@ -8,6 +8,9 @@
       Title="MainInfoWindow" 
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch">
+    <Page.Effect>
+        <DropShadowEffect/>
+    </Page.Effect>
 
     <Grid>
         <Grid HorizontalAlignment="Stretch"  Margin="10,10,10,10" VerticalAlignment="Stretch">
@@ -20,9 +23,9 @@
                 <ColumnDefinition Width="235*"/>
                 <ColumnDefinition Width="637*"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="GamesColumnLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Games" Margin="10,3,12.4,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="120" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="0"/>
-            <Label x:Name="TOCColLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Table of Content" Margin="9.6,3,9.8,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="215" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label x:Name="RulesColumnLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Rules" Margin="10.2,3,10.4,6.8" Background="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="617" FontWeight="Bold" FontSize="22" HorizontalAlignment="Left" Grid.Column="2"/>
+            <Label x:Name="GamesColumnLabel" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Games" Margin="10,3,12.4,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="120" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Grid.Column="0"/>
+            <Label x:Name="TOCColLabel" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Table of Content" Margin="9.6,3,9.8,6.8" Background ="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="215" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label x:Name="RulesColumnLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Rules" Margin="10.2,3,10.4,6.8" Background="Beige" Opacity=".8" VerticalAlignment="Center" Height="35" Width="617" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Grid.Column="2"/>
             <Button Name="addRuleButton" Content="Add Rule" Width="60" Height="20" HorizontalAlignment="Right" Click="addRuleButton_Click" Grid.Column="2">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -61,9 +64,11 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize ="1" Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}" HorizontalAlignment="Left" /></TextBlock>
-                                <TextBlock Text="  "/>
-                                <TextBlock Text="Editor: "><TextBlock Text="{Binding Path=Editor}" HorizontalAlignment="Left" /></TextBlock>
+                                <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}" HorizontalAlignment="Left" />
+                                    <TextBlock Text="Editor: "><TextBlock Text="{Binding Path=Editor}" HorizontalAlignment="Left" />
+                                    </TextBlock>
+                                </TextBlock>
+                                
                                 <TextBlock Text="  "/>
                                 <Button Name="editRuleButton" Content="Edit Rule" Width="60" Height="20" HorizontalAlignment="Right" Click="editButton_Click">
                                     <Button.Resources>
@@ -84,7 +89,10 @@
 
                             </StackPanel>
                             <TextBlock></TextBlock>
-                            <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}"/>
+                            <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}" >
+                                <TextBlock Text="  "></TextBlock>
+                                <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=Headline}"></TextBlock>
+                            </TextBlock>
                             <TextBlock FontSize="15" HorizontalAlignment="Stretch" Text="{Binding Path=Txt}"/>
                         </StackPanel>
                     </DataTemplate>

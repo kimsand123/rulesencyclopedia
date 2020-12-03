@@ -32,7 +32,7 @@ namespace rulesencyclopediabackend.Controllers
             HttpResponseMessage response = new HttpResponseMessage();
             List<GameDTO> gameList = dao.getGameList();
             //response = controlExcptHand.getResponseMessage(gameList);
-            //response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
+            response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
             return response;
         }
 

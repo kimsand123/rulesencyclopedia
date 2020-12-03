@@ -60,12 +60,12 @@ namespace rulesencyclopediabackend.Controllers
 
         // PUT: api/Entry/5
         [BasicAuthentication]
-        public HttpResponseMessage Put(int id, [FromBody]Entry entry)
+        public HttpResponseMessage Put([FromBody]EntryDTO entry)
         {
-            var result = dao.editEntry(id, entry);
+            var result = dao.editEntry(entry);
             if (result != -999999)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, "/api/Entry/" + id);
+                return Request.CreateResponse(HttpStatusCode.OK, "/api/Entry/" + entry.Id);
             } else
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when editing entry");

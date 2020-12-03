@@ -4,12 +4,12 @@ using System.Runtime.CompilerServices;
 
 namespace rulesencyclopediaclient.Model.View
 {
-    class GameView : INotifyPropertyChanged
+    public class GameView : INotifyPropertyChanged
     {
-        public int _Id;
-        public string _Name;
-        public string _Company;
-        public string _Revision;
+        private int _Id;
+        private string _Name;
+        private string _Company;
+        private string _Revision;
 
         public int Id
         {

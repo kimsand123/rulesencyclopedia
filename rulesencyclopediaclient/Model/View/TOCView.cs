@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace rulesencyclopediaclient.Model.View
 {
-    class TOCView : INotifyPropertyChanged
+    public class TOCView : INotifyPropertyChanged
     {
-        public int _Id;
-        public string _Text;
-        public string _Revision;
+        private int _Id;
+        private string _Text;
+        private string _Revision;
 
         public int Id
         {

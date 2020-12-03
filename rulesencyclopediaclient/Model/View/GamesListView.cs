@@ -1,15 +1,11 @@
 ﻿using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace rulesencyclopediaclient.Model.View
 {
-    class GamesListView : INotifyPropertyChanged
+    public class GamesListView : INotifyPropertyChanged
     {
         private List<GameView> _gamesList;
         public List<GameView> gamesList 

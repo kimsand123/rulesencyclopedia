@@ -121,12 +121,12 @@ namespace rulesencyclopediabackend.Controllers
             return result;
         }
 
-        internal int editEntry(int ID, Entry alteredEntry)
+        internal int editEntry(EntryDTO alteredEntry)
         {
             var context = new rulesencyclopediaDBEntities1();
             int result = -999999;
             {
-                var entry = context.Entry.First(a => a.Id == ID);
+                var entry = context.Entry.First(a => a.Id == alteredEntry.Id);
                 entry.ParagraphNumber = alteredEntry.ParagraphNumber;
                 entry.Headline = alteredEntry.Headline;
                 entry.Text = alteredEntry.Text;

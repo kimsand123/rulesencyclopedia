@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:rulesencyclopediaclient.View"
       mc:Ignorable="d"
-      Title="CreateUser" Height="249.2" Width="422.4">
+      Title="CreateUser" Height="249.2" Width="422.4" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="White">
 
     <Grid>
         <Label x:Name="labelFirstName" Content="First name" HorizontalAlignment="Left" Margin="42,34,0,0" VerticalAlignment="Top" Height="24" Width="110"/>

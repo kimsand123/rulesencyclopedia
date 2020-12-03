@@ -88,34 +88,24 @@ namespace rulesencyclopediaclient.Tools
         public HttpResponseMessage delete(string apiPath, string parameters)
         {
             Task<HttpResponseMessage> task;
-            HttpRequestMessage request;
             HttpClient client = getClient();
-            Uri uri = getUri(apiPath);
-            
-            request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Delete,
-                RequestUri = uri,
-            };
+            Uri uri = getUri(apiPath, parameters);
             task = getResponseAsync("DELETE", client, uri);
             return task.Result;
         }
-        public HttpResponseMessage put(string httpRequestMethod, string apiPath, string parameters, string payload)
+        public HttpResponseMessage put(string apiPath, string parameters, object payload)
         {
-            Task<HttpResponseMessage> task = null;
+            Task<HttpResponseMessage> task=null;
+            //Getting the client and apiPath
             HttpClient client = getClient();
-            HttpResponseMessage response = new HttpResponseMessage();
             Uri uri = getUri(apiPath);
-            response = null;
-            if (httpRequestMethod == "PUT")
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            if (payload != null)
             {
-                if (payload != "")
-                {
-
-                }
-
+                task = getResponseAsync("PUT", client, uri, "", payload);
             }
-            return response;
+            return task.Result;
         }
 
         private async Task<HttpResponseMessage> getResponseAsync(string httpRequestMethod, HttpClient client, Uri uri, string body = "", object payload=null)
@@ -156,6 +146,17 @@ namespace rulesencyclopediaclient.Tools
                     RequestUri = uri,
                 };
            
+            if (httpRequestMethod == "PUT") 
+            { 
+                string payloadString = JsonConvert.SerializeObject(payload);
+                request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = uri,
+                    Content = new StringContent(payloadString)
+                };
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            }
 
             var response = await client.SendAsync(request).ConfigureAwait(false);
 

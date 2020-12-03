@@ -54,7 +54,7 @@ namespace rulesencyclopediaclient.Tools
                                 AutoReverse = true
                             };
                 */
-                DropShadowEffect dropShadowEffect = new DropShadowEffect();
+            DropShadowEffect dropShadowEffect = new DropShadowEffect();
 
             dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
                                             animateOpacity);
@@ -63,8 +63,35 @@ namespace rulesencyclopediaclient.Tools
 
         }
 
-        public void animateButton(Button button)
+        public void animateButton(Button button, string upDown)
         {
+            TimeSpan duration = TimeSpan.FromMilliseconds(1000);
+            DoubleAnimation animateOpacity = null;
+            if (upDown == "UP")
+            {
+                animateOpacity = new DoubleAnimation()
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = duration,
+                };
+            }
+            else
+            {
+                animateOpacity = new DoubleAnimation()
+                {
+                    From = 1,
+                    To = 0,
+                    Duration = duration,
+                };
+            }
+
+            DropShadowEffect dropShadowEffect = new DropShadowEffect();
+            dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
+                                animateOpacity);
+
+            button.Effect = dropShadowEffect;
+
 
         }
     }

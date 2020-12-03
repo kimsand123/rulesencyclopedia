@@ -27,7 +27,7 @@ namespace rulesencyclopediaclient.View
     {
         CommunicationElements comElements = new CommunicationElements();
         InterfaceAnimation interfaceAnim = new InterfaceAnimation();
-        int tocListId;
+        private int tocListId;
         public AddNewRule(int tocListId)
         {
             InitializeComponent();
