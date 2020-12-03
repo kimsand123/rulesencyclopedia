@@ -4,6 +4,7 @@
     <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="rulesencyclopediaDBModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -30,7 +31,7 @@
           <ScalarProperty Name="Editor" ColumnName="Editor" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
           <ScalarProperty Name="ParagraphNumber" ColumnName="ParagraphNumber" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -52,7 +53,7 @@
         <MappingFragment StoreEntitySet="TOC">
           <ScalarProperty Name="Games" ColumnName="Games" />
           <ScalarProperty Name="Editor" ColumnName="Editor" />
-          <ScalarProperty Name="Revisions" ColumnName="Revisions" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
           <ScalarProperty Name="Text" ColumnName="Text" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

@@ -16,7 +16,7 @@ namespace rulesencyclopediabackend.Tools
         {
             List<PropertyInfo> objDTOProperties = fillObjectPropertiesList(objDTO);
             List<PropertyInfo> obj2Properties = fillObjectPropertiesList(obj2);
-
+           // Does  not work Type returnType = objDTO.GetType();
             for (int i = 0; i < objDTOProperties.Count; i++)
             {
                 for (int j = 0; j < obj2Properties.Count; j++)

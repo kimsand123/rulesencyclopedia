@@ -21,27 +21,15 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-                FullGameDTO fullGame = new FullGameDTO();
+            FullGameDTO fullGame = new FullGameDTO();
+            fullGame = getTheGame.getTheGame(id);
 
-                fullGame = getTheGame.getTheGame(id);
-            try
-            {
-                string responseJson = JsonConvert.SerializeObject(fullGame);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }
-            catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
+            response = Request.CreateResponse(HttpStatusCode.OK, fullGame);
             return response;
         }
 
         // DELETE: api/GetFullGame/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
         }

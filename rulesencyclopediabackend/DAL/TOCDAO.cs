@@ -80,7 +80,7 @@ namespace rulesencyclopediabackend.DAL
             {
                 var toc = context.TOC.First(a => a.Id == ID);
                 toc.Text = alteredTOC.Text;
-                toc.Revisions = alteredTOC.Revisions;
+                toc.Revision = alteredTOC.Revision;
                 toc.Editor = alteredTOC.Editor;
                 context.SaveChanges();
             }

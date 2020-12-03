@@ -24,8 +24,9 @@
     <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Salt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Rules">
     <Key>
@@ -41,7 +42,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ParagraphNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Revision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="Int32" Nullable="false" />
     <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -56,7 +57,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Revision" Type="Int32" Nullable="false" />
+    <Property Name="Revision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="TOC" Relationship="rulesencyclopediaDBModel.FK__TOC__Games__628FA481" FromRole="Game" ToRole="TOC" />
   </EntityType>
@@ -66,7 +67,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Revisions" Type="Int32" Nullable="false" />
+    <Property Name="Revision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Games" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Entry" Relationship="rulesencyclopediaDBModel.FK__Entry__TOC__619B8048" FromRole="TOC" ToRole="Entry" />

@@ -22,7 +22,7 @@ namespace rulesencyclopediabackend
     
         public int Id { get; set; }
         public string Text { get; set; }
-        public int Revisions { get; set; }
+        public string Revision { get; set; }
         public string Editor { get; set; }
         public int Games { get; set; }
     

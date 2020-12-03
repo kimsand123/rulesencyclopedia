@@ -1,10 +1,13 @@
-﻿using rulesencyclopediabackend.Exceptions;
+﻿using MySqlX.XDevAPI.Common;
+using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity.Core;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
@@ -37,6 +40,27 @@ namespace rulesencyclopediabackend
             return userList;
         }
 
+        internal User checkUserName(string userName)
+        {
+            User user = null;
+            try
+            {
+                var context = new rulesencyclopediaDBEntities1();
+                {
+                    user = context.User.Single(element => element.UserName == userName);
+                }
+            } catch (EntityException ex)
+            { 
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when checking the username");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
         internal User getUser(int ID)
         {
             User user=null;
@@ -53,39 +77,55 @@ namespace rulesencyclopediabackend
             return user;
         }
 
-        internal void postUser(User user)
+        internal int postUser(User user)
         {
+            HashAndSalt pwSecurity = new HashAndSalt();
+            int result=-999999;
+            string password = user.Password;
+            string salt = pwSecurity.getSalt();
+            string saltedPassword = pwSecurity.GenerateHash(password, salt, 0);
+            password = "";  //ERASING IT FROM MEMORY
+            user.Password = saltedPassword;
+            user.Salt = salt;
+
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    User result = context.User.Add(user);
-                    context.SaveChanges();
+                    context.User.Add(user);
+                    result = context.SaveChanges();
                 }
-            } catch (EntityException ex)
+            } catch (DbEntityValidationException ex)
             {
-                exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new user");
             }
+            return result;
         }
 
-        internal void editUser(int ID, User alteredUser)
+        internal int editUser(int ID, User alteredUser)
         {
-            var context = new rulesencyclopediaDBEntities1();
+            int result = -999999;
+            var context = new rulesencyclopediaDBEntities1();           
+            var user = context.User.First(a => a.Id == ID);
+            user.FirstName = alteredUser.FirstName;
+            user.MiddleName = alteredUser.MiddleName;
+            user.LastName = alteredUser.LastName;
+            user.UserName = alteredUser.UserName;
+            user.Password = alteredUser.Password;
+            user.Date = alteredUser.Date;
+            try
             {
-                var user = context.User.First(a => a.Id == ID);
-                user.FirstName = alteredUser.FirstName;
-                user.MiddleName = alteredUser.MiddleName;
-                user.LastName = alteredUser.LastName;
-                user.UserName = alteredUser.UserName;
-                user.Password = alteredUser.Password;
-                user.Date = alteredUser.Date;
-                context.SaveChanges();
+                result = context.SaveChanges();
+            } catch (EntityException e)
+            {
+                //needs to test errors
             }
+            return result;
         }
 
-        internal void deleteUser(int ID)
+        internal int deleteUser(int ID)
         {
+            int result = -999999;
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
@@ -93,35 +133,44 @@ namespace rulesencyclopediabackend
                     var user = new User { Id = ID };
                     context.User.Attach(user);
                     context.User.Remove(user);
-                    context.SaveChanges();
+                    result = context.SaveChanges();
                 }
             }catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong while deleting the user");
             }
+            return result;
         }
 
         internal string getUserFromLogin(string userName, string password)
         {
             User user = null;
             UserDTO userDto = null;
-            TokenDTO token = null;
+            TokenDTO token = new TokenDTO();
+            token.token = "";
+
             try
             {
                 var context = new rulesencyclopediaDBEntities1();
+                user = context.User.Single(element => element.UserName == userName && element.Password==password);
+                if (user != null)
                 {
-                    user = context.User.Single(element => element.UserName == userName && element.Password==password);
+                    //Using DTOConverter to convert entity return object to dto.
+                    userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+                    token = CheckToken.Instance.userLogin(userDto);
+                }
+                else
+                {
+                    //exception handling...
                 }
             }
             catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "something went wrong when getting user");
-            }
-
-            if (user!= null)
+            } 
+            catch(InvalidOperationException ex)
             {
-                userDto = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
-                token = CheckToken.Instance.userLogin(userDto);
+
             }
             return token.token;
         }
