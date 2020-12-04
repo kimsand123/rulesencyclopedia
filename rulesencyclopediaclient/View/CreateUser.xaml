@@ -5,28 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:rulesencyclopediaclient.View"
       mc:Ignorable="d"
-      Title="CreateUser" Height="249.2" Width="422.4" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="White">
+      Title="Create User" Height="249.2" Width="422.4" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    
+    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" Padding="4">
 
-    <Grid>
-        <Label x:Name="labelFirstName" Content="First name" HorizontalAlignment="Left" Margin="42,34,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <Label x:Name="labelMiddleName" Content="Middle name" HorizontalAlignment="Left" Margin="42,58,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <Label x:Name="labelLastName" Content="Last name" HorizontalAlignment="Left" Margin="42,82,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <Label x:Name="labelUserName" Content="User name" HorizontalAlignment="Left" Margin="42,106,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="42,130,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <Label x:Name="labelConfirmPassword" Content="Confirm password" HorizontalAlignment="Left" Margin="42,154,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
-        <TextBox x:Name="txtBoxFirstName" HorizontalAlignment="Left" Height="23" Margin="157,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="0" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-        <TextBox x:Name="txtBoxMiddleName" HorizontalAlignment="Left" Height="23" Margin="157,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="1" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-        <TextBox x:Name="txtBoxLastName" HorizontalAlignment="Left" Height="23" Margin="157,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="2" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-        <TextBox x:Name="txtBoxUserName" HorizontalAlignment="Left" Height="23" Margin="157,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="3" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-        <Button x:Name="btnCreateUser" Content="Create User" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="308,202,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateUser_ClickAsync" TabIndex="6">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <PasswordBox x:Name="pswBoxPassword" HorizontalAlignment="Left" Height="23" Margin="157,133,0,0" VerticalAlignment="Top" Width="226" TabIndex="4" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-        <PasswordBox x:Name="pswBoxConfirmPassworm" HorizontalAlignment="Left" Height="23" Margin="157,157,0,0" VerticalAlignment="Top" Width="226" TabIndex="5" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
-
-    </Grid>
+        <Grid Background="White">
+            <Grid.Effect>
+                <DropShadowEffect/>
+            </Grid.Effect>
+        
+            <Label x:Name="labelFirstName" Content="First name" HorizontalAlignment="Left" Margin="42,34,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <Label x:Name="labelMiddleName" Content="Middle name" HorizontalAlignment="Left" Margin="42,58,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <Label x:Name="labelLastName" Content="Last name" HorizontalAlignment="Left" Margin="42,82,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <Label x:Name="labelUserName" Content="User name" HorizontalAlignment="Left" Margin="42,106,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="42,130,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <Label x:Name="labelConfirmPassword" Content="Confirm password" HorizontalAlignment="Left" Margin="42,154,0,0" VerticalAlignment="Top" Height="24" Width="110"/>
+            <TextBox x:Name="txtBoxFirstName" HorizontalAlignment="Left" Height="23" Margin="157,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="0" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <TextBox x:Name="txtBoxMiddleName" HorizontalAlignment="Left" Height="23" Margin="157,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="1" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <TextBox x:Name="txtBoxLastName" HorizontalAlignment="Left" Height="23" Margin="157,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="2" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <TextBox x:Name="txtBoxUserName" HorizontalAlignment="Left" Height="23" Margin="157,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" TabIndex="3" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <PasswordBox x:Name="pswBoxPassword" HorizontalAlignment="Left" Height="23" Margin="157,133,0,0" VerticalAlignment="Top" Width="226" TabIndex="4" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <PasswordBox x:Name="pswBoxConfirmPassworm" HorizontalAlignment="Left" Height="23" Margin="157,157,0,0" VerticalAlignment="Top" Width="226" TabIndex="5" GotFocus="txtBoxGotFocus" LostFocus="txtBoxLostFocus"/>
+            <Button x:Name="btnCreateUser" Content="Create User" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="308,202,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateUser_ClickAsync" TabIndex="6">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+        </Grid>
+    </Border>
 </Page>

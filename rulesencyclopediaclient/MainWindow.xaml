@@ -11,29 +11,31 @@
         Height="864.775"  Width="1024" >
 
     <Grid>
-        <Image HorizontalAlignment="Stretch" 
+        <Image Name="BackgroundImage"
+               HorizontalAlignment="Stretch" 
                Margin="-200,-200,-150,-150" 
                VerticalAlignment="Stretch"
                Source="Graphics/eotsmap.jpg"/>
+        
         <DockPanel Margin="1,1,1,1">
             <!-- Dock menu system on the top -->
-            <Menu DockPanel.Dock ="Top" Background="Transparent" BorderBrush ="Black" VerticalAlignment ="Top" HorizontalAlignment="Left" Width="88">
-                <MenuItem Name="LoginPoint" Header ="_Login" Visibility="Visible">
+            <Menu DockPanel.Dock ="Top" Background="Beige" Foreground="Black" BorderBrush ="Black" VerticalAlignment ="Top" HorizontalAlignment="Left" Width="88">
+                <MenuItem Background="Beige"  Name="LoginPoint" Header ="_Login" Visibility="Visible">
                     <Separator/>
-                    <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" Visibility="Visible"/>
-                    <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" Visibility="Hidden"/>
-                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" Visibility="Hidden"/>
-                    <MenuItem Name="CreateUser" Header="_CreateUser" Click="CallCreateUser" Visibility="Visible"/>
-                    <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" Visibility="Visible"/>
+                    <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" IsEnabled="True"/>
+                    <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" IsEnabled="False"/>
+                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" IsEnabled="False"/>
+                    <MenuItem Name="CreateUser" Header="_CreateUser" Click="CallCreateUser" IsEnabled="True"/>
+                    <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" IsEnabled="True"/>
                 </MenuItem>
-                <MenuItem Name="OtherPoint" Header="_Other" Visibility="Visible">
+                <MenuItem Background="Beige" Name="OtherPoint" Header="_Other" IsEnabled="True">
                     <Separator/>
-                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" Visibility="Hidden"/>
-                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" Visibility="Visible"/>
+                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" IsEnabled="False"/>
+                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" IsEnabled="True"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
-        
+
         <Frame NavigationUIVisibility="Hidden" 
                x:Name="MainFrame" 
                HorizontalAlignment="Stretch" 
@@ -41,6 +43,5 @@
                Margin="0,36,-0.4,10.2"
                Height="Auto"
                Width="Auto"/>
-
     </Grid>
 </Window>

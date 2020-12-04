@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rulesencyclopediaclient.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Windows.Media.Effects;
 
 namespace rulesencyclopediaclient.Tools
 {
-    class InterfaceAnimation
+    class InterfaceAnimation : IInterfaceAnimation
     {
         public void animateTextBox(Control textBox, string upDown)
 
@@ -91,8 +92,6 @@ namespace rulesencyclopediaclient.Tools
                                 animateOpacity);
 
             button.Effect = dropShadowEffect;
-
-
         }
     }
 }

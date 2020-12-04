@@ -91,6 +91,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\ICommunicationElements.cs" />
+    <Compile Include="Interfaces\IInterfaceAnimation.cs" />
     <Compile Include="Model\View\EntryListView.cs" />
     <Compile Include="Model\View\GamesListView.cs" />
     <Compile Include="Model\View\GameView.cs" />

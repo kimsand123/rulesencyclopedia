@@ -20,12 +20,17 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class MainInfoWindow : Page
     {
+        MainWindow window = (MainWindow)System.Windows.Application.Current.MainWindow;
+
+        //window.BackgroundImage.Opacity = 0.1;
+
         SelectionChangedEventArgs savedGame;
         private int chosenTocId = -1;
         private int chosenEntryId = -1;
 
         CommunicationElements comElements = new CommunicationElements();
         EntryListView entryViewData = new EntryListView();
+        InterfaceAnimation interfaceAnim = new InterfaceAnimation();
         public MainInfoWindow()
         {
             InitializeComponent();
