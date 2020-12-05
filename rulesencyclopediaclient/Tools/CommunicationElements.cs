@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using rulesencyclopediaclient.Interfaces;
 using rulesencyclopediaclient.Pouch;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace rulesencyclopediaclient.Tools
 {
-    class CommunicationElements
+    class CommunicationElements : ICommunicationElements
     {
         public HttpClient getClient()
         {

@@ -82,9 +82,15 @@ namespace rulesencyclopediaclient.View
             }
         }
 
-        private void paragraphNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-
+            //Pressing the return key is the same as clicking the button
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
+                addRuleButton_Click(this, z);
+            }
         }
     }
 }

@@ -91,6 +91,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\ICommunicationElements.cs" />
+    <Compile Include="Interfaces\IInterfaceAnimation.cs" />
     <Compile Include="Model\View\EntryListView.cs" />
     <Compile Include="Model\View\GamesListView.cs" />
     <Compile Include="Model\View\GameView.cs" />
@@ -145,7 +147,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DAL\UserDAO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -188,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\eotsmap.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\eotsdarkmap2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

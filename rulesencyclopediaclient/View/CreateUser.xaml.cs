@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace rulesencyclopediaclient.View
@@ -83,6 +84,17 @@ namespace rulesencyclopediaclient.View
                 return false;
             }
             return true;
+        }
+
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Pressing the return key is the same as clicking the button
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
+                btnCreateUser_ClickAsync(this, z);
+            }
         }
 
         private void txtBoxGotFocus(object sender, RoutedEventArgs e)
