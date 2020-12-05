@@ -5,6 +5,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace rulesencyclopediaclient.View
@@ -77,6 +78,17 @@ namespace rulesencyclopediaclient.View
             if (sender is PasswordBox)
             {
                 interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
+            }
+        }
+
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Pressing the return key is the same as clicking the button
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
+                editRuleButton_Click(this, z);
             }
         }
     }

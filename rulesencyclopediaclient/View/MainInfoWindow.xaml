@@ -34,7 +34,21 @@
                 </Button.Resources>
             </Button>
 
-            <ListBox x:Name="GamesListBox" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" Loaded="OnPageLoad" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox x:Name="GamesListBox" Background="Beige" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -46,20 +60,47 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="TOCListBox" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="9.6,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="TocListBox_OnSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox x:Name="TOCListBox"  Background="Beige" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Margin="9.6,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="TocListBox_OnSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
                             <TextBlock Text="{Binding Path=ParagraphNumber}" FontSize="10"> <TextBlock Text=". "> </TextBlock></TextBlock>
                             <TextBlock Text="{Binding Path=Headline}" FontSize="10"></TextBlock>
+                            <TextBlock Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="EntryListBox" Grid.Column="2" HorizontalAlignment="Stretch" Height="Auto" Margin="10.2,43,0,10.4" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="EntryListBox_SelectionChanged"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox x:Name="EntryListBox"  Background="Beige" Grid.Column="2" HorizontalAlignment="Stretch" Height="Auto" Margin="10.2,43,0,10.4" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
-                    
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize ="1" Text="{Binding Path=Id}" Visibility="Hidden"></TextBlock>
@@ -81,15 +122,15 @@
                                     </Button.Resources>
                                 </Button>
 
-                                <TextBlock Text="Revision: "><TextBlock Text="{Binding Path=Revision}" HorizontalAlignment="Left" />
-                                    <TextBlock Text="Editor: "><TextBlock Text="{Binding Path=Editor}" HorizontalAlignment="Left" />
+                                <TextBlock Text="    Revision: "><TextBlock Text="{Binding Path=Revision}" HorizontalAlignment="Left" />
+                                    <TextBlock Text=", Editor: "><TextBlock Text="{Binding Path=Editor}" HorizontalAlignment="Left" />
                                     </TextBlock>
                                 </TextBlock>
                                 <TextBlock Text="  "/>
  
                             </StackPanel>
                             <TextBlock></TextBlock>
-                            <TextBlock FontSize="12" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}" >
+                            <TextBlock FontSize="16" HorizontalAlignment="Left" Text="{Binding Path=ParagraphNumber}" >
                                 <TextBlock Text="  "></TextBlock>
                                 <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Text="{Binding Path=Headline}"></TextBlock>
                             </TextBlock>

@@ -20,13 +20,12 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class MainInfoWindow : Page
     {
-        MainWindow window = (MainWindow)System.Windows.Application.Current.MainWindow;
+        //MainWindow window = (MainWindow)System.Windows.Application.Current.MainWindow;
 
-        //window.BackgroundImage.Opacity = 0.1;
+        
 
         SelectionChangedEventArgs savedGame;
         private int chosenTocId = -1;
-        private int chosenEntryId = -1;
 
         CommunicationElements comElements = new CommunicationElements();
         EntryListView entryViewData = new EntryListView();
@@ -35,6 +34,7 @@ namespace rulesencyclopediaclient.View
         {
             InitializeComponent();
             
+            //Getting the data for the GameListBox
             List<GameDTO> gamesDTOList;
             HttpClient client = comElements.getClient();
             //setting address and port for the service.
@@ -43,6 +43,7 @@ namespace rulesencyclopediaclient.View
             //var response = client.GetAsync(uri).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
+                //Populating the GameListBox
                 ObservableCollection<GameView> gameListView = new ObservableCollection<GameView>();
                 GamesListBox.ItemsSource = gameListView;
                 var content = response.Content.ReadAsStringAsync();
@@ -63,46 +64,62 @@ namespace rulesencyclopediaclient.View
         
         private void GamesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Saving the selected game
             savedGame = e;
-            List<EntryDTO> tocDTOList;
+
+            List<EntryDTO> listOfEntries;
+            //setting up toclistview and entrylistview as observablecollections, so that they can be monitored for changes for autoupdate
             ObservableCollection<TocListView> tocListView = new ObservableCollection<TocListView>();
             ObservableCollection<EntryListView> entryListView = new ObservableCollection<EntryListView>();
             
-            GameView selectedGame = new GameView();
-            selectedGame = (GameView)e.AddedItems[0];
-            
+            GameView selectedGame = (GameView)e.AddedItems[0];
+                   
             this.TOCColLabel.Content = selectedGame.Name;
             //Get Tocs on the basis of the game
+            //There should be a list with multiple TOCs to choose from, but that will be in another iteration.
+            //For now there is only 1 TOC in the DB for each game.
+
             List <TOCDTO> tocList;
+            //Getting the TOCs. ps. only 1 for now
             var parameter = "gameId=" + Convert.ToString(selectedGame.Id);
             var response = comElements.get( "TOC", parameter,"");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var content = response.Content.ReadAsStringAsync();
+                //Deserialize the response
                 tocList = JsonConvert.DeserializeObject<List<TOCDTO>>(content.Result);
+                //If the list is not empty
                 if (tocList.Count!=0)
                 {
-                    int tocListId = tocList[0].Id;
-                    string parameters = "tocId=" + tocListId;
+                    //For now get the first, and only, toc list
+                    string parameters = "tocId=" + tocList[0].Id;
                     //Get the entries on the basis of the TOC
                     response = comElements.get( "Entry", parameters, "");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
+                        //Setting the datasources of the TocListBox and EntryListBox
                         TOCListBox.ItemsSource = tocListView;
                         EntryListBox.ItemsSource = entryListView;
+                        
+                        //Getting the list of entries
                         content = response.Content.ReadAsStringAsync();
-                        tocDTOList = JsonConvert.DeserializeObject<List<EntryDTO>>(content.Result);
-                        foreach (EntryDTO entry in tocDTOList)
-                        {
+                        listOfEntries = JsonConvert.DeserializeObject<List<EntryDTO>>(content.Result);
+                        foreach (EntryDTO entry in listOfEntries)
+                        {   
+                            //Populate the toclistView, datasource for the TOCListBox, with entry.ID, paragraphnumber and headline
                             tocListView.Add(new TocListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline });
+                            //Populate the entryListView, datasource for the EntryListBox, with the Entry data.
                             entryListView.Add(new EntryListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Revision = entry.Revision, Headline = entry.Headline, Editor = entry.Editor, Type = entry.Type, Txt = entry.Text });
                         }
                     }
-                    chosenTocId = tocListId;
-
+                    //Setting the variable chosenTocId to the tocList id of the first tocen in the toclist
+                    //This makes no sence now, but when it will be able to choosen between multiple toc lists for a game
+                    //It will make sence.
+                    chosenTocId = tocList[0].Id;
                 }
                 else
                 {
+                    //If there is not data clear the listboxes
                     tocListView.Clear();
                     TOCListBox.Items.Clear();
                     entryListView.Clear();
@@ -112,75 +129,67 @@ namespace rulesencyclopediaclient.View
             }
         }
 
-        private void OnPageLoad(object sender, System.Windows.RoutedEventArgs e)
-        {
-           // DataContext = new GamesListView();
-        }
-
         private void TocListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*TOCListBox.SelectedItem = TOCListBox.Items.GetItemAt();
-            TocListView entryOnTocList = new TocListView();
-            entryOnTocList =  (TocListView)TOCListBox.SelectedItem;
-            Ent*/
-
+            //If you choose an entry in the TocListBox, it should choose and show the entry in the EntryListBox
+            EntryListBox.SelectedIndex = TOCListBox.SelectedIndex;
+            EntryListBox.ScrollIntoView(EntryListBox.SelectedItem);
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
             System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+            //Getting the datacontext of the button which is the index of the listbox element the button is attached to.
             int index = EntryListBox.Items.IndexOf(button.DataContext);
-            var listElement = EntryListBox.Items[index];
-            var chosenEntry = (EntryListView)listElement;
+            //Getting the listbox element data
+            var chosenEntry = (EntryListView)EntryListBox.Items[index];
+            //activate the EditRule window and pass the tocID and entry data to it.
             EditRule popup = new EditRule(chosenTocId, chosenEntry);
             popup.ShowDialog();
+            //Update the context with the latest saved game for autoupdate of changes in the listboxes.
             SelectionChangedEventArgs savedChoice = savedGame;
             GamesListBox_OnSelectionChanged(this, savedChoice);
         }
 
         private void addRuleButton_Click(object sender, RoutedEventArgs e)
         {
+            //Activate the AddNewRule window and pass the chosenTocId to it.
             AddNewRule popup = new AddNewRule(chosenTocId);
             popup.ShowDialog();
+            //Update the context with the latest saved game for autoupdate of changes in the listboxes.
             SelectionChangedEventArgs savedChoice = savedGame;
             GamesListBox_OnSelectionChanged(this, savedChoice );
         }
 
         private void deleteRuleButton_Click(object sender, RoutedEventArgs e)
         {
-            
             MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
             DialogResult diagResult = MessageBox.Show("Are you sure you want to delete this rule ?", "Delete Rule", buttons, MessageBoxIcon.Warning);
             if (diagResult == DialogResult.Yes)
             {
                 System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+                //Getting the datacontext of the button which is the listbox index of the element it is embedded in.
                 int index = EntryListBox.Items.IndexOf(button.DataContext);
-                var listElement = EntryListBox.Items[index];
-                var chosenEntry = (EntryListView)listElement;
-                this.chosenEntryId = chosenEntry.Id;
+                EntryListView chosenEntry = (EntryListView)EntryListBox.Items[index];
 
                 //Delete rule
-                var response = comElements.delete("Entry/"+this.chosenEntryId, "");
-                if (response.StatusCode == HttpStatusCode.NoContent) //NEEDS TO BE BETTER FEEDBACK FROM SERVICE
+                var response = comElements.delete("Entry/"+ chosenEntry.Id, "");
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     buttons = MessageBoxButtons.OK;
                     MessageBox.Show("Rule deleted", "Rule deleted", buttons);
+                } else
+                {
+                    buttons = MessageBoxButtons.OK;
+                    MessageBox.Show("Rule not found", "Database Error", buttons);
                 }
+
+                //Update the context with the latest saved game for autoupdate of changes in the listboxes.
                 SelectionChangedEventArgs savedChoice = savedGame;
                 GamesListBox_OnSelectionChanged(this, savedChoice);
-
             } 
-
         }
 
-        private void EntryListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = (EntryListView)EntryListBox.SelectedItem;
-            if (item != null)
-            {
-                chosenEntryId = item.Id;
-            }
-        }
+
     }
 }

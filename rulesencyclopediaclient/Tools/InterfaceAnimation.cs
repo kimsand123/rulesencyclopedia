@@ -93,5 +93,36 @@ namespace rulesencyclopediaclient.Tools
 
             button.Effect = dropShadowEffect;
         }
+
+       /* public void animateBackgroundImage(MainWindow window, string upDown)
+        {
+            TimeSpan duration = TimeSpan.FromMilliseconds(1000);
+            DoubleAnimation animateBrightness = null;
+            if (upDown == "UP")
+            {
+                animateBrightness = new DoubleAnimation()
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = duration,
+                };
+            }
+            else
+            {
+                animateBrightness = new DoubleAnimation()
+                {
+                    From = 1,
+                    To = 0,
+                    Duration = duration,
+                };
+            }
+
+            
+            DropShadowEffect dropShadowEffect = new DropShadowEffect();
+            dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
+                                animateBrightness);
+
+            animateBrightness.Effect = dropShadowEffect;
+        }*/
     }
 }

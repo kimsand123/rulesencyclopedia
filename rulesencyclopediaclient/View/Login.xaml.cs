@@ -71,8 +71,9 @@ namespace rulesencyclopediaclient.View
 
         private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            //Pressing the return key is the same as clicking the button
             RoutedEventArgs z = new RoutedEventArgs();
-            if (e.Key==System.Windows.Input.Key.Return || e.Key==Key.Enter)
+            if (e.Key==Key.Return || e.Key==Key.Enter)
             {
                 Login_ClickAsync(this, z);
             }
