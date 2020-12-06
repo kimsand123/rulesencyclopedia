@@ -47,14 +47,30 @@ namespace rulesencyclopediaclient.View
 
             //add the new rule.
             var response = comElements.post( "Entry", entry);
-            if (response.StatusCode == HttpStatusCode.NoContent)//NOT PROPER FEEDBACK FROM SERVICE... BETTER EXCEPTIONHANDLING!
+            if (response.StatusCode == HttpStatusCode.Created)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBox.Show("Rule has been added", "Rule Created", buttons);
+            } else
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBox.Show("Rule has not been added", "Server incident", buttons);
             }
             this.Close();
         }
 
+        //Pressing the return key is the same as clicking the button
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
+                addRuleButton_Click(this, z);
+            }
+        }
+
+        //Animations
         private void txtBoxGotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is System.Windows.Controls.TextBox)
@@ -79,17 +95,6 @@ namespace rulesencyclopediaclient.View
             if (sender is PasswordBox)
             {
                 interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
-            }
-        }
-
-        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            //Pressing the return key is the same as clicking the button
-            RoutedEventArgs z = new RoutedEventArgs();
-            if (e.Key == Key.Return || e.Key == Key.Enter)
-            {
-                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
-                addRuleButton_Click(this, z);
             }
         }
     }

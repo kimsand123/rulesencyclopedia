@@ -19,7 +19,7 @@ namespace rulesencyclopediabackend
 {
     public class UserDAO
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         public UserDAO()
         {

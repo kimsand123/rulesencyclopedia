@@ -16,7 +16,7 @@ namespace rulesencyclopediabackend.Controllers
         {
 
         }
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         internal List<EntryDTO> getEntriesForToc(int TOCId)
         {
             List<Entry> entryList = null;

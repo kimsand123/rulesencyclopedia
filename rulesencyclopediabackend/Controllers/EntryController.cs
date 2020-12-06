@@ -13,8 +13,8 @@ namespace rulesencyclopediabackend.Controllers
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
-
         ConvertToDTO DTOConverter = new ConvertToDTO();
+
         [BasicAuthentication]
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
@@ -47,9 +47,12 @@ namespace rulesencyclopediabackend.Controllers
         [BasicAuthentication]
         public HttpResponseMessage Post([FromBody]Entry entry)
         {
+            //Posting the Entry, and getting its ID
+            //-999999 means that the dao had an error.
             var result = dao.postEntry(entry);
             if (result != -999999)
             {
+                //returning http code Created and the link to the ressource according to REST.
                 return Request.CreateResponse(HttpStatusCode.Created, "/api/Entry/" + result);
             } else
             {

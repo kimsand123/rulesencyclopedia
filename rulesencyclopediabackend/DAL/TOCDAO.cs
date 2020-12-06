@@ -13,7 +13,7 @@ namespace rulesencyclopediabackend.DAL
     public class TOCDAO
     {
         ConvertToDTO DTOConverter = new ConvertToDTO();
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         internal List<TOCDTO> getTOCList(int gameID)
         {
             List<TOC> TOCList = null;

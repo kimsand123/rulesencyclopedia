@@ -36,10 +36,10 @@ namespace rulesencyclopediaclient.View
 
         private void editRuleButton_Click(object sender, RoutedEventArgs e)
         {
-            //If user does not want to edit the rule anyway.
+            //Check if user wants to submit the edited rules.
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult diagResult = MessageBox.Show("Do you want to edit the rule", "Rule edit", buttons, MessageBoxIcon.Warning);
-            if (diagResult == DialogResult.Yes)
+            if (diagResult == System.Windows.Forms.DialogResult.Yes)
             {
                 //Create an EntryDTO and fill it with the data from the window controls
                 //to send to the server.

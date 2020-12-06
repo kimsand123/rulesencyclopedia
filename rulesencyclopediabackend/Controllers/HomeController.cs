@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
+using System.Net.Http;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace rulesencyclopediabackend.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ApiController
     {
-        public ActionResult Index()
+        public HttpResponseMessage Index()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
+            return Request.CreateResponse(HttpStatusCode.OK, "Service Up");
         }
     }
 }

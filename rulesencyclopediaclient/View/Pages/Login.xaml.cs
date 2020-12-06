@@ -49,7 +49,7 @@ namespace rulesencyclopediaclient.View
                 //Change to MainInfoWindow window using MainWindowState singleton
                 //Change menustate using MainWindowState singleton
                 MainWindowState.Instance.changePageInFrame(new MainInfoWindow());
-                MainWindowState.Instance.changeMenuState("logon");
+                MainWindowState.Instance.changeMenuState("loggedon");
             } else
             {
                 if (response.StatusCode == HttpStatusCode.NoContent)

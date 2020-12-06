@@ -9,7 +9,7 @@ using System.Web;
 namespace rulesencyclopediabackend.Tools
 {
     //Inspired and altered from https://stackoverflow.com/questions/2138429/hash-and-salt-passwords-in-c-sharp?fbclid=IwAR032vRjI6-lGkUq3YpP0wAVTVhNkyXQKLtrM5U0e3Cb6y9v9373rPNFeBI 
-    //amidele alebge
+    //member   amidele alebge
     public class HashAndSalt
     {
         public string getSalt()
@@ -21,7 +21,13 @@ namespace rulesencyclopediabackend.Tools
             return Convert.ToBase64String(salt);
         }
 
-
+        //Run this recursive method 43 time. The first time the password as typed by the user 
+        //is used for the hashing and salting operation. The rest of the time the result of the
+        //previous recursive action is used for the hashing and salting operation.
+        //Its ok it takes a little bit of time... Just makes it that much harder to break.
+        //when done return the resulting hashed and salted password.
+        //This operation will produce the same encrypted password every time for the same
+        //typed in password.
         public string GenerateHash(string password, string salt, int counter=0)
         {
             //When reached 43 recursions return the resultating password.
@@ -41,7 +47,7 @@ namespace rulesencyclopediabackend.Tools
 
         public bool AreEqual(string recievedPassword, string dbPassword, string salt)
         {
-            //chech if the usertyped password is equal the the hashed and salted password in the DB
+            //chech if the usertyped password is equal to the hashed and salted password in the DB
             string hashedRecievedPassword = GenerateHash(recievedPassword, salt, 0);
             return areStringsEqual(hashedRecievedPassword, dbPassword);
         }
@@ -54,6 +60,8 @@ namespace rulesencyclopediabackend.Tools
                 return false;
             } else
             {
+                //If the strings are of equal length, check if the hashed typed in password 
+                //equals that of the db
                 int length = hashedRecievedPassword.Length;
                 for (int x = 0; x < length; x++)
                 {

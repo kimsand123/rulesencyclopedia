@@ -17,7 +17,7 @@ namespace rulesencyclopediabackend.DAL
 {
     public class GameDAO
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         public GameDAO()
         {

@@ -20,7 +20,7 @@ namespace rulesencyclopediabackend.Controllers
 {
     public class GameController : ApiController
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
 
         GameDAO dao = new GameDAO();
 
