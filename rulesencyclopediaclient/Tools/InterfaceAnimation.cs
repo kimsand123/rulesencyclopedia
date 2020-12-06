@@ -16,18 +16,10 @@ namespace rulesencyclopediaclient.Tools
 
 
         {
-            if (textBox is TextBox)
-            {
-                TextBox typedTextBox = textBox as TextBox;
-            }
-
-            if (textBox is PasswordBox)
-            {
-                PasswordBox typedTextBox = textBox as PasswordBox;
-            }
-
-            TimeSpan duration = TimeSpan.FromMilliseconds(1000);
-            DoubleAnimation animateOpacity = null;
+            //Setting the duration of the animation in milliseconds
+            TimeSpan duration = TimeSpan.FromMilliseconds(500);
+            //Animates over 2 values, from and to over a timeframe
+            DoubleAnimation animateOpacity;
             if (upDown == "UP")
             {
                 animateOpacity = new DoubleAnimation()
@@ -57,17 +49,20 @@ namespace rulesencyclopediaclient.Tools
                 */
             DropShadowEffect dropShadowEffect = new DropShadowEffect();
 
+            //Animates the chosen effect with the animation properties set above
             dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
                                             animateOpacity);
-
+            //Execute the effect.
             textBox.Effect = dropShadowEffect;
 
         }
 
         public void animateButton(Button button, string upDown)
         {
-            TimeSpan duration = TimeSpan.FromMilliseconds(1000);
-            DoubleAnimation animateOpacity = null;
+            //Setting the duration of the animation in milliseconds
+            TimeSpan duration = TimeSpan.FromMilliseconds(500);
+            //Animates over 2 values, from and to over a timeframe
+            DoubleAnimation animateOpacity;
             if (upDown == "UP")
             {
                 animateOpacity = new DoubleAnimation()
@@ -87,42 +82,13 @@ namespace rulesencyclopediaclient.Tools
                 };
             }
 
+
             DropShadowEffect dropShadowEffect = new DropShadowEffect();
+            //Animates the chosen effect with the animation properties set above
             dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
                                 animateOpacity);
-
+            //Execute the effect.
             button.Effect = dropShadowEffect;
         }
-
-       /* public void animateBackgroundImage(MainWindow window, string upDown)
-        {
-            TimeSpan duration = TimeSpan.FromMilliseconds(1000);
-            DoubleAnimation animateBrightness = null;
-            if (upDown == "UP")
-            {
-                animateBrightness = new DoubleAnimation()
-                {
-                    From = 0,
-                    To = 1,
-                    Duration = duration,
-                };
-            }
-            else
-            {
-                animateBrightness = new DoubleAnimation()
-                {
-                    From = 1,
-                    To = 0,
-                    Duration = duration,
-                };
-            }
-
-            
-            DropShadowEffect dropShadowEffect = new DropShadowEffect();
-            dropShadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty,
-                                animateBrightness);
-
-            animateBrightness.Effect = dropShadowEffect;
-        }*/
     }
 }
