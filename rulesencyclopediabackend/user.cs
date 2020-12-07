@@ -21,5 +21,6 @@ namespace rulesencyclopediabackend
         public string UserName { get; set; }
         public string Password { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public string Salt { get; set; }
     }
 }

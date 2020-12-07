@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using rulesencyclopediabackend.Auth;
 using rulesencyclopediabackend.DAL;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
@@ -14,64 +15,58 @@ namespace rulesencyclopediabackend.Controllers
         TOCDAO dao = new TOCDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/TOC
-        public HttpResponseMessage GetTocsForGame([FromBody] int gameId)
+        [BasicAuthentication]
+        public HttpResponseMessage GetTocsForGame([FromUri] int gameId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOCDTO> tocList = dao.getTOCList(gameId);
-            try
+            if (tocList.Count != 0)
             {
-                string responseJson = JsonConvert.SerializeObject(tocList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-
-            }
-            catch (JsonSerializationException ex)
+                response = Request.CreateResponse(HttpStatusCode.OK, tocList);
+            } else
             {
-                // TODO: write ex to a logfile
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC list");
-            }
-            finally
-            {
-                // TODO: close the logfile
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "No TOCs found");
             }
             return response;
             
         }
 
-        // GET: api/TOC/5
-        public HttpResponseMessage Get(int ID)
+        [BasicAuthentication]
+        public HttpResponseMessage Get(int Id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            TOCDTO toc = dao.getTOC(ID);
-            try
+            TOCDTO toc = dao.getTOC(Id);
+            if (toc != null)
             {
-                string responseJson = JsonConvert.SerializeObject(toc);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }catch (JsonSerializationException ex)
-            {
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the TOC");
+                response = Request.CreateResponse(HttpStatusCode.OK, toc);
             }
-            finally
+            else
             {
-                // TODO: close the logfile
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Toc not found");
             }
             return response;
         }
-            
-        
 
+
+        //Not in use, not implemented fully
         // POST: api/TOC
+        [BasicAuthentication]
         public void Post([FromBody] TOC toc)
         {
             dao.postTOC(toc);
         }
 
+        //Not in use, not implemented fully
         // PUT: api/TOC/5
+        [BasicAuthentication]
         public void Put(int id, [FromBody] TOC toc)
         {
             dao.editTOC(id, toc);
         }
 
+        //Not in use, not implemented fully
         // DELETE: api/TOC/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
             dao.deleteTOC(id);

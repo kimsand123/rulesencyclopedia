@@ -6,74 +6,88 @@ using System.Net;
 using System.Configuration;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
+using rulesencyclopediabackend.Auth;
 
 namespace rulesencyclopediabackend.Controllers
 {   
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
-
         ConvertToDTO DTOConverter = new ConvertToDTO();
+        //Attribute programming for checking token.
+        [BasicAuthentication]
+        //GET: api/Entry?tocId=1
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             List<EntryDTO> entryList = dao.getEntriesForToc(tocId);
-            try
+            if (entryList != null)
             {
-                string responseJson = JsonConvert.SerializeObject(entryList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            }
-            catch (JsonSerializationException ex)
+                return Request.CreateResponse(HttpStatusCode.OK, entryList);
+            } else
             {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry list");
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            finally
-            {
-                // TODO: close the logfile
-            }
-            return response;
         }
 
 
         // GET: api/Entry/5
+        [BasicAuthentication]
         public HttpResponseMessage Get(int ID)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             EntryDTO entry = dao.getEntry(ID);
-            EntryDTO entryDTO = null;
-
-            try
+            if (entry != null)
             {
-                string responseJson = JsonConvert.SerializeObject(entryDTO);
-            } catch (JsonSerializationException ex)
+                return Request.CreateResponse(HttpStatusCode.OK, entry);
+            }else
             {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the entry");
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            finally
-            {
-                // TODO: close the logfile
-            }
-            return response;
         }
 
         // POST: api/Entry
-        public void Post([FromBody]Entry entry)
+        [BasicAuthentication]
+        public HttpResponseMessage Post([FromBody]Entry entry)
         {
-            dao.postEntry(entry);
+            //Posting the Entry, and getting its ID
+            //-999999 means that the dao had an error.
+            var result = dao.postEntry(entry);
+            if (result != -999999)
+            {
+                //returning http code Created and the link to the ressource according to REST.
+                return Request.CreateResponse(HttpStatusCode.Created, "/api/Entry/" + result);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when creating entry");
+            }
+
         }
 
         // PUT: api/Entry/5
-        public void Put(int id, [FromBody]Entry entry)
+        [BasicAuthentication]
+        public HttpResponseMessage Put([FromBody]EntryDTO entry)
         {
-            dao.editEntry(id, entry);
+            var result = dao.editEntry(entry);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "/api/Entry/" + entry.Id);
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when editing entry");
+            }
         }
 
         // DELETE: api/Entry/5
-        public void Delete(int id)
+        [BasicAuthentication]
+        public HttpResponseMessage Delete(int id)
         {
-            dao.deleteEntry(id);
+            var result = dao.deleteEntry(id);
+            if (result != -999999)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Entry is deleted");
+            } else
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error when deleting entry");
+            }
         }
     }
 }

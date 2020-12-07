@@ -16,7 +16,7 @@ namespace rulesencyclopediabackend.Controllers
         {
 
         }
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         internal List<EntryDTO> getEntriesForToc(int TOCId)
         {
             List<Entry> entryList = null;
@@ -27,7 +27,7 @@ namespace rulesencyclopediabackend.Controllers
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
-                    entryList = context.Entry.Where(element => element.TOC == TOCId).ToList();
+                    entryList = context.Entry.Where(element => element.TOC == TOCId).OrderBy(element => element.ParagraphNumber).ToList();
                     entryDTOs = new List<EntryDTO>();
                     foreach (Entry entry in entryList)
                     {
@@ -42,7 +42,7 @@ namespace rulesencyclopediabackend.Controllers
             }
             finally
             {
-                // context.Dispose();
+                context.Dispose();
             }
             return entryDTOs;
         }
@@ -71,16 +71,18 @@ namespace rulesencyclopediabackend.Controllers
             return entryDTO;
         }
 
-        internal void postEntry(Entry entry)
+        internal int postEntry(Entry entry)
         {
             rulesencyclopediaDBEntities1 context = null;
+            int result = -999999;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    Entry result = context.Entry.Add(entry);
-                    context.SaveChanges();
+                    context.Entry.Add(entry);
+                    result = context.SaveChanges();
+                    return result;
                 }
             }
             catch (EntityException ex)
@@ -91,11 +93,13 @@ namespace rulesencyclopediabackend.Controllers
             {
                 context.Dispose();
             }
+            return result;
         }
 
-        internal void deleteEntry(int ID)
+        internal int deleteEntry(int ID)
         {
             rulesencyclopediaDBEntities1 context = null;
+            var result = -999999;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
@@ -103,7 +107,7 @@ namespace rulesencyclopediabackend.Controllers
                     var entry = new Entry { Id = ID };
                     context.Entry.Attach(entry);
                     context.Entry.Remove(entry);
-                    context.SaveChanges();
+                    result = context.SaveChanges();
                 }
             }
             catch (EntityException ex)
@@ -114,21 +118,24 @@ namespace rulesencyclopediabackend.Controllers
             {
                 context.Dispose();
             }
+            return result;
         }
 
-        internal void editEntry(int ID, Entry alteredEntry)
+        internal int editEntry(EntryDTO alteredEntry)
         {
             var context = new rulesencyclopediaDBEntities1();
+            int result = -999999;
             {
-                var entry = context.Entry.First(a => a.Id == ID);
+                var entry = context.Entry.First(a => a.Id == alteredEntry.Id);
                 entry.ParagraphNumber = alteredEntry.ParagraphNumber;
                 entry.Headline = alteredEntry.Headline;
                 entry.Text = alteredEntry.Text;
-                entry.Revisions = alteredEntry.Revisions;
+                entry.Revision = alteredEntry.Revision;
                 entry.Editor = alteredEntry.Editor;               
-                context.SaveChanges();
+                result = context.SaveChanges();
             }
             context.Dispose();
+            return result;
         }
     }
 }

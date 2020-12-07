@@ -14,71 +14,58 @@ using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
+using rulesencyclopediabackend.Auth;
 
 namespace rulesencyclopediabackend.Controllers
 {
     public class GameController : ApiController
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
         GameDAO dao = new GameDAO();
-
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
+        [BasicAuthentication]
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<GameDTO> gameList = dao.getGameList();
-            try
+            if (gameList.Count != 0)
             {
-                string responseJson = JsonConvert.SerializeObject(gameList);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            } catch (JsonSerializationException ex)
+                response = Request.CreateResponse(HttpStatusCode.OK, gameList);
+            } else
             {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the games list");
-            }
-            finally
-            {
-                // TODO: close the logfile
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "There are no games");
             }
             return response;
         }
 
         // GET: api/Game/5
+        [BasicAuthentication]
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             GameDTO game = dao.getGame(id);
-            try
-            {
-                var serializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-                string responseJson = JsonConvert.SerializeObject(game, Formatting.Indented, serializerSettings);
-                response = Request.CreateResponse(HttpStatusCode.OK, responseJson);
-            } catch (JsonSerializationException ex)
-            {
-                // TODO: write ex to logfile.
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Serverproblems Problems with serializing the game");
-            }
-            finally
-            {
-                // TODO: close the logfile
-            }
             return response;
         }
 
+        //Not in use, not implemented fully
         // POST: api/Game
+        [BasicAuthentication]
         public void Post([FromBody]Game game)
         {
             dao.postGame(game);
         }
 
+        //Not in use, not implemented fully
         // PUT: api/Game/5
+        [BasicAuthentication]
         public void Put(int id, [FromBody]Game game)
         {
             dao.editGame(id, game);
         }
 
+        //Not in use, not implemented fully
         // DELETE: api/Game/5
+        [BasicAuthentication]
         public void Delete(int id)
         {
             dao.deleteGame(id);
