@@ -13,14 +13,15 @@ namespace rulesencyclopediabackend.DAL
     public class TOCDAO
     {
         ConvertToDTO DTOConverter = new ConvertToDTO();
-        ExceptionHandling exHandler = new ExceptionHandling();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         internal List<TOCDTO> getTOCList(int gameID)
         {
             List<TOC> TOCList = null;
             List<TOCDTO> tocDTOs = null;
+            rulesencyclopediaDBEntities1 context = null;
             try
             {
-                var context = new rulesencyclopediaDBEntities1();
+                context = new rulesencyclopediaDBEntities1();
                 {
                     TOCList = context.TOC.Where(element => element.Games == gameID).ToList();
                     tocDTOs = new List<TOCDTO>();
@@ -33,7 +34,11 @@ namespace rulesencyclopediabackend.DAL
             }
             catch (EntityException ex)
             {
-                exHandler.exceptionHandlerEntity(ex, "something happened while fetching the gamelist");
+                exHandler.exceptionHandlerEntity(ex, "something happened while fetching the toclist");
+            }
+            finally
+            {
+                context.Dispose();
             }
 
             return tocDTOs;
@@ -42,16 +47,21 @@ namespace rulesencyclopediabackend.DAL
         internal TOCDTO getTOC(int ID)
         {
             TOC toc = null;
+            rulesencyclopediaDBEntities1 context = null;
             try
             {
-                var context = new rulesencyclopediaDBEntities1();
+                context = new rulesencyclopediaDBEntities1();
                 {
                     toc = context.TOC.Single(element => element.Id == ID);
                 }
             }
             catch (EntityException ex)
             {
-                exHandler.exceptionHandlerEntity(ex, "something went wrong when getting game");
+                exHandler.exceptionHandlerEntity(ex, "something went wrong when getting toc");
+            }
+            finally
+            {
+                context.Dispose();
             }
             TOCDTO tocDTO = (TOCDTO)DTOConverter.Converter(new TOCDTO(), toc);
             return tocDTO;
@@ -59,9 +69,10 @@ namespace rulesencyclopediabackend.DAL
 
         internal void postTOC(TOC toc)
         {
+            rulesencyclopediaDBEntities1 context = null;
             try
             {
-                var context = new rulesencyclopediaDBEntities1();
+                context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
                     TOC result = context.TOC.Add(toc);
@@ -70,34 +81,46 @@ namespace rulesencyclopediabackend.DAL
             }
             catch (EntityException ex)
             {
-                exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new game");
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when creating new toc");
+            }
+            finally
+            {
+                context.Dispose();
             }
         }
 
         internal void editTOC(int ID, TOC alteredTOC)
         {
-            var context = new rulesencyclopediaDBEntities1();
             {
-                var toc = context.TOC.First(a => a.Id == ID);
-                toc.Text = alteredTOC.Text;
-                toc.Revision = alteredTOC.Revision;
-                toc.Editor = alteredTOC.Editor;
-                context.SaveChanges();
+                rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
+                try
+                {
+                    var toc = context.TOC.First(a => a.Id == ID);
+                    toc.Text = alteredTOC.Text;
+                    toc.Revision = alteredTOC.Revision;
+                    toc.Editor = alteredTOC.Editor;
+                    context.SaveChanges();
+                }
+                catch (EntityException ex)
+                {
+                    exHandler.exceptionHandlerEntity(ex, "Something went wrong when editing toc");
+                }
+                finally
+                {
+                    context.Dispose();
+                }
             }
         }
 
         internal void deleteTOC(int ID)
         {
-            rulesencyclopediaDBEntities1 context = null;
+            rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
             try
             {
-                context = new rulesencyclopediaDBEntities1();
-                {
-                    var toc = new TOC { Id = ID };
-                    context.TOC.Attach(toc);
-                    context.TOC.Remove(toc);
-                    context.SaveChanges();
-                }
+                var toc = new TOC { Id = ID };
+                context.TOC.Attach(toc);
+                context.TOC.Remove(toc);
+                context.SaveChanges();
             }
             catch (EntityException ex)
             {

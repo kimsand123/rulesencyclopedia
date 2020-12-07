@@ -12,7 +12,7 @@ namespace rulesencyclopediabackend
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            //Routing to default home controller. url parameter is optional.
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

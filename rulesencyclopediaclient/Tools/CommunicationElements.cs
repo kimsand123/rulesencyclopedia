@@ -4,6 +4,7 @@ using rulesencyclopediaclient.Pouch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
@@ -42,6 +43,24 @@ namespace rulesencyclopediaclient.Tools
                 uriBuilder.Query = query;
             }
             return uriBuilder.Uri;
+        }
+
+        public HttpResponseMessage checkConnectionAsync()
+        {
+            Task<HttpResponseMessage> task = null;
+            HttpResponseMessage response = new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable
+            };
+            try
+            {
+                task = getResponseAsync("GET", getClient(), getUri("Home/Home_Index", ""), "");
+                response = task.Result;
+            } catch (AggregateException e)
+            {
+
+            }
+            return response;
         }
 
         public HttpResponseMessage get(string apiPath, string parameters, string body) 
@@ -163,5 +182,9 @@ namespace rulesencyclopediaclient.Tools
 
             return response;
         }
+
+
+
+
     }   
 }

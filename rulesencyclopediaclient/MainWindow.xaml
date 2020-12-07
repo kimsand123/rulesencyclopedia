@@ -24,14 +24,14 @@
                     <Separator/>
                     <MenuItem Name="Login" Header ="_Login" Click="CallLoginPage" IsEnabled="True"/>
                     <MenuItem Name="Logoff" Header ="_Logoff" Click="CallLogoffPage" IsEnabled="False"/>
-                    <MenuItem Name="Profile" Header ="_Profile" Click="CallProfileHandling" IsEnabled="False"/>
+                    <MenuItem Name="Profile" Header ="_Profile (Not implemented)" Click="CallProfileHandling" IsEnabled="False"/>
                     <MenuItem Name="CreateUser" Header="_CreateUser" Click="CallCreateUser" IsEnabled="True"/>
                     <MenuItem Name="Exit" Header ="_Exit" Click ="ExitProgram_Click" IsEnabled="True"/>
                 </MenuItem>
                 <MenuItem Background="Beige" Name="OtherPoint" Header="_Other" IsEnabled="True">
                     <Separator/>
-                    <MenuItem Name="Settings" Header ="_Settings" Click="CallSettingsPage" IsEnabled="False"/>
-                    <MenuItem Name="Help" Header ="_Help" Click="CallHelpPage" IsEnabled="True"/>
+                    <MenuItem Name="Settings" Header ="_Settings (Not implemented)" Click="CallSettingsPage" IsEnabled="False"/>
+                    <MenuItem Name="Help" Header ="_Help (Not implemented)" Click="CallHelpPage" IsEnabled="True"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

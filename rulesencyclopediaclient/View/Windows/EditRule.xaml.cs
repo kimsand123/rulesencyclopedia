@@ -26,6 +26,7 @@ namespace rulesencyclopediaclient.View
             this.tocListId = tocListId;        
             this.entryData = entryData;
 
+            //Fill out the windows controls with data from the selected Entry
             paragraphNumberTextBox.Text = this.entryData.ParagraphNumber;
             headlineTextBox.Text = this.entryData.Headline;
             ruleTextBox.Text = this.entryData.Txt;
@@ -35,25 +36,53 @@ namespace rulesencyclopediaclient.View
 
         private void editRuleButton_Click(object sender, RoutedEventArgs e)
         {
-            EntryDTO entry = new EntryDTO();
-            entry.Id = entryData.Id;
-            entry.ParagraphNumber = paragraphNumberTextBox.Text;
-            entry.Headline = headlineTextBox.Text;
-            entry.Text = ruleTextBox.Text;
-            entry.Revision = revisionTextBox.Text;
-            entry.Editor = editorTextBox.Text;
-            entry.TOC = this.tocListId;
-
-            //edit the rule.
-            var response = comElements.put("Entry", "", entry);
-            if (response.StatusCode == HttpStatusCode.NoContent)//NOT PROPER FEEDBACK FROM SERVICE... BETTER EXCEPTIONHANDLING!
+            //Check if user wants to submit the edited rules.
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult diagResult = MessageBox.Show("Do you want to edit the rule", "Rule edit", buttons, MessageBoxIcon.Warning);
+            if (diagResult == System.Windows.Forms.DialogResult.Yes)
             {
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                MessageBox.Show("Rule has been updated", "Rule Updated", buttons);
+                //Create an EntryDTO and fill it with the data from the window controls
+                //to send to the server.
+                EntryDTO entry = new EntryDTO();
+                entry.Id = entryData.Id;
+                entry.ParagraphNumber = paragraphNumberTextBox.Text;
+                entry.Headline = headlineTextBox.Text;
+                entry.Text = ruleTextBox.Text;
+                entry.Revision = revisionTextBox.Text;
+                entry.Editor = editorTextBox.Text;
+                entry.TOC = this.tocListId;
+
+                //edit the rule.
+                var response = comElements.put("Entry", "", entry);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    buttons = MessageBoxButtons.OK;
+                    MessageBox.Show("Rule has been updated", "Rule Updated", buttons);
+                }
+                else
+                {
+                    buttons = MessageBoxButtons.OK;
+                    MessageBox.Show("Rule has not been updated", "Server incident", buttons);
+                }
+                this.Close();
             }
-            this.Close();
+
+            
         }
 
+        //Pressing the return key is the same as clicking the button
+        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+            RoutedEventArgs z = new RoutedEventArgs();
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
+                editRuleButton_Click(this, z);
+            }
+        }
+
+        //Control Animations
         private void txtBoxGotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is System.Windows.Controls.TextBox)
@@ -78,17 +107,6 @@ namespace rulesencyclopediaclient.View
             if (sender is PasswordBox)
             {
                 interfaceAnim.animateTextBox(sender as System.Windows.Controls.PasswordBox, "DOWN");
-            }
-        }
-
-        private void Keydown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            //Pressing the return key is the same as clicking the button
-            RoutedEventArgs z = new RoutedEventArgs();
-            if (e.Key == Key.Return || e.Key == Key.Enter)
-            {
-                //CHECK THAT ALL OBLIGATORY DATA IS FILLED OUT.
-                editRuleButton_Click(this, z);
             }
         }
     }

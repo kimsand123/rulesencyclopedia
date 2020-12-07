@@ -219,21 +219,21 @@
     <Compile Include="Auth\BasicAuthentication.cs" />
     <Compile Include="Controllers\EntryController.cs" />
     <Compile Include="Controllers\GameController.cs" />
-    <Compile Include="Controllers\GetFullGameController.cs" />
+    <Compile Include="Controllers\NextIteration\GetFullGameController.cs" />
     <Compile Include="Controllers\TOCController.cs" />
     <Compile Include="DAL\EntryDAO.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\GameDAO.cs" />
-    <Compile Include="DAL\GetFullGameDAO.cs" />
+    <Compile Include="DAL\NextIteration\GetFullGameDAO.cs" />
     <Compile Include="DAL\TOCDAO.cs" />
     <Compile Include="DAL\UserDAO.cs" />
     <Compile Include="Data\rulesencyclopediabackendContext.cs" />
     <Compile Include="Entry.cs">
       <DependentUpon>rulesencyclopedia.tt</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\ExceptionHandling.cs" />
+    <Compile Include="Exceptions\DALExceptionHandling.cs" />
     <Compile Include="Game.cs">
       <DependentUpon>rulesencyclopedia.tt</DependentUpon>
     </Compile>
@@ -241,8 +241,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EntryDTO.cs" />
-    <Compile Include="Models\FullGameDTO.cs" />
-    <Compile Include="Models\FullTOCDTO.cs" />
+    <Compile Include="Models\NextIteration\FullGameDTO.cs" />
+    <Compile Include="Models\NextIteration\FullTOCDTO.cs" />
     <Compile Include="Models\GameDTO.cs" />
     <Compile Include="Models\TOCDTO.cs" />
     <Compile Include="Models\TokenDTO.cs" />
@@ -269,8 +269,8 @@
     <Compile Include="TOC.cs">
       <DependentUpon>rulesencyclopedia.tt</DependentUpon>
     </Compile>
-    <Compile Include="Tools\CheckToken.cs" />
-    <Compile Include="Tools\Connection.cs" />
+    <Compile Include="Tools\Singletons\CheckToken.cs" />
+    <Compile Include="Tools\Not in Use\Connection.cs" />
     <Compile Include="Tools\ConvertToDTO.cs" />
     <Compile Include="Tools\HashAndSalt.cs" />
     <Compile Include="User.cs">

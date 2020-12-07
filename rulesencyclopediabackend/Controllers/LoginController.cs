@@ -15,21 +15,29 @@ namespace rulesencyclopediabackend.Controllers
         UserDAO userDao = new UserDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
         HttpResponseMessage response = null;
-        // POST api/login
+        // GET api/login?UserName=pepepe&Password=1234
         public HttpResponseMessage Get([FromUri]string UserName, [FromUri]string Password)
-        {
-            UserDTO user = new UserDTO();
+        { 
+            //Check if username exists
             var dbUser = userDao.checkUserName(UserName);
+            //If it does
             if (dbUser != null)
             {
-                user = (UserDTO)DTOConverter.Converter(user, dbUser);
+                //check if the password when hashed and salted is equal to the password for the user from the db
                 HashAndSalt pwSecurity = new HashAndSalt();
-                if (pwSecurity.AreEqual(Password, user.Password, user.Salt))
+                if (pwSecurity.AreEqual(Password, dbUser.Password, dbUser.Salt))
                 {
-                    string token = userDao.getUserFromLogin(UserName, user.Password);
-                    if (token != "")
+                    //transfer the db object values to a UserDTO object
+                    UserDTO user = (UserDTO)DTOConverter.Converter(new UserDTO(), dbUser);
+                    TokenDTO token = CheckToken.Instance.userLogin(user);
+                   // string token = userDao.getUserFromLogin(UserName, user.Password);
+                    if (token != null)
                     {
-                        response = Request.CreateResponse(HttpStatusCode.OK, token);
+                        response = Request.CreateResponse(HttpStatusCode.OK, token.token);
+                    }
+                    else
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Problem creating token");
                     }
                 }
                 else

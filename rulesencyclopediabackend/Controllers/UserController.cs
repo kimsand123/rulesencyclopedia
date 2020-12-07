@@ -12,6 +12,7 @@ namespace rulesencyclopediabackend.Controllers
     public class UserController : ApiController
     { 
         UserDAO dao = new UserDAO();
+
         // GET api/User
         public HttpResponseMessage Get()
         {
@@ -27,12 +28,11 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
-        // GET api/User/
+        // GET api/User/5
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             User user = dao.getUser(id);
-            //response = controlExcptHand.getResponseMessage(user);
             if (user != null)
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, user);
@@ -40,23 +40,7 @@ namespace rulesencyclopediabackend.Controllers
             else
             {
                 response = Request.CreateResponse(HttpStatusCode.NotFound, "User not found");
-            }
-            
-            return response;
-        }
-
-        // Get api/User?UserName="username"
-        public HttpResponseMessage Get(string userName)
-        {
-            HttpResponseMessage response = new HttpResponseMessage();
-            User user = dao.checkUserName(userName);
-            if (user != null)
-            {
-                response = Request.CreateResponse(HttpStatusCode.Found, "Username "+userName+" is already in use");
-            } else
-            {
-                response = Request.CreateResponse(HttpStatusCode.NotFound, "Username is not in use ");
-            }
+            } 
             return response;
         }
 

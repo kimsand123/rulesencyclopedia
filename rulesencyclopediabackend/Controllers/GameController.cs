@@ -20,10 +20,7 @@ namespace rulesencyclopediabackend.Controllers
 {
     public class GameController : ApiController
     {
-        ExceptionHandling exHandler = new ExceptionHandling();
-
         GameDAO dao = new GameDAO();
-
         ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
         [BasicAuthentication]
@@ -31,8 +28,13 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<GameDTO> gameList = dao.getGameList();
-            //response = controlExcptHand.getResponseMessage(gameList);
-            response = Request.CreateResponse(HttpStatusCode.OK, gameList);       
+            if (gameList.Count != 0)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, gameList);
+            } else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "There are no games");
+            }
             return response;
         }
 
@@ -45,6 +47,7 @@ namespace rulesencyclopediabackend.Controllers
             return response;
         }
 
+        //Not in use, not implemented fully
         // POST: api/Game
         [BasicAuthentication]
         public void Post([FromBody]Game game)
@@ -52,6 +55,7 @@ namespace rulesencyclopediabackend.Controllers
             dao.postGame(game);
         }
 
+        //Not in use, not implemented fully
         // PUT: api/Game/5
         [BasicAuthentication]
         public void Put(int id, [FromBody]Game game)
@@ -59,6 +63,7 @@ namespace rulesencyclopediabackend.Controllers
             dao.editGame(id, game);
         }
 
+        //Not in use, not implemented fully
         // DELETE: api/Game/5
         [BasicAuthentication]
         public void Delete(int id)
