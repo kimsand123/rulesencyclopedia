@@ -105,12 +105,15 @@ namespace rulesencyclopediaclient.View
                         //Getting the list of entries
                         content = response.Content.ReadAsStringAsync();
                         listOfEntries = JsonConvert.DeserializeObject<List<EntryDTO>>(content.Result);
-                        foreach (EntryDTO entry in listOfEntries)
-                        {   
-                            //Populate the toclistView, datasource for the TOCListBox, with entry.ID, paragraphnumber and headline
-                            tocListView.Add(new TocListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline });
-                            //Populate the entryListView, datasource for the EntryListBox, with the Entry data.
-                            entryListView.Add(new EntryListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Revision = entry.Revision, Headline = entry.Headline, Editor = entry.Editor, Type = entry.Type, Txt = entry.Text });
+                        if (listOfEntries.Count != 0)
+                        {
+                            foreach (EntryDTO entry in listOfEntries)
+                            {
+                                //Populate the toclistView, datasource for the TOCListBox, with entry.ID, paragraphnumber and headline
+                                tocListView.Add(new TocListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Headline = entry.Headline });
+                                //Populate the entryListView, datasource for the EntryListBox, with the Entry data.
+                                entryListView.Add(new EntryListView() { Id = entry.Id, ParagraphNumber = entry.ParagraphNumber, Revision = entry.Revision, Headline = entry.Headline, Editor = entry.Editor, Type = entry.Type, Txt = entry.Text });
+                            }
                         }
                     }
                     //Setting the variable chosenTocId to the tocList id of the first tocen in the toclist

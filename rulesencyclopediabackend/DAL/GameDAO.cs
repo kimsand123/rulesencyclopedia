@@ -33,6 +33,7 @@ namespace rulesencyclopediabackend.DAL
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
+                    //Getting the games list from DB
                     gameList = context.Game.ToList();
                     gameDTOs = new List<GameDTO>();
 
@@ -47,8 +48,8 @@ namespace rulesencyclopediabackend.DAL
                 exHandler.exceptionHandlerEntity(ex, "something happened while fetching the gamelist");
             }
             finally
-            {
-               // context.Dispose();
+            { 
+               context.Dispose();
             }
             return gameDTOs;
         }

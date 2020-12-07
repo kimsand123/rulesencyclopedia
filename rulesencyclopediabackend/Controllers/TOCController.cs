@@ -20,7 +20,13 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             List<TOCDTO> tocList = dao.getTOCList(gameId);
-            response = Request.CreateResponse(HttpStatusCode.OK, tocList);
+            if (tocList.Count != 0)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, tocList);
+            } else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "No TOCs found");
+            }
             return response;
             
         }
@@ -30,12 +36,19 @@ namespace rulesencyclopediabackend.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             TOCDTO toc = dao.getTOC(Id);
-            response = Request.CreateResponse(HttpStatusCode.OK, toc);
+            if (toc != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, toc);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Toc not found");
+            }
             return response;
         }
 
 
-
+        //Not in use, not implemented fully
         // POST: api/TOC
         [BasicAuthentication]
         public void Post([FromBody] TOC toc)
@@ -43,6 +56,7 @@ namespace rulesencyclopediabackend.Controllers
             dao.postTOC(toc);
         }
 
+        //Not in use, not implemented fully
         // PUT: api/TOC/5
         [BasicAuthentication]
         public void Put(int id, [FromBody] TOC toc)
@@ -50,6 +64,7 @@ namespace rulesencyclopediabackend.Controllers
             dao.editTOC(id, toc);
         }
 
+        //Not in use, not implemented fully
         // DELETE: api/TOC/5
         [BasicAuthentication]
         public void Delete(int id)

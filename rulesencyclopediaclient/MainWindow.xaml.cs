@@ -25,7 +25,7 @@ namespace rulesencyclopediaclient
             if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
-                MessageBox.Show("Service is not up, contact s@ndberg.dk or go to www.blablabla.com, for further information", "Server incident", buttons);
+                MessageBox.Show("Service is not up. Contact s@ndberg.dk or go to www.blablabla.com, for further information", "Server incident", buttons);
                 ExitProgram_Click(this, new RoutedEventArgs());
             }
             this.SizeToContent = SizeToContent.WidthAndHeight;

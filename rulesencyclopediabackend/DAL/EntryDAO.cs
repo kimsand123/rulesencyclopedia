@@ -42,7 +42,7 @@ namespace rulesencyclopediabackend.Controllers
             }
             finally
             {
-                // context.Dispose();
+                context.Dispose();
             }
             return entryDTOs;
         }

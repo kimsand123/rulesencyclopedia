@@ -16,6 +16,7 @@ namespace rulesencyclopediabackend
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //routing traffic to the correct controller. routeparameters are optional.
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

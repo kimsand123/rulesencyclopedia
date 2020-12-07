@@ -14,8 +14,9 @@ namespace rulesencyclopediabackend.Controllers
     {
         EntryDAO dao = new EntryDAO();
         ConvertToDTO DTOConverter = new ConvertToDTO();
-
+        //Attribute programming for checking token.
         [BasicAuthentication]
+        //GET: api/Entry?tocId=1
         public HttpResponseMessage GetEntriesToTOC([FromUri]int tocId)
         {
             List<EntryDTO> entryList = dao.getEntriesForToc(tocId);

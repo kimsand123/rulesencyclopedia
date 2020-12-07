@@ -54,7 +54,7 @@ namespace rulesencyclopediaclient.View
 
                 //edit the rule.
                 var response = comElements.put("Entry", "", entry);
-                if (response.StatusCode == HttpStatusCode.NoContent)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     buttons = MessageBoxButtons.OK;
                     MessageBox.Show("Rule has been updated", "Rule Updated", buttons);
