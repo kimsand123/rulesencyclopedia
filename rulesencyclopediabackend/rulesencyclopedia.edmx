@@ -28,14 +28,6 @@
           <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Editor" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Rules">
-          <Key>
-            <PropertyRef Name="Entry_ID" />
-            <PropertyRef Name="TOC_ID" />
-          </Key>
-          <Property Name="Entry_ID" Type="int" Nullable="false" />
-          <Property Name="TOC_ID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="TOC">
           <Key>
             <PropertyRef Name="Id" />
@@ -86,7 +78,6 @@
         <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
           <EntitySet Name="Entry" EntityType="Self.Entry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">
@@ -104,7 +95,6 @@
       <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
-          <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
           <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
           <EntitySet Name="Game" EntityType="rulesencyclopediaDBModel.Game" />
           <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
@@ -129,14 +119,6 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Salt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Rules">
-          <Key>
-            <PropertyRef Name="Entry_ID" />
-            <PropertyRef Name="TOC_ID" />
-          </Key>
-          <Property Name="Entry_ID" Type="Int32" Nullable="false" />
-          <Property Name="TOC_ID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Entry">
           <Key>
@@ -216,14 +198,6 @@
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rules">
-            <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
-              <MappingFragment StoreEntitySet="Rules">
-                <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
-                <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

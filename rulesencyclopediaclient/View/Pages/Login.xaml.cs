@@ -1,17 +1,11 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using rulesencyclopediaclient.Singletons;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
 using rulesencyclopediaclient.Pouch;
 using rulesencyclopediaclient.Tools;
-using System.Windows.Media.Effects;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Net;
 
 namespace rulesencyclopediaclient.View

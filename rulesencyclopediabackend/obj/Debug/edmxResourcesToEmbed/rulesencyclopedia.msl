@@ -15,14 +15,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Rules">
-      <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Rules">
-        <MappingFragment StoreEntitySet="Rules">
-          <ScalarProperty Name="TOC_ID" ColumnName="TOC_ID" />
-          <ScalarProperty Name="Entry_ID" ColumnName="Entry_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Entry">
       <EntityTypeMapping TypeName="rulesencyclopediaDBModel.Entry">
         <MappingFragment StoreEntitySet="Entry">

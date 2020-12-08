@@ -14,12 +14,12 @@ namespace rulesencyclopediabackend.Tools
         //the exact same names will transfer.
 
         //When used a cast is necessary ex. UserDTO user = (UserDTO)DTOConverter.Converter(user, dbUser);
-        public Object Converter(Object objDTO, Object obj2)
+        public Object Converter(Object objDTO, Object objDB)
         {
             //Get the property info of the DTO object
             List<PropertyInfo> objDTOProperties = fillObjectPropertiesList(objDTO);
             //Get the property infor of the DB object
-            List<PropertyInfo> obj2Properties = fillObjectPropertiesList(obj2);
+            List<PropertyInfo> obj2Properties = fillObjectPropertiesList(objDB);
 
             //for each name property in the DTO object, compare it to the name property of the DB object,
             //and if alike transfer the value.
@@ -29,7 +29,7 @@ namespace rulesencyclopediabackend.Tools
                 {
                     if (objDTOProperties[i].Name == obj2Properties[j].Name)
                     {
-                        objDTOProperties[i].SetValue(objDTO, obj2Properties[j].GetValue(obj2));
+                        objDTOProperties[i].SetValue(objDTO, obj2Properties[j].GetValue(objDB));
                         break;
                     }
                 }

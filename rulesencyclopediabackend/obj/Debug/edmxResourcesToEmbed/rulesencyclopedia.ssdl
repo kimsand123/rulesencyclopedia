@@ -23,14 +23,6 @@
     <Property Name="Revision" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Editor" Type="varchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="Rules">
-    <Key>
-      <PropertyRef Name="Entry_ID" />
-      <PropertyRef Name="TOC_ID" />
-    </Key>
-    <Property Name="Entry_ID" Type="int" Nullable="false" />
-    <Property Name="TOC_ID" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="TOC">
     <Key>
       <PropertyRef Name="Id" />
@@ -81,7 +73,6 @@
   <EntityContainer Name="rulesencyclopediaDBModelStoreContainer">
     <EntitySet Name="Entry" EntityType="Self.Entry" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TOC" EntityType="Self.TOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Entry__TOC__619B8048" Association="Self.FK__Entry__TOC__619B8048">

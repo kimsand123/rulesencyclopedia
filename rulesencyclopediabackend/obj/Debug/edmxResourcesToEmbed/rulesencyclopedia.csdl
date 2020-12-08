@@ -2,7 +2,6 @@
 <Schema Namespace="rulesencyclopediaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="rulesencyclopediaDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="User" EntityType="rulesencyclopediaDBModel.User" />
-    <EntitySet Name="Rules" EntityType="rulesencyclopediaDBModel.Rules" />
     <EntitySet Name="Entry" EntityType="rulesencyclopediaDBModel.Entry" />
     <EntitySet Name="Game" EntityType="rulesencyclopediaDBModel.Game" />
     <EntitySet Name="TOC" EntityType="rulesencyclopediaDBModel.TOC" />
@@ -27,14 +26,6 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="3" />
     <Property Name="Salt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Rules">
-    <Key>
-      <PropertyRef Name="Entry_ID" />
-      <PropertyRef Name="TOC_ID" />
-    </Key>
-    <Property Name="Entry_ID" Type="Int32" Nullable="false" />
-    <Property Name="TOC_ID" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Entry">
     <Key>

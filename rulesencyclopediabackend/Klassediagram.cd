@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="rulesencyclopediabackend.Auth.BasicAuthentication">
+    <Position X="12.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Auth\BasicAuthentication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.EntryController">
+    <Position X="6" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAABAAAQAAAQACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\EntryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.GameController">
+    <Position X="4" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAABAAAQAAAAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.HomeController">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.LoginController">
+    <Position X="8" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAABAAAQAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.TOCController">
+    <Position X="9.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAABAAAQCAAAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\TOCController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.UserController">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAABAAAAAAAAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Controllers.EntryDAO">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAABAAQUAAAAAAAAgAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>DAL\EntryDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.DAL.GameDAO">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAQAAQAAAAAgAAIAAAAAAAAAAQg=</HashCode>
+      <FileName>DAL\GameDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.DAL.TOCDAO">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAQAAQAAAAAgAAAAAgCAAAEAAAA=</HashCode>
+      <FileName>DAL\TOCDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.UserDAO">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAgAAACAAAIABAAAAQ=</HashCode>
+      <FileName>DAL\UserDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Models.EntryDTO">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAAAAEAAAAAAARAACAABAAA=</HashCode>
+      <FileName>Models\EntryDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Models.GameDTO">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAQAAEAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\GameDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Models.TOCDTO">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAAAAEAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\TOCDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Models.TokenDTO">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TokenDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Models.UserDTO">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEAAAAAAAAAAAAAQAAAAAAAAAAADAQAAAAAAAAg=</HashCode>
+      <FileName>Models\UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Tools.ConvertToDTO">
+    <Position X="12.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ConvertToDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Tools.HashAndSalt">
+    <Position X="14.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQABAAABAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Tools\HashAndSalt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Tools.Connection">
+    <Position X="12.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAKAABAAAAAAAAgAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Tools\Not in Use\Connection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Tools.CheckToken">
+    <Position X="16.25" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="rulesencyclopediabackend.Tools.CheckToken.check">
+        <TypeIdentifier>
+          <NewMemberFileName>Tools\Singletons\CheckToken.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QABhAAAAAAAAAAAAAAAAAAEAAAAAAAAQQgAAABAAIAA=</HashCode>
+      <FileName>Tools\Singletons\CheckToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rulesencyclopediabackend.Exceptions.DALExceptionHandling">
+    <Position X="14.5" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxAAAAAABAA=</HashCode>
+      <FileName>Exceptions\DALExceptionHandling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
