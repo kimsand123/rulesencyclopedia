@@ -1,5 +1,4 @@
-﻿using rulesencyclopediabackend.Data;
-using rulesencyclopediabackend.Exceptions;
+﻿using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
@@ -54,15 +53,16 @@ namespace rulesencyclopediabackend.DAL
             return gameDTOs;
         }
 
-        internal void postGame(Game game)
+        internal int postGame(Game game)
         {
             rulesencyclopediaDBEntities1 context = null;
+            Game result = null;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    Game result = context.Game.Add(game);
+                    result = context.Game.Add(game);
                     context.SaveChanges();
                 }
             }
@@ -74,16 +74,19 @@ namespace rulesencyclopediabackend.DAL
             {
                 context.Dispose();
             }
+            return result.Id;
         }
 
-        internal void deleteGame(int ID)
+        internal int deleteGame(int ID)
         {
             rulesencyclopediaDBEntities1 context=null;
+            Game game = null;
             try
             { 
                 context = new rulesencyclopediaDBEntities1();
+            
                 {
-                    var game = new Game { Id = ID };
+                    game = new Game { Id = ID };
                     context.Game.Attach(game);
                     context.Game.Remove(game);
                     context.SaveChanges();
@@ -97,13 +100,15 @@ namespace rulesencyclopediabackend.DAL
             {
                 context.Dispose();
             }
+            return game.Id;
         }
 
-        internal void editGame(int ID, Game alteredGame)
+        internal int editGame(Game alteredGame)
         {
             var context = new rulesencyclopediaDBEntities1();
+            Game game = null;
             {
-                var game = context.Game.First(a => a.Id == ID);
+                game = context.Game.First(a => a.Id == alteredGame.Id);
                 game.Name = alteredGame.Name;
                 game.Company = alteredGame.Company;
                 game.TOC = alteredGame.TOC;
@@ -112,6 +117,7 @@ namespace rulesencyclopediabackend.DAL
                 context.SaveChanges();
             }
             context.Dispose();
+            return game.Id;
         }
 
         internal GameDTO getGame(int ID)

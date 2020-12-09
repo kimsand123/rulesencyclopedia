@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
-using System.Configuration;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using rulesencyclopediabackend.Auth;
@@ -13,7 +11,7 @@ namespace rulesencyclopediabackend.Controllers
     public class EntryController : ApiController
     {
         EntryDAO dao = new EntryDAO();
-        ConvertToDTO DTOConverter = new ConvertToDTO();
+
         //Attribute programming for checking token.
         [BasicAuthentication]
         //GET: api/Entry?tocId=1

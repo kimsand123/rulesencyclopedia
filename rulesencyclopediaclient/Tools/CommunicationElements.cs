@@ -45,7 +45,7 @@ namespace rulesencyclopediaclient.Tools
             return uriBuilder.Uri;
         }
 
-        public HttpResponseMessage checkConnectionAsync()
+        public HttpResponseMessage checkConnection()
         {
             Task<HttpResponseMessage> task = null;
             HttpResponseMessage response = new HttpResponseMessage()

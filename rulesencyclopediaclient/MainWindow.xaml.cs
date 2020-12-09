@@ -18,7 +18,7 @@ namespace rulesencyclopediaclient
         public MainWindow()
         {
             InitializeComponent();
-            var response = comElement.checkConnectionAsync();
+            var response = comElement.checkConnection();
 
             //When application starts it checks to see if the service is up.
             //If it aint, it shows a box and explains, and then shuts down.

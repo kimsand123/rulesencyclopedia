@@ -6,6 +6,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using rulesencyclopediabackend.Auth;
 using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
 
 namespace rulesencyclopediabackend.Controllers
 {
@@ -17,7 +18,7 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            List<User> userList = dao.getUserList();
+            List<UserDTO> userList = dao.getUserList();
             if (userList != null)
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, userList);
@@ -32,7 +33,7 @@ namespace rulesencyclopediabackend.Controllers
         public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage response = new HttpResponseMessage();
-            User user = dao.getUser(id);
+            UserDTO user = dao.getUser(id);
             if (user != null)
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, user);
@@ -60,9 +61,9 @@ namespace rulesencyclopediabackend.Controllers
 
         // PUT api/User/5
         [BasicAuthentication]
-        public HttpResponseMessage Put(int id, [FromBody] User user)
+        public HttpResponseMessage Put([FromBody] User user)
         {
-            var result = dao.editUser(id, user);
+            var result = dao.editUser(user);
             if (result != -999999)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "User " + user.UserName + " has been edited");

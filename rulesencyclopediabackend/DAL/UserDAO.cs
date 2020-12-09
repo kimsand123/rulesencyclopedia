@@ -1,4 +1,5 @@
 ﻿using rulesencyclopediabackend.Exceptions;
+using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,27 @@ namespace rulesencyclopediabackend
 {
     public class UserDAO
     {
+        ConvertToDTO DTOConverter = new ConvertToDTO();
         DALExceptionHandling exHandler = new DALExceptionHandling();
         public UserDAO()
         {
         }
-        internal List<User> getUserList()
+        internal List<UserDTO> getUserList()
         {
             List<User> userList=null;
+            List<UserDTO> userDTOs = null;
             rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
             try
             {
-                userList = context.User.ToList();              
-            }catch (EntityException ex)
+                userList = context.User.ToList();
+                userDTOs = new List<UserDTO>();
+                foreach (User user in userList)
+                {
+                    UserDTO userDTO = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+                    userDTOs.Add(userDTO);
+                }
+            }
+            catch (EntityException ex)
             {
                 exHandler.exceptionHandlerEntity(ex, "Something went wrong when getting all the users");
             }
@@ -28,10 +38,10 @@ namespace rulesencyclopediabackend
             {
                 context.Dispose();
             }
-            return userList;
+            return userDTOs;
         }
 
-        internal User checkUserName(string userName)
+        internal UserDTO checkUserName(string userName)
         {
             User user = null;
             rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
@@ -50,11 +60,11 @@ namespace rulesencyclopediabackend
             {
                 context.Dispose();
             }
-
-            return user;
+            UserDTO userDTO = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+            return userDTO;
         }
 
-        internal User getUser(int ID)
+        internal UserDTO getUser(int ID)
         {
             User user=null;
             rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
@@ -69,7 +79,8 @@ namespace rulesencyclopediabackend
             {
                 context.Dispose();
             }
-            return user;
+            UserDTO userDTO = (UserDTO)DTOConverter.Converter(new UserDTO(), user);
+            return userDTO;
         }
 
         internal int postUser(User user)
@@ -102,11 +113,11 @@ namespace rulesencyclopediabackend
             return result;
         }
 
-        internal int editUser(int ID, User alteredUser)
+        internal int editUser(User alteredUser)
         {
             int result = -999999;
             rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
-            var user = context.User.First(a => a.Id == ID);
+            var user = context.User.First(a => a.Id == alteredUser.Id);
             user.FirstName = alteredUser.FirstName;
             user.MiddleName = alteredUser.MiddleName;
             user.LastName = alteredUser.LastName;

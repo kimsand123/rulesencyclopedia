@@ -13,7 +13,7 @@ namespace rulesencyclopediabackend.Controllers
     public class TOCController : ApiController
     {
         TOCDAO dao = new TOCDAO();
-        ConvertToDTO DTOConverter = new ConvertToDTO();
+   
         // GET: api/TOC
         [BasicAuthentication]
         public HttpResponseMessage GetTocsForGame([FromUri] int gameId)
@@ -53,15 +53,15 @@ namespace rulesencyclopediabackend.Controllers
         [BasicAuthentication]
         public void Post([FromBody] TOC toc)
         {
-            dao.postTOC(toc);
+            int tocId = dao.postTOC(toc);
         }
 
         //Not in use, not implemented fully
         // PUT: api/TOC/5
         [BasicAuthentication]
-        public void Put(int id, [FromBody] TOC toc)
+        public void Put([FromBody] TOC toc)
         {
-            dao.editTOC(id, toc);
+            int tocId = dao.editTOC(toc);
         }
 
         //Not in use, not implemented fully
@@ -69,7 +69,7 @@ namespace rulesencyclopediabackend.Controllers
         [BasicAuthentication]
         public void Delete(int id)
         {
-            dao.deleteTOC(id);
+            int tocId = dao.deleteTOC(id);
         }
     }
 }

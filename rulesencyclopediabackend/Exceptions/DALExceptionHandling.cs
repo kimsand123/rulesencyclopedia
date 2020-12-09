@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text.Json;
-using System.Web;
 
 namespace rulesencyclopediabackend.Exceptions
 {

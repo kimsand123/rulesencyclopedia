@@ -1,13 +1,9 @@
 ﻿using rulesencyclopediabackend.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity.Infrastructure.DependencyResolution;
-using System.Drawing.Text;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web;
+
 // from https://csharpindepth.com/articles/singleton
 
 // Fully lazy instantiation. It is triggered first time there is a reference to the static member of the containing

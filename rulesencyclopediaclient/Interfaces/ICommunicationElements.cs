@@ -6,6 +6,7 @@ namespace rulesencyclopediaclient.Interfaces
 {
     interface ICommunicationElements
     {
+        HttpResponseMessage checkConnection();
         HttpClient getClient();
         Uri getUri(string endpoint, string query = "");
         HttpResponseMessage get(string apiPath, string parameters, string body);

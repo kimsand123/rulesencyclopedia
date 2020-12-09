@@ -1,22 +1,19 @@
 ﻿using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Reflection.Emit;
 
 namespace rulesencyclopediabackend.Controllers
 {
     internal class EntryDAO
     {
         ConvertToDTO DTOConverter = new ConvertToDTO();
+        DALExceptionHandling exHandler = new DALExceptionHandling();
         public EntryDAO()
         {
-
         }
-        DALExceptionHandling exHandler = new DALExceptionHandling();
         internal List<EntryDTO> getEntriesForToc(int TOCId)
         {
             List<Entry> entryList = null;

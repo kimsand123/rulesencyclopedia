@@ -1,12 +1,10 @@
 ﻿using rulesencyclopediabackend.Exceptions;
 using rulesencyclopediabackend.Models;
 using rulesencyclopediabackend.Tools;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Web;
+
 
 namespace rulesencyclopediabackend.DAL
 {
@@ -67,15 +65,16 @@ namespace rulesencyclopediabackend.DAL
             return tocDTO;
         }
 
-        internal void postTOC(TOC toc)
+        internal int postTOC(TOC toc)
         {
             rulesencyclopediaDBEntities1 context = null;
+            TOC result = null;
             try
             {
                 context = new rulesencyclopediaDBEntities1();
                 {
                     //getting back the key for the created user.
-                    TOC result = context.TOC.Add(toc);
+                    result = context.TOC.Add(toc);
                     context.SaveChanges();
                 }
             }
@@ -87,37 +86,39 @@ namespace rulesencyclopediabackend.DAL
             {
                 context.Dispose();
             }
+            return result.Id;
         }
 
-        internal void editTOC(int ID, TOC alteredTOC)
-        {
-            {
-                rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
-                try
-                {
-                    var toc = context.TOC.First(a => a.Id == ID);
-                    toc.Text = alteredTOC.Text;
-                    toc.Revision = alteredTOC.Revision;
-                    toc.Editor = alteredTOC.Editor;
-                    context.SaveChanges();
-                }
-                catch (EntityException ex)
-                {
-                    exHandler.exceptionHandlerEntity(ex, "Something went wrong when editing toc");
-                }
-                finally
-                {
-                    context.Dispose();
-                }
-            }
-        }
-
-        internal void deleteTOC(int ID)
-        {
+        internal int editTOC(TOC alteredTOC)
+        {   
             rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
+            TOC toc = null;
             try
             {
-                var toc = new TOC { Id = ID };
+                toc = context.TOC.First(a => a.Id == alteredTOC.Id);
+                toc.Text = alteredTOC.Text;
+                toc.Revision = alteredTOC.Revision;
+                toc.Editor = alteredTOC.Editor;
+                context.SaveChanges();
+            }
+            catch (EntityException ex)
+            {
+                exHandler.exceptionHandlerEntity(ex, "Something went wrong when editing toc");
+            }
+            finally
+            {
+                context.Dispose();
+            }
+            return toc.Id;
+        }
+
+        internal int deleteTOC(int ID)
+        {
+            rulesencyclopediaDBEntities1 context = new rulesencyclopediaDBEntities1();
+            TOC toc = null;
+            try
+            {
+                toc = new TOC { Id = ID };
                 context.TOC.Attach(toc);
                 context.TOC.Remove(toc);
                 context.SaveChanges();
@@ -130,6 +131,7 @@ namespace rulesencyclopediabackend.DAL
             {
                 context.Dispose();
             }
+            return toc.Id;
         }
     }
 }

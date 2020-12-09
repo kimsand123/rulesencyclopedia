@@ -21,7 +21,6 @@ namespace rulesencyclopediabackend.Controllers
     public class GameController : ApiController
     {
         GameDAO dao = new GameDAO();
-        ConvertToDTO DTOConverter = new ConvertToDTO();
         // GET: api/Game
         [BasicAuthentication]
         public HttpResponseMessage Get()
@@ -60,7 +59,7 @@ namespace rulesencyclopediabackend.Controllers
         [BasicAuthentication]
         public void Put(int id, [FromBody]Game game)
         {
-            dao.editGame(id, game);
+            dao.editGame(game);
         }
 
         //Not in use, not implemented fully

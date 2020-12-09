@@ -20,27 +20,16 @@ namespace rulesencyclopediaclient.View
     /// </summary>
     public partial class MainInfoWindow : Page
     {
-        //MainWindow window = (MainWindow)System.Windows.Application.Current.MainWindow;
-
-        
-
         SelectionChangedEventArgs savedGame;
         private int chosenTocId = -1;
-
         CommunicationElements comElements = new CommunicationElements();
-        //EntryListView entryViewData = new EntryListView();
-        //InterfaceAnimation interfaceAnim = new InterfaceAnimation();
+
         public MainInfoWindow()
         {
             InitializeComponent();
-            
             //Getting the data for the GameListBox
             List<GameDTO> gamesDTOList;
-            HttpClient client = comElements.getClient();
-            //setting address and port for the service.
-            Uri uri = comElements.getUri("Game");
             var response = comElements.get("Game","","");
-            //var response = client.GetAsync(uri).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 //Populating the GameListBox
