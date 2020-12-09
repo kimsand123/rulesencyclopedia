@@ -146,12 +146,20 @@ namespace rulesencyclopediaclient.View
 
         private void addRuleButton_Click(object sender, RoutedEventArgs e)
         {
-            //Activate the AddNewRule window and pass the chosenTocId to it.
-            AddNewRule popup = new AddNewRule(chosenTocId);
-            popup.ShowDialog();
-            //Update the context with the latest saved game for autoupdate of changes in the listboxes.
-            SelectionChangedEventArgs savedChoice = savedGame;
-            GamesListBox_OnSelectionChanged(this, savedChoice );
+            if (savedGame != null)
+            {
+                //Activate the AddNewRule window and pass the chosenTocId to it.
+                AddNewRule popup = new AddNewRule(chosenTocId);
+                popup.ShowDialog();
+                //Update the context with the latest saved game for autoupdate of changes in the listboxes.
+                SelectionChangedEventArgs savedChoice = savedGame;
+                GamesListBox_OnSelectionChanged(this, savedChoice);
+            } else
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBox.Show("Make sure you choose a game before you add a rule", "No Game is Chosen", buttons, MessageBoxIcon.Warning);
+
+            }
         }
 
         private void deleteRuleButton_Click(object sender, RoutedEventArgs e)
@@ -183,6 +191,9 @@ namespace rulesencyclopediaclient.View
             } 
         }
 
+        private void addGameButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

@@ -117,6 +117,9 @@
     <Compile Include="Singletons\SettingsAndData.cs" />
     <Compile Include="Tools\CommunicationElements.cs" />
     <Compile Include="Tools\InterfaceAnimation.cs" />
+    <Compile Include="View\Windows\AddNewGame.xaml.cs">
+      <DependentUpon>AddNewGame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\EditRule.xaml.cs">
       <DependentUpon>EditRule.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
     <Compile Include="View\Pages\MainInfoWindow.xaml.cs">
       <DependentUpon>MainInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Windows\AddNewGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\EditRule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

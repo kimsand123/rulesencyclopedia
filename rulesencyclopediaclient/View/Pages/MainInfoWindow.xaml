@@ -33,6 +33,13 @@
                     </Style>
                 </Button.Resources>
             </Button>
+            <Button Name="addGameButton" Content="Add Game" Width="60" Height="20" HorizontalAlignment="Right" Click="addGameButton_Click" Grid.Column="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
             <ListBox x:Name="GamesListBox" Background="Beige" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,43,0,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" SelectionChanged="GamesListBox_OnSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemContainerStyle>
@@ -146,11 +153,11 @@
 
 
                         </StackPanel>
-                        
+
                     </DataTemplate>
-                    
+
                 </ItemsControl.ItemTemplate>
-                
+
             </ListBox>
         </Grid>
     </Grid>
